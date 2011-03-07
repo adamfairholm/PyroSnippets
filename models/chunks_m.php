@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Chunks_m extends MY_Model {
 
@@ -63,22 +63,12 @@ class Chunks_m extends MY_Model {
      * @param	int
      * @return 	bool
      */
-    function insert_new_chunk( $chunk_rules, $user_id )
+    function insert_new_chunk( $data, $user_id )
     {
-    	$insert_data = array();
-    
-    	foreach( array_keys($this->chunk_rules) as $item )
-    	{
-    		if( $item == 'content' ):
-    		
-       			$insert_data[$item] = $this->process_type( $this->input->post('type'), $this->input->post($item) );
- 		
-			else:
-    		
-    			$insert_data[$item] = $this->input->post($item);
-    		
-    		endif;
-    	}
+    	$insert_data = (array)$data;
+	
+       	$insert_data['content'] = $this->process_type( $this->input->post('type'), $this->input->post('content') );
+    	
     	
     	$now = date('Y-m-d H:i:s');
     	
@@ -98,23 +88,12 @@ class Chunks_m extends MY_Model {
      * @param	int
      * @return 	bool
      */
-    function update_chunk( $chunk_rules, $chunk_id )
+    function update_chunk( $data, $chunk_id )
     {
-    	$update_data = array();
-    
-    	foreach( array_keys($this->chunk_rules) as $item )
-    	{
-    		if( $item == 'content' ):
+    	$update_data = (array)$data;
     		
-       			$update_data[$item] = $this->process_type( $this->input->post('type'), $this->input->post($item) );
+       	$update_data['content'] = $this->process_type( $this->input->post('type'), $this->input->post('content') );
  		
-			else:
-    		
-    			$update_data[$item] = $this->input->post($item);
-    		
-    		endif;
-    	}
-    	
     	$update_data['last_updated'] 	= date('Y-m-d H:i:s');
     	
     	$this->db->where('id', $chunk_id);

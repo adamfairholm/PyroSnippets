@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * PyroChunks Admin Controller Class
@@ -10,21 +10,36 @@
  */ 
 class Admin extends Admin_Controller {
 
-	var $chunk_rules = array(
-		'name' 		=> 'trim|required|max_length[60]',
-		'slug'		=> 'trim|required|strtolower|max_length[60]',
-		'type'		=> 'trim',
-		'content'	=> 'trim|required'
+	protected $chunk_rules = array(
+								array(
+									'field' => 'name',
+									'label' => 'lang:chunks.chunk_name',
+									'rules' => 'trim|required|max_length[60]'
+								),
+								array(
+									'field' => 'slug',
+									'label' => 'lang:chunks.chunk_slug',
+									'rules' => 'trim|required|strtolower|max_length[60]'
+								),
+								array(
+									'field' => 'type',
+									'label' => 'lang:chunks.chunk_type',
+									'rules' => 'trim'
+								),
+								array(
+									'field' => 'content',
+									'label' => 'lang:chunks.chunk_content',
+									'rules' => 'trim|required'
+								)
 	);
-	
-	var $chunk_types = array(
-		'text' 			=> 'Text',
-		'html'			=> 'HTML'
-	);
+	protected $chunk_types = array(
+								'text' 	=> 'Text',
+								'html'	=> 'HTML'
+							);
 
 	// --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		parent::Admin_Controller();
 		
@@ -32,14 +47,16 @@ class Admin extends Admin_Controller {
 		
 		$this->load->language('chunks');
 		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->chunk_types = $this->chunk_types;
+		
+		$this->template->set_partial('shortcuts', 'admin/shortcuts');
 	}
 
 	// --------------------------------------------------------------------------
 	// CRUD Functions
 	// --------------------------------------------------------------------------
 
-	function index()
+	public function index()
 	{
 		$this->list_chunks();
 	}
@@ -50,13 +67,13 @@ class Admin extends Admin_Controller {
 	 * List chunks
 	 *
 	 */
-	function list_chunks( $offset = 0 )
+	public function list_chunks( $offset = 0 )
 	{	
 		// -------------------------------------
 		// Get chunks
 		// -------------------------------------
 		
-		$this->data->chunks = $this->chunks_m->get_chunks( $this->settings->item('records_per_page'), $offset );
+		$this->template->chunks = $this->chunks_m->get_chunks( $this->settings->item('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Pagination
@@ -64,11 +81,11 @@ class Admin extends Admin_Controller {
 
 		$total_rows = $this->chunks_m->count_all();
 		
-		$this->data->pagination = create_pagination('admin/chunks/list_chunks', $total_rows);
+		$this->template->pagination = create_pagination('admin/chunks/list_chunks', $total_rows);
 		
 		// -------------------------------------
 
-		$this->template->build('admin/list_chunks', $this->data);
+		$this->template->build('admin/list_chunks');
 	}
 
 	// --------------------------------------------------------------------------
@@ -79,32 +96,28 @@ class Admin extends Admin_Controller {
 	 */
 	function create_chunk()
 	{		
-		$this->data->chunk_types = $this->chunk_types;
-	
 		// -------------------------------------
 		// Validation & Setup
 		// -------------------------------------
 	
-		$this->load->library('validation');
+		$this->load->library('form_validation');
 
-		$this->chunk_rules['slug'] .= '|callback__check_slug[insert]';
+		$this->chunk_rules[1]['rules'] .= '|callback__check_slug[insert]';
 
-		$this->validation->set_rules( $this->chunk_rules );
+		$this->form_validation->set_rules( $this->chunk_rules );
 		
-		$this->validation->set_fields();
-		
-		foreach(array_keys($this->chunk_rules) as $field)
+		foreach($this->chunk_rules as $key => $rule)
 		{
-			$this->data->chunk->$field = set_value($field);
+			$chunk->{$rule['field']} = $this->input->post($rule['field'], TRUE);
 		}
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
-		
-		if ($this->validation->run())
+
+		if ($this->form_validation->run())
 		{
-			if( ! $this->chunks_m->insert_new_chunk( $this->chunk_rules, $this->data->user->id ) ):
+			if( ! $this->chunks_m->insert_new_chunk( $chunk, $this->user->id ) ):
 			{
 				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
 			}
@@ -116,10 +129,13 @@ class Admin extends Admin_Controller {
 	
 			redirect('admin/chunks');
 		}
-
+		
 		// -------------------------------------
 		
-		$this->template->build('admin/form', $this->data);
+		$this->template
+					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+					->set('chunk', $chunk)
+					->build('admin/form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -128,37 +144,37 @@ class Admin extends Admin_Controller {
 	 * Edit a chunk
 	 *
 	 */
-	function edit_chunk( $chunk_id = 0 )
+	public function edit_chunk( $chunk_id = 0 )
 	{		
-		$this->data->chunk_types = $this->chunk_types;
-	
 		// -------------------------------------
 		// Validation & Setup
 		// -------------------------------------
 	
-		$this->load->library('validation');
+		$this->load->library('form_validation');
 
-		$this->chunk_rules['slug'] .= '|callback__check_slug[update]';
+		$this->chunk_rules[1]['rules'] .= '|callback__check_slug[update]';
 
-		$this->validation->set_rules( $this->chunk_rules );
-		
-		$this->validation->set_fields();
+		$this->form_validation->set_rules( $this->chunk_rules );
 
 		// -------------------------------------
 		// Get chunk data
 		// -------------------------------------
 		
-		$this->data->chunk = $this->chunks_m->get_chunk( $chunk_id );
-		
-		$this->data->chunk->content = $this->chunks_m->process_type( $this->data->chunk->type, $this->data->chunk->content, 'outgoing' );
+		$chunk = $this->chunks_m->get_chunk( $chunk_id );
+	
+		$chunk->content = $this->chunks_m->process_type( $chunk->type, $chunk->content, 'outgoing' );
 		
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->validation->run())
+		if ($this->form_validation->run())
 		{
-			if( ! $this->chunks_m->update_chunk( $this->chunk_rules, $chunk_id ) ):
+			foreach($this->chunk_rules as $key => $rule)
+			{
+				$chunk->{$rule['field']} = $this->input->post($rule['field'], TRUE);
+			}
+			if( ! $this->chunks_m->update_chunk( $chunk, $chunk_id ) ):
 			{
 				$this->session->set_flashdata('notice', lang('chunks.update_chunk_error'));	
 			}
@@ -173,7 +189,10 @@ class Admin extends Admin_Controller {
 
 		// -------------------------------------
 		
-		$this->template->build('admin/form', $this->data);
+		$this->template
+					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+					->set('chunk', $chunk)
+					->build('admin/form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -224,7 +243,7 @@ class Admin extends Admin_Controller {
 		
 		if( $obj->num_rows > $threshold ):
 
-			$this->validation->set_message('_check_slug', lang('chunks.slug_unique'));
+			$this->form_validation->set_message('_check_slug', lang('chunks.slug_unique'));
 		
 			return FALSE;
 		
