@@ -17,7 +17,8 @@ To install, just upload the zip file using PyroCMS's built in module upload tool
 
 h2. Usage
 
-After installing, autoload the Chunks library (chunks/Chunks). This will allow access to chunks in your page layouts.
+After installing if you are using a PyroCMS version less than 1.1, autoload the Chunks library (chunks/Chunks). This will allow access to chunks in your page layouts.
+If you are using PyroCMS 1.1.x you will NOT need to add the chunks library to your config/autoload array.
 
 h2. Translations
 
