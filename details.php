@@ -23,7 +23,7 @@ class Module_Chunks extends Module {
 	public function install()
 	{
 		$sql['chunks'] = "
-            CREATE TABLE `chunks` (
+            CREATE TABLE IF NOT EXISTS `chunks` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `name` varchar(60) NOT NULL,
                 `slug` varchar(60) NOT NULL,
