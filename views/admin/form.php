@@ -1,67 +1,59 @@
-<div class="box">
+<?php if($this->method == 'create_chunk'): ?>
+	<h3><?php echo lang('chunks.add_chunk');?></h3>
+<?php else: ?>
+	<h3><?php echo sprintf(lang('chunks.edit_chunk'), $chunk->name);?></h3>
+<?php endif; ?>
+
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+
+<div class="tabs">
+
+	<ul class="tab-menu">
+		<li><a href="#chunk-data-tab"><span>General Data</span></a></li>
+		<li><a href="#chunk-content-tab"><span>Content</span></a></li>
+	</ul>
+
+	<div id="chunk-data-tab">
 	
-	<?php if($method == 'create_chunk'): ?>
-		<h3><?php echo lang('chunks.add_chunk');?></h3>
-	<?php else: ?>
-		<h3><?php echo sprintf(lang('chunks.edit_chunk'), $chunk->name);?></h3>
-	<?php endif; ?>
+		<ol>
 
-	<div class="box-container">	
+			<li>
+				<label for="name"><?php echo lang('chunks.chunk_name');?></label>
+				<?php echo form_input('name', htmlspecialchars_decode($chunk->name), 'maxlength="60"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
 
-	<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+			<li class="even">
+				<label for="slug"><?php echo lang('chunks.chunk_slug');?></label>
+				<?php echo form_input('slug', $chunk->slug, 'maxlength="60"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
 
-	<div class="tabs">
-	
-		<ul class="tab-menu">
-			<li><a href="#chunk-data-tab"><span>General Data</span></a></li>
-			<li><a href="#chunk-content-tab"><span>Content</span></a></li>
-		</ul>
-
-		<div id="chunk-data-tab">
+			<li>
+				<label for="type"><?php echo lang('chunks.chunk_type');?></label>
+				<?php echo form_dropdown('type', $chunk_types, $chunk->type); ?>
+			</li>
 		
-			<ol>
-	
-				<li>
-					<label for="name"><?php echo lang('chunks.chunk_name');?></label>
-					<?php echo form_input('name', htmlspecialchars_decode($chunk->name), 'maxlength="60"'); ?>
-					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-				</li>
-
-				<li class="even">
-					<label for="slug"><?php echo lang('chunks.chunk_slug');?></label>
-					<?php echo form_input('slug', $chunk->slug, 'maxlength="60"'); ?>
-					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-				</li>
-
-				<li>
-					<label for="type"><?php echo lang('chunks.chunk_type');?></label>
-					<?php echo form_dropdown('type', $chunk_types, $chunk->type); ?>
-				</li>
-			
-			</ol>
-			
-		</div><!--chunk-data-tab-->
-
-		<div id="chunk-content-tab">
+		</ol>
 		
-			<ol>
-	
-				<li>
-					<label for="name"><?php echo lang('chunks.chunk_content');?></label>
-					<?php echo form_textarea('content', $chunk->content, 'width="400"'); ?>
-					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-				</li>
-	
-			</ol>
-			
-		</div><!--chunk-content-tab-->
+	</div><!--chunk-data-tab-->
 
-	</div><!--tabs-->
-
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
-
-	<?php echo form_close(); ?>
+	<div id="chunk-content-tab">
 	
-	</div><!--box-container-->
-	
-</div><!--box-->
+		<ol>
+
+			<li>
+				<label for="name"><?php echo lang('chunks.chunk_content');?></label><br />
+				<?php echo form_textarea('content', $chunk->content, 'width="400" class="wysiwyg-advanced"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
+
+		</ol>
+		
+	</div><!--chunk-content-tab-->
+
+</div><!--tabs-->
+
+<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+
+<?php echo form_close(); ?>

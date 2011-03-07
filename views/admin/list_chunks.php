@@ -1,6 +1,4 @@
-<div class="box">
-
-	<h3><?php echo lang('chunks.list_chunks'); ?></h3>				
+<h3><?php echo lang('chunks.list_chunks'); ?></h3>				
 	
 	<div class="box-container">	
 	
@@ -25,7 +23,7 @@
 					<?php foreach ($chunks as $chunk): ?>
 						<tr>
 							<td><?php echo $chunk->name; ?></td>
-							<td>{$chunk.<?php echo $chunk->slug; ?>}</td>
+							<td>{pyro:chunk:<?php echo $chunk->slug; ?>}</td>
 							<td>
 								<?php echo anchor('admin/chunks/edit_chunk/' . $chunk->id, 'Edit');?> | 
 								<?php echo anchor('admin/chunks/delete_chunk/' . $chunk->id, 'Delete', array('class'=>'confirm')); ?>
@@ -39,4 +37,3 @@
 			<p><?php echo lang('chunks.no_chunks');?></p>
 		<?php endif; ?>
 	</div>
-</div>
