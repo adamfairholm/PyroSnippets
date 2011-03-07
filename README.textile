@@ -2,11 +2,14 @@ h1. PyroChunks
 
 h2. Description
 
+Now updated for PyroCMS 1.x.
+
 Module for "PyroCMS":http://pyrocms.com by "Phil Sturgeon":http://philsturgeon.co.uk/. Allows users to create and manage small chunks of reusable HTML or text content for their site. Useful for giving clients access to small chunks of content that are not page content.
 
 h2. Author
 
-* "Adam Fairholm":http://code.adamfairholm.com
+* "Adam Fairholm":http://twitter.com/adamfairholm
+* "Stephen Cozart":http://twitter.com/stephencozart - Updated to PyroCMS 1.x
 
 h2. Installation
 
