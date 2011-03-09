@@ -8,7 +8,6 @@
  * @category  	Libraries
  * @author  	Adam Fairholm
  */ 
-
 class Chunks
 {
 	private $var_chunks = array();
@@ -44,4 +43,4 @@ class Chunks
 }
 
 /* End of file Chunks.php */
-/* Location: ./third_party/modules/chunks/libraries/Chunks.php */
+/* Location: ./addons/modules/chunks/libraries/Chunks.php */

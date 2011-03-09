@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * PyroChunks Chunks Model
+ *
+ * @package  	PyroCMS
+ * @subpackage  PyroChunks
+ * @category  	Models
+ * @author  	Adam Fairholm
+ */ 
 class Chunks_m extends MY_Model {
 
     // --------------------------------------------------------------------------
@@ -155,4 +163,4 @@ class Chunks_m extends MY_Model {
 }
 
 /* End of file chunks_m.php */
-/* Location: ./third_party/modules/chunks/models/chunks_m.php */
+/* Location: ./addons/modules/chunks/models/chunks_m.php */

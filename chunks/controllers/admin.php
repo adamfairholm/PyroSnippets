@@ -3,10 +3,10 @@
 /**
  * PyroChunks Admin Controller Class
  *
- * @package  PyroCMS
+ * @package  	PyroCMS
  * @subpackage  PyroChunks
- * @category  Controller
- * @author  Adam Fairholm
+ * @category  	Controller
+ * @author  	Adam Fairholm
  */ 
 class Admin extends Admin_Controller {
 
@@ -264,4 +264,4 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./third_party/modules/chunks/controllers/admin.php */
+/* Location: ./addons/modules/chunks/controllers/admin.php */

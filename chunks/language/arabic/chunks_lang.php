@@ -16,6 +16,8 @@
 	$lang['chunks.list_chunks']							= 'سرد القصاصات';
 	$lang['chunks.add_chunk']							= 'أضف قصاصة';
 	$lang['chunks.edit_chunk']							= 'عدّل القصاصة "%s"';
+	$lang['chunks.setup']								= 'Setup';
+	$lang['chunks.content']								= 'Content';
 
 	// -------------------------------------
 	// Messages

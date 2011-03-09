@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * PyroChunks Details File
+ *
+ * @package  	PyroCMS
+ * @subpackage  PyroChunks
+ * @category  	Details
+ * @author  	Adam Fairholm & Stephen Cozart
+ */ 
 class Module_Chunks extends Module {
 
 	public $version = '1.0';
