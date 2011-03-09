@@ -7,13 +7,15 @@ class Module_Chunks extends Module {
 	public function info()
 	{
 		return array(
-			'name' => array(
-				'en' => 'Chunks'
-			),
-			'description' => array(
-				'en' => 'Create and manage small bits of text or HTML content.'
-			),
-			'frontend' => FALSE,
+		    'name' => array(
+		        'en' => 'Chunks',
+		        'ar' => 'القصاصات'
+		    ),
+		    'description' => array(
+		        'en' => 'Create and manage small bits of text or HTML content.',
+		        'ar' => 'أنشئ وعدّل بعض النصوص أو أكواد HTML.'
+		    ),
+		    'frontend' => FALSE,
 			'backend' => TRUE,
 			'menu' => 'content',
 			'author' => 'Adam Fairholm'
