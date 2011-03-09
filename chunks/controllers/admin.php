@@ -33,8 +33,9 @@ class Admin extends Admin_Controller {
 								)
 	);
 	protected $chunk_types = array(
-								'text' 	=> 'Text',
-								'html'	=> 'HTML'
+								'wysiwyg' 	=> 'WYSIWYG',
+								'text' 		=> 'Text',
+								'html'		=> 'HTML'
 							);
 
 	// --------------------------------------------------------------------------
