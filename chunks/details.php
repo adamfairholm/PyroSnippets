@@ -18,7 +18,7 @@ class Module_Chunks extends Module {
 		    'frontend' => FALSE,
 			'backend' => TRUE,
 			'menu' => 'content',
-			'author' => 'Adam Fairholm'
+			'author' => 'Addict Add-ons'
 		);
 	}
 
