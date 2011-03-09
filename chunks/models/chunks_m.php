@@ -11,7 +11,7 @@ class Chunks_m extends MY_Model {
      * @param	int offset
      * @return	obj
      */
-    function get_chunks( $limit = FALSE, $offset = 0 )
+    function get_chunks($limit = FALSE, $offset = 0)
 	{
      	$query = "SELECT * FROM chunks ORDER BY name DESC";
    
@@ -35,7 +35,7 @@ class Chunks_m extends MY_Model {
      */
     function get_chunk( $chunk_id )
 	{     
-		$obj = $this->db->query( "SELECT * FROM chunks WHERE id='$chunk_id' LIMIT 1" );
+		$obj = $this->db->query("SELECT * FROM chunks WHERE id='$chunk_id' LIMIT 1");
     	
     	return $obj->row();
 	}
@@ -49,7 +49,7 @@ class Chunks_m extends MY_Model {
      */
     function count_all()
 	{     
-		$obj = $this->db->query( "SELECT id FROM chunks" );
+		$obj = $this->db->query("SELECT id FROM chunks");
     	
     	return $obj->num_rows();
 	}
@@ -68,7 +68,6 @@ class Chunks_m extends MY_Model {
     	$insert_data = (array)$data;
 	
        	$insert_data['content'] = $this->process_type( $this->input->post('type'), $this->input->post('content') );
-    	
     	
     	$now = date('Y-m-d H:i:s');
     	
@@ -128,6 +127,12 @@ class Chunks_m extends MY_Model {
 	 */
 	function process_type( $type, $string, $mode = 'incoming' )
 	{
+		if(trim($string)):
+		
+			return '';
+		
+		endif;
+	
 		if( $type == 'html' ):
 		
 			if( $mode == 'incoming' ):

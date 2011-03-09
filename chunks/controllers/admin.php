@@ -29,7 +29,7 @@ class Admin extends Admin_Controller {
 								array(
 									'field' => 'content',
 									'label' => 'lang:chunks.chunk_content',
-									'rules' => 'trim|required'
+									'rules' => 'trim'
 								)
 	);
 	protected $chunk_types = array(
@@ -136,7 +136,7 @@ class Admin extends Admin_Controller {
 		$this->template
 					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 					->set('chunk', $chunk)
-					->build('admin/form');
+					->build('admin/new');
 	}
 
 	// --------------------------------------------------------------------------
@@ -164,6 +164,16 @@ class Admin extends Admin_Controller {
 		$chunk = $this->chunks_m->get_chunk( $chunk_id );
 	
 		$chunk->content = $this->chunks_m->process_type( $chunk->type, $chunk->content, 'outgoing' );
+
+		// -------------------------------------
+		// Set WYSIWYG for Chunk Type
+		// -------------------------------------
+
+		if($chunk->type == 'wysiwyg'):
+		
+			$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
+			
+		endif;
 		
 		// -------------------------------------
 		// Process Data
@@ -190,10 +200,7 @@ class Admin extends Admin_Controller {
 
 		// -------------------------------------
 		
-		$this->template
-					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-					->set('chunk', $chunk)
-					->build('admin/form');
+		$this->template->set('chunk', $chunk)->build('admin/edit');
 	}
 
 	// --------------------------------------------------------------------------

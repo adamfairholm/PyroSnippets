@@ -1,8 +1,4 @@
-<?php if($this->method == 'create_chunk'): ?>
-	<h3><?php echo lang('chunks.add_chunk');?></h3>
-<?php else: ?>
-	<h3><?php echo sprintf(lang('chunks.edit_chunk'), $chunk->name);?></h3>
-<?php endif; ?>
+<h3><?php echo sprintf(lang('chunks.edit_chunk'), $chunk->name);?></h3>
 
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
