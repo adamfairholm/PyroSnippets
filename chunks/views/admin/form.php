@@ -9,9 +9,23 @@
 <div class="tabs">
 
 	<ul class="tab-menu">
-		<li><a href="#chunk-data-tab"><span>General Data</span></a></li>
-		<li><a href="#chunk-content-tab"><span>Content</span></a></li>
+		<li><a href="#chunk-content-tab"><span><?php echo lang('chunks.content');?></span></a></li>
+		<li><a href="#chunk-data-tab"><span><?php echo lang('chunks.setup');?></span></a></li>
 	</ul>
+
+	<div id="chunk-content-tab">
+	
+		<ol>
+
+			<li>
+				<label for="name"><?php echo lang('chunks.chunk_content');?></label><br />
+				<?php echo form_textarea('content', $chunk->content, 'width="400" class="wysiwyg-advanced"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
+
+		</ol>
+		
+	</div><!--#chunk-content-tab-->
 
 	<div id="chunk-data-tab">
 	
@@ -36,21 +50,7 @@
 		
 		</ol>
 		
-	</div><!--chunk-data-tab-->
-
-	<div id="chunk-content-tab">
-	
-		<ol>
-
-			<li>
-				<label for="name"><?php echo lang('chunks.chunk_content');?></label><br />
-				<?php echo form_textarea('content', $chunk->content, 'width="400" class="wysiwyg-advanced"'); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-			</li>
-
-		</ol>
-		
-	</div><!--chunk-content-tab-->
+	</div><!--#chunk-data-tab-->
 
 </div><!--tabs-->
 
