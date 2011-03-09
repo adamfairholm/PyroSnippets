@@ -127,7 +127,7 @@ class Chunks_m extends MY_Model {
 	 */
 	function process_type( $type, $string, $mode = 'incoming' )
 	{
-		if(trim($string)):
+		if(trim($string) == ''):
 		
 			return '';
 		
