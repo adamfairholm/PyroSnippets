@@ -4,22 +4,23 @@ h2. Description
 
 Now updated for PyroCMS 1.x.
 
-Module for "PyroCMS":http://pyrocms.com by "Phil Sturgeon":http://philsturgeon.co.uk/. Allows users to create and manage small chunks of reusable HTML or text content for their site. Useful for giving clients access to small chunks of content that are not page content.
+Module for "PyroCMS":http://pyrocms.com, a CMS based on CodeIgniter. Allows users to create and manage small chunks of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited as text, WYSIWYG, and HTML content.
 
-h2. Author
+h2. Authors
 
 * "Adam Fairholm":http://twitter.com/adamfairholm
-* "Stephen Cozart":http://twitter.com/stephencozart - Updated to PyroCMS 1.x
+* "Stephen Cozart":http://twitter.com/stephencozart
 
 h2. Installation
 
-To install, just upload the zip file using PyroCMS's built in module upload tool. The "chunks" MySQL table will be added.
+To install, add the "chunks" folder to the modules folder or your addons folder.
 
 h2. Usage
 
 After installing if you are using a PyroCMS version less than 1.1, autoload the Chunks library (chunks/Chunks). This will allow access to chunks in your page layouts.
+
 If you are using PyroCMS 1.1.x you will NOT need to add the chunks library to your config/autoload array.
 
 h2. Translations
 
-This module is currently available in English only.
+Arabic - by "Ossama Khayat":https://github.com/okhayat
