@@ -1,4 +1,13 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+/**
+ * Chunks English Language File
+ * 
+ * @package		PyroCMS
+ * @subpackage	PyroChunks
+ * @category	language
+ * @author		Adam Fairholm (@adamfairholm)
+ */
 
 	// -------------------------------------
 	// Titles
@@ -36,4 +45,4 @@
 	$lang['chunks.chunk_content']						= 'Chunk Content';
 
 /* End of file chunks_lang.php */
-/* Location: ./third_party/modules/chunks/language/english/chunks_lang.php */
+/* Location: ./addons/modules/chunks/language/english/chunks_lang.php */
