@@ -237,7 +237,7 @@ class Admin extends Admin_Controller {
 	 */
 	function _check_slug( $slug, $mode )
 	{
-		$obj = $this->db->query("SELECT slug FROM chunks WHERE slug='$slug'");
+		$obj = $this->db->where('slug', $slug)->get('chunks');
 		
 		if( $mode == 'update' ):
 		

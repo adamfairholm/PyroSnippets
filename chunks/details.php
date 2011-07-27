@@ -11,8 +11,20 @@
 class Module_Chunks extends Module {
 
 	public $version = '1.0';
+	
+	public $db_pre;
 
-	public function info()
+ 	// --------------------------------------------------------------------------
+
+	public function __construct()
+	{	
+		if(CMS_VERSION >= 1.3)
+			$this->db_pre = SITE_REF.'_';
+	}
+
+	// --------------------------------------------------------------------------
+	
+ 	public function info()
 	{
 		return array(
 		    'name' => array(
@@ -30,10 +42,12 @@ class Module_Chunks extends Module {
 		);
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function install()
 	{
-		$sql['chunks'] = "
-            CREATE TABLE IF NOT EXISTS `chunks` (
+		$sql = "
+            CREATE TABLE IF NOT EXISTS `{$this->db_pre}chunks` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `name` varchar(60) NOT NULL,
                 `slug` varchar(60) NOT NULL,
@@ -43,27 +57,29 @@ class Module_Chunks extends Module {
                 `last_updated` datetime DEFAULT NULL,
                 `added_by` int(11) DEFAULT NULL,
                 PRIMARY KEY (`id`)
-              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-        ";
-		return $this->db->query($sql['chunks']);
+              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+              
+		return $this->db->query($sql);
 	}
+
+	// --------------------------------------------------------------------------
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return $this->dbforge->drop_table('chunks');
+		return $this->dbforge->drop_table($this->db_pre.'chunks');
 	}
+
+	// --------------------------------------------------------------------------
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
 		return TRUE;
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function help()
 	{
-		// Return a string containing help info
-		// You could include a file and return it here.
 		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
 	}
 }

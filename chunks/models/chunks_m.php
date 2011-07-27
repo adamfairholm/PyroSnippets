@@ -19,16 +19,14 @@ class Chunks_m extends MY_Model {
      * @param	int offset
      * @return	obj
      */
-    function get_chunks($limit = FALSE, $offset = 0)
+    function get_chunks($limit = FALSE, $offset = FALSE)
 	{
-     	$query = "SELECT * FROM chunks ORDER BY name DESC";
-   
-		if( $limit )
-     	{
-     		$query .= " LIMIT $offset, $limit";
-     	}
-     
-		$obj = $this->db->query( $query );
+		$this->db->order_by('name', 'desc');
+	
+		if($limit) $this->db->limit($limit);
+		if($offset) $this->db->offset($offset);
+		     
+		$obj = $this->db->get('chunks');
     	
     	return $obj->result();
 	}
@@ -43,7 +41,7 @@ class Chunks_m extends MY_Model {
      */
     function get_chunk( $chunk_id )
 	{     
-		$obj = $this->db->query("SELECT * FROM chunks WHERE id='$chunk_id' LIMIT 1");
+		$obj = $this->db->where('id', $chunk_id)->limit(1)->get('chunks');
     	
     	return $obj->row();
 	}
@@ -57,9 +55,7 @@ class Chunks_m extends MY_Model {
      */
     function count_all()
 	{     
-		$obj = $this->db->query("SELECT id FROM chunks");
-    	
-    	return $obj->num_rows();
+		return $this->db->count_all('chunks');
 	}
      
 	// --------------------------------------------------------------------------
@@ -163,4 +159,3 @@ class Chunks_m extends MY_Model {
 }
 
 /* End of file chunks_m.php */
-/* Location: ./addons/modules/chunks/models/chunks_m.php */

@@ -50,6 +50,10 @@
 
 </div><!--tabs-->
 
+<br />
+
+<div class="float-right buttons">
 <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+</div>
 
 <?php echo form_close(); ?>

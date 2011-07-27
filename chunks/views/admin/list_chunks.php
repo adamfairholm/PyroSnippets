@@ -8,6 +8,7 @@
 				<thead>
 					<tr>
 						<th>Chunk Name</th>
+						<th>Chunk Type</th>
 						<th>Syntax</th>
 						<th>Actions</th>
 					</tr>
@@ -23,6 +24,7 @@
 					<?php foreach ($chunks as $chunk): ?>
 						<tr>
 							<td><?php echo $chunk->name; ?></td>
+							<td><?php echo $chunk->type; ?></td>
 							<td>{pyro:chunk:<?php echo $chunk->slug; ?>}</td>
 							<td>
 								<?php echo anchor('admin/chunks/edit_chunk/' . $chunk->id, 'Edit');?> | 
