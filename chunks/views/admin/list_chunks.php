@@ -7,8 +7,8 @@
 			<table border="0" class="table-list">    
 				<thead>
 					<tr>
-						<th>Chunk Name</th>
-						<th>Chunk Type</th>
+						<th><?php echo lang('chunks.chunk_name'); ?></th>
+						<th><?php echo lang('chunks.chunk_type'); ?></th>
 						<th>Syntax</th>
 						<th>Actions</th>
 					</tr>
