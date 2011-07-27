@@ -97,6 +97,9 @@ class Admin extends Admin_Controller {
 	 */
 	function create_chunk()
 	{		
+        $this->template->append_metadata( js('debounce.js', 'chunks') );        
+        $this->template->append_metadata( js('new_chunk.js', 'chunks') );        
+
 		// -------------------------------------
 		// Validation & Setup
 		// -------------------------------------
@@ -147,6 +150,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit_chunk( $chunk_id = 0 )
 	{		
+        $this->template->append_metadata( js('debounce.js', 'chunks') );        
+        $this->template->append_metadata( js('new_chunk.js', 'chunks') );        
+
 		// -------------------------------------
 		// Validation & Setup
 		// -------------------------------------
@@ -222,6 +228,20 @@ class Admin extends Admin_Controller {
 		endif;
 
 		redirect('admin/chunks');
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Create stream slug.
+	 *
+	 * Accessed via AJAX
+	 */
+	function stream_slug()
+	{
+		$this->load->helper('text');
+
+		$this->output->set_output( url_title($this->input->post('title'), 'underscore', TRUE) );
 	}
 
 	// --------------------------------------------------------------------------
