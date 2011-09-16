@@ -1,4 +1,4 @@
-h1. PyroSnippets 2.0
+h1. PyroSnippets 2.0.1
 
 h2. Description
 
