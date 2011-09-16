@@ -7,7 +7,7 @@
 		
 			slug = $('input[name="slug"]', form);
 			
-			$.post(BASE_URI + 'index.php/admin/chunks/stream_slug', { title : $(this).val() }, function(new_slug){
+			$.post(BASE_URI + 'index.php/admin/snippets/stream_slug', { title : $(this).val() }, function(new_slug){
 				slug.val( new_slug );
 			});
 		}));
