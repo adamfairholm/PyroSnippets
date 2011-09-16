@@ -9,8 +9,8 @@
 					<tr>
 						<th><?php echo lang('snippets.snippet_name'); ?></th>
 						<th><?php echo lang('snippets.snippet_type'); ?></th>
-						<th>Syntax</th>
-						<th>Actions</th>
+						<th><?php echo lang('snippets.syntax'); ?></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tfoot>

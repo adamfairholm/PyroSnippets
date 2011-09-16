@@ -18,6 +18,7 @@
 	$lang['snippets.edit_snippet']							= 'Edit "%s" Snippet';
 	$lang['snippets.setup']									= 'Setup';
 	$lang['snippets.content']								= 'Content';
+	$lang['snippets.syntax']								= 'Syntax';
 
 	// -------------------------------------
 	// Messages
