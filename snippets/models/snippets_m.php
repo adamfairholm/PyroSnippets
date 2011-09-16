@@ -1,32 +1,32 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroChunks Chunks Model
+ * PyroSnippets Chunks Model
  *
  * @package  	PyroCMS
- * @subpackage  PyroChunks
+ * @subpackage  PyroSnippets
  * @category  	Models
- * @author  	Adam Fairholm
+ * @author  	Adam Fairholm @adamfairholm
  */ 
-class Chunks_m extends MY_Model {
+class Snippets_m extends MY_Model {
 
     // --------------------------------------------------------------------------
     
     /**
-     * Get some chunks
+     * Get some snippets
      *
      * @param	int limit
      * @param	int offset
      * @return	obj
      */
-    function get_chunks($limit = FALSE, $offset = FALSE)
+    function get_snippets($limit = FALSE, $offset = FALSE)
 	{
 		$this->db->order_by('name', 'desc');
 	
 		if($limit) $this->db->limit($limit);
 		if($offset) $this->db->offset($offset);
 		     
-		$obj = $this->db->get('chunks');
+		$obj = $this->db->get('snippets');
     	
     	return $obj->result();
 	}
@@ -34,14 +34,14 @@ class Chunks_m extends MY_Model {
     // --------------------------------------------------------------------------
     
     /**
-     * Get a chunk
+     * Get a snippet
      *
      * @param	int
      * @return	obj
      */
-    function get_chunk( $chunk_id )
+    function get_snippet($snippet_id)
 	{     
-		$obj = $this->db->where('id', $chunk_id)->limit(1)->get('chunks');
+		$obj = $this->db->where('id', $snippet_id)->limit(1)->get('snippets');
     	
     	return $obj->row();
 	}
@@ -49,25 +49,25 @@ class Chunks_m extends MY_Model {
     // --------------------------------------------------------------------------
     
     /**
-     * Count chunks
+     * Count snippets
      *
      * @return	int
      */
     function count_all()
 	{     
-		return $this->db->count_all('chunks');
+		return $this->db->count_all('snippets');
 	}
      
 	// --------------------------------------------------------------------------
      
     /**
-     * Insert a chunk
+     * Insert a snippet
      *
      * @param	array
      * @param	int
      * @return 	bool
      */
-    function insert_new_chunk( $data, $user_id )
+    function insert_new_snippet( $data, $user_id )
     {
     	$insert_data = (array)$data;
 	
@@ -79,19 +79,19 @@ class Chunks_m extends MY_Model {
     	$insert_data['last_updated'] 	= $now;
     	$insert_data['added_by']		= $user_id;
     	
-    	return $this->db->insert('chunks', $insert_data);
+    	return $this->db->insert('snippets', $insert_data);
     }
 
 	// --------------------------------------------------------------------------
      
     /**
-     * Update a chunk
+     * Update a snippet
      *
      * @param	array
      * @param	int
      * @return 	bool
      */
-    function update_chunk( $data, $chunk_id )
+    function update_snippet($data, $snippet_id)
     {
     	$update_data = (array)$data;
     		
@@ -99,24 +99,24 @@ class Chunks_m extends MY_Model {
  		
     	$update_data['last_updated'] 	= date('Y-m-d H:i:s');
     	
-    	$this->db->where('id', $chunk_id);
+    	$this->db->where('id', $snippet_id);
     	
-    	return $this->db->update('chunks', $update_data);
+    	return $this->db->update('snippets', $update_data);
     }
 
 	// --------------------------------------------------------------------------
      
     /**
-     * Delete a chunk
+     * Delete a snippet
      *
      * @param	int
      * @return 	bool
      */    
-    function delete_chunk( $chunk_id )
+    function delete_snippet($snippet_id)
     {
-    	$this->db->where('id', $chunk_id);
+    	$this->db->where('id', $snippet_id);
     	
-    	return $this->db->delete('chunks');
+    	return $this->db->delete('snippets');
     }
 
 	// --------------------------------------------------------------------------
@@ -129,7 +129,7 @@ class Chunks_m extends MY_Model {
 	 * @param	string - incoming or outgoing
 	 * @return 	string
 	 */
-	function process_type( $type, $string, $mode = 'incoming' )
+	function process_type($type, $string, $mode = 'incoming')
 	{
 		if(trim($string) == ''):
 		
@@ -158,4 +158,4 @@ class Chunks_m extends MY_Model {
 	}
 }
 
-/* End of file chunks_m.php */
+/* End of file snippets_m.php */

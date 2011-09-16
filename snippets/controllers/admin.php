@@ -1,38 +1,38 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroChunks Admin Controller Class
+ * PyroSnippets Admin Controller Class
  *
  * @package  	PyroCMS
- * @subpackage  PyroChunks
+ * @subpackage  Pyrosnippets
  * @category  	Controller
- * @author  	Adam Fairholm
+ * @author  	Adam Fairholm @adamfairholm
  */ 
 class Admin extends Admin_Controller {
 
-	protected $chunk_rules = array(
+	protected $snippet_rules = array(
 								array(
 									'field' => 'name',
-									'label' => 'lang:chunks.chunk_name',
+									'label' => 'lang:snippets.snippet_name',
 									'rules' => 'trim|required|max_length[60]'
 								),
 								array(
 									'field' => 'slug',
-									'label' => 'lang:chunks.chunk_slug',
+									'label' => 'lang:snippets.snippet_slug',
 									'rules' => 'trim|required|strtolower|max_length[60]'
 								),
 								array(
 									'field' => 'type',
-									'label' => 'lang:chunks.chunk_type',
+									'label' => 'lang:snippets.snippet_type',
 									'rules' => 'trim'
 								),
 								array(
 									'field' => 'content',
-									'label' => 'lang:chunks.chunk_content',
+									'label' => 'lang:snippets.snippet_content',
 									'rules' => 'trim'
 								)
 	);
-	protected $chunk_types = array(
+	protected $snippet_types = array(
 								'wysiwyg' 	=> 'WYSIWYG',
 								'text' 		=> 'Text',
 								'html'		=> 'HTML'
@@ -44,11 +44,11 @@ class Admin extends Admin_Controller {
 	{
 		parent::Admin_Controller();
 		
-		$this->load->model('chunks_m');
+		$this->load->model('snippets/snippets_m');
 		
-		$this->load->language('chunks');
+		$this->load->language('snippets');
 		
-		$this->template->chunk_types = $this->chunk_types;
+		$this->template->snippet_types = $this->snippet_types;
 		
 		$this->template->set_partial('shortcuts', 'admin/shortcuts');
 	}
@@ -59,46 +59,46 @@ class Admin extends Admin_Controller {
 
 	public function index()
 	{
-		$this->list_chunks();
+		$this->list_snippets();
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * List chunks
+	 * List snippets
 	 *
 	 */
-	public function list_chunks( $offset = 0 )
+	public function list_snippets($offset = 0)
 	{	
 		// -------------------------------------
-		// Get chunks
+		// Get snippets
 		// -------------------------------------
 		
-		$this->template->chunks = $this->chunks_m->get_chunks( $this->settings->item('records_per_page'), $offset );
+		$this->template->snippets = $this->snippets_m->get_snippets( $this->settings->item('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
-		$total_rows = $this->chunks_m->count_all();
+		$total_rows = $this->snippets_m->count_all();
 		
-		$this->template->pagination = create_pagination('admin/chunks/list_chunks', $total_rows);
+		$this->template->pagination = create_pagination('admin/snippets/list_snippets', $total_rows);
 		
 		// -------------------------------------
 
-		$this->template->build('admin/list_chunks');
+		$this->template->build('admin/list_snippets');
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Create a new chunk
+	 * Create a new snippet
 	 *
 	 */
-	function create_chunk()
+	function create_snippet()
 	{		
-        $this->template->append_metadata( js('debounce.js', 'chunks') );        
-        $this->template->append_metadata( js('new_chunk.js', 'chunks') );        
+        $this->template->append_metadata( js('debounce.js', 'snippets') );        
+        $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
 
 		// -------------------------------------
 		// Validation & Setup
@@ -106,13 +106,13 @@ class Admin extends Admin_Controller {
 	
 		$this->load->library('form_validation');
 
-		$this->chunk_rules[1]['rules'] .= '|callback__check_slug[insert]';
+		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[insert]';
 
-		$this->form_validation->set_rules( $this->chunk_rules );
+		$this->form_validation->set_rules( $this->snippet_rules );
 		
-		foreach($this->chunk_rules as $key => $rule)
+		foreach($this->snippet_rules as $key => $rule)
 		{
-			$chunk->{$rule['field']} = $this->input->post($rule['field'], TRUE);
+			$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
 		}
 
 		// -------------------------------------
@@ -121,37 +121,37 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
-			if( ! $this->chunks_m->insert_new_chunk( $chunk, $this->user->id ) ):
+			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->user->id ) ):
 			{
-				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
+				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
 			}
 			else:
 			{
-				$this->session->set_flashdata('success', lang('chunks.new_chunk_success'));	
+				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));	
 			}
 			endif;
 	
-			redirect('admin/chunks');
+			redirect('admin/snippets');
 		}
 		
 		// -------------------------------------
 		
 		$this->template
 					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-					->set('chunk', $chunk)
+					->set('snippet', $snippet)
 					->build('admin/new');
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Edit a chunk
+	 * Edit a snippet
 	 *
 	 */
-	public function edit_chunk( $chunk_id = 0 )
+	public function edit_snippet( $snippet_id = 0 )
 	{		
-        $this->template->append_metadata( js('debounce.js', 'chunks') );        
-        $this->template->append_metadata( js('new_chunk.js', 'chunks') );        
+        $this->template->append_metadata( js('debounce.js', 'snippets') );        
+        $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
 
 		// -------------------------------------
 		// Validation & Setup
@@ -159,23 +159,23 @@ class Admin extends Admin_Controller {
 	
 		$this->load->library('form_validation');
 
-		$this->chunk_rules[1]['rules'] .= '|callback__check_slug[update]';
+		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[update]';
 
-		$this->form_validation->set_rules( $this->chunk_rules );
+		$this->form_validation->set_rules( $this->snippet_rules );
 
 		// -------------------------------------
-		// Get chunk data
+		// Get snippet data
 		// -------------------------------------
 		
-		$chunk = $this->chunks_m->get_chunk( $chunk_id );
+		$snippet = $this->snippets_m->get_snippet( $snippet_id );
 	
-		$chunk->content = $this->chunks_m->process_type( $chunk->type, $chunk->content, 'outgoing' );
+		$snippet->content = $this->snippets_m->process_type( $snippet->type, $snippet->content, 'outgoing' );
 
 		// -------------------------------------
-		// Set WYSIWYG for Chunk Type
+		// Set WYSIWYG for snippet Type
 		// -------------------------------------
 
-		if($chunk->type == 'wysiwyg'):
+		if($snippet->type == 'wysiwyg'):
 		
 			$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
 			
@@ -187,47 +187,47 @@ class Admin extends Admin_Controller {
 		
 		if ($this->form_validation->run())
 		{
-			foreach($this->chunk_rules as $key => $rule)
+			foreach($this->snippet_rules as $key => $rule)
 			{
-				$chunk->{$rule['field']} = $this->input->post($rule['field'], TRUE);
+				$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
 			}
-			if( ! $this->chunks_m->update_chunk( $chunk, $chunk_id ) ):
+			if( ! $this->snippets_m->update_snippet( $snippet, $snippet_id ) ):
 			{
-				$this->session->set_flashdata('notice', lang('chunks.update_chunk_error'));	
+				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
 			}
 			else:
 			{
-				$this->session->set_flashdata('success', lang('chunks.update_chunk_success'));	
+				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));	
 			}
 			endif;
 	
-			redirect('admin/chunks');
+			redirect('admin/snippets');
 		}
 
 		// -------------------------------------
 		
-		$this->template->set('chunk', $chunk)->build('admin/edit');
+		$this->template->set('snippet', $snippet)->build('admin/edit');
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Delete a chunk
+	 * Delete a snippet
 	 *
 	 */
-	function delete_chunk( $chunk_id = 0 )
+	function delete_snippet( $snippet_id = 0 )
 	{		
-		if( ! $this->chunks_m->delete_chunk( $chunk_id ) ):
+		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
 		{
-			$this->session->set_flashdata('notice', lang('chunks.delete_chunk_error'));	
+			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	
 		}
 		else:
 		{
-			$this->session->set_flashdata('success', lang('chunks.delete_chunk_success'));	
+			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));	
 		}
 		endif;
 
-		redirect('admin/chunks');
+		redirect('admin/snippets');
 	}
 
 	// --------------------------------------------------------------------------
@@ -257,7 +257,7 @@ class Admin extends Admin_Controller {
 	 */
 	function _check_slug( $slug, $mode )
 	{
-		$obj = $this->db->where('slug', $slug)->get('chunks');
+		$obj = $this->db->where('slug', $slug)->get('snippets');
 		
 		if( $mode == 'update' ):
 		
@@ -271,7 +271,7 @@ class Admin extends Admin_Controller {
 		
 		if( $obj->num_rows > $threshold ):
 
-			$this->form_validation->set_message('_check_slug', lang('chunks.slug_unique'));
+			$this->form_validation->set_message('_check_slug', lang('snippets.slug_unique'));
 		
 			return FALSE;
 		
@@ -284,4 +284,4 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./addons/modules/chunks/controllers/admin.php */
+/* Location: ./addons/modules/snippets/controllers/admin.php */
