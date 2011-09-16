@@ -9,7 +9,7 @@
 					<tr>
 						<th><?php echo lang('snippets.snippet_name'); ?></th>
 						<th><?php echo lang('snippets.snippet_type'); ?></th>
-						<th><?php echo lang('snippets.syntax'); ?></th>
+						<?php if(group_has_role('snippets', 'admin_snippets')): ?><th><?php echo lang('snippets.syntax'); ?></th><?php endif; ?>
 						<th></th>
 					</tr>
 				</thead>
@@ -25,10 +25,10 @@
 						<tr>
 							<td><?php echo $snippet->name; ?></td>
 							<td><?php echo $snippet_types[$snippet->type]; ?></td>
-							<td>{pyro:snippet:<?php echo $snippet->slug; ?>}</td>
+							<?php if(group_has_role('snippets', 'admin_snippets')): ?><td>{pyro:snippet:<?php echo $snippet->slug; ?>}</td><?php endif; ?>
 							<td class="align-center buttons buttons-small">
 								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit">Edit</a>
-								<a href="<?php echo site_url('admin/snippets/delete_snippet/'.$snippet->id);?>" class="confirm button delete">Delete</a>
+								<?php if(group_has_role('snippets', 'admin_snippets')): ?><a href="<?php echo site_url('admin/snippets/delete_snippet/'.$snippet->id);?>" class="confirm button delete">Delete</a><?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

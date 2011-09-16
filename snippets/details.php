@@ -38,7 +38,8 @@ class Module_Snippets extends Module {
 			'backend' => true,
 			'skip_xss' => true,
 			'menu' => 'content',
-			'author' => 'Addict Add-ons'
+			'author' => 'Parse19',
+			'roles' => array('admin_snippets')
 		);
 	}
 

@@ -98,6 +98,9 @@ class Admin extends Admin_Controller {
 	 */
 	function create_snippet()
 	{		
+		// If you can't admin snippets, you can't create them
+		role_or_die('snippets', 'admin_snippets');
+
         $this->template->append_metadata( js('debounce.js', 'snippets') );        
         $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
 
@@ -149,8 +152,8 @@ class Admin extends Admin_Controller {
 	 * Edit a snippet
 	 *
 	 */
-	public function edit_snippet( $snippet_id = 0 )
-	{		
+	public function edit_snippet($snippet_id = null)
+	{			
         $this->template->append_metadata( js('debounce.js', 'snippets') );        
         $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
 
@@ -161,6 +164,16 @@ class Admin extends Admin_Controller {
 		$this->load->library('form_validation');
 
 		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[update]';
+		
+		// We need to edit the rules if we are a user that
+		// can't access certain things.
+		if(!group_has_role('snippets', 'admin_snippets')):
+		
+			unset($this->snippet_rules[0]);
+			unset($this->snippet_rules[1]);
+			unset($this->snippet_rules[2]);
+		
+		endif;
 
 		$this->form_validation->set_rules( $this->snippet_rules );
 
@@ -218,6 +231,9 @@ class Admin extends Admin_Controller {
 	 */
 	function delete_snippet( $snippet_id = 0 )
 	{		
+		// If you can't admin snippets, you can't delete them
+		role_or_die('snippets', 'admin_snippets');
+
 		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
 		{
 			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	

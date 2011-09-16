@@ -6,7 +6,7 @@
 
 	<ul class="tab-menu">
 		<li><a href="#snippet-content-tab"><span><?php echo lang('snippets.content');?></span></a></li>
-		<li><a href="#snippet-data-tab"><span><?php echo lang('snippets.setup');?></span></a></li>
+		<?php if(group_has_role('snippets', 'admin_snippets')): ?><li><a href="#snippet-data-tab"><span><?php echo lang('snippets.setup');?></span></a></li><?php endif; ?>
 	</ul>
 
 	<div id="snippet-content-tab">
@@ -23,7 +23,7 @@
 		
 	</div><!--#snippet-content-tab-->
 
-	<div id="snippet-data-tab">
+	<?php if(group_has_role('snippets', 'admin_snippets')): ?><div id="snippet-data-tab">
 	
 		<ol>
 
@@ -46,7 +46,7 @@
 		
 		</ol>
 		
-	</div><!--#snippet-data-tab-->
+	</div><!--#snippet-data-tab--><?php endif; ?>
 
 </div><!--tabs-->
 
