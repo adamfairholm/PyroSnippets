@@ -1,5 +1,5 @@
-<h3><?php echo lang('snippets.list_snippets'); ?></h3>				
-	
+<h3><?php echo lang('snippets.list_snippets'); ?></h3>	
+
 	<div class="box-container">	
 	
 		<?php if (!empty($snippets)): ?>
@@ -24,7 +24,7 @@
 					<?php foreach ($snippets as $snippet): ?>
 						<tr>
 							<td><?php echo $snippet->name; ?></td>
-							<td><?php echo $snippet->type; ?></td>
+							<td><?php echo $snippet_types[$snippet->type]; ?></td>
 							<td>{pyro:snippet:<?php echo $snippet->slug; ?>}</td>
 							<td class="align-center buttons buttons-small">
 								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit">Edit</a>
