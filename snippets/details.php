@@ -50,7 +50,6 @@ class Module_Snippets extends Module {
 		// Either this is a new install or upgrading from
 		// a previous version of PyroChunks.
 
-		
 		// First, check and see if PyroChunks is listed in the modules
 		$obj = $this->db->where('slug', 'chunks')->get('modules');
 		if($obj->num_rows() > 0):
@@ -95,7 +94,10 @@ class Module_Snippets extends Module {
 
 	public function uninstall()
 	{
-		return $this->dbforge->drop_table($this->db_pre.'chunks');
+		$this->load->dbforge();
+		
+		// Get rid of the snippets table
+		return $this->dbforge->drop_table('snippets');
 	}
 
 	// --------------------------------------------------------------------------
