@@ -12,6 +12,8 @@ class Events_Snippets {
     
     protected $ci;
     
+    public $var_snippets = array();
+    
     public function __construct()
     {
         $this->ci =& get_instance();
