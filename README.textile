@@ -30,17 +30,17 @@ h2. Upgrading from PyroChunks
 Do you currently have PyroChunks installed and want to switch to PyroSnippets? Good news! Upgrading is easy and your {pyro:chunk:chunk_slug} tags will still work. Just follow the steps below:
 
 * Back up your PyroCMS database (can't be too careful)
-* Go into your addons/shared_addons/modules or addons/default/modules folder and delete the chunks folder. *Do not uninstall PyroChunks. Just delete the folder. Uninstalling it will delete your chunks data*
+* Go into your addons/shared_addons/modules or addons/default/modules folder and delete the chunks folder. *Do not uninstall PyroChunks. Just delete the folder. Uninstalling it will delete your chunks data*.
 * Upload the snippets folder into your addons/shared_addons/modules or addons/default/module modules folder.
 * Install PyroSnippets from the back end. That should be it!
 
 h2. Regular Installation
 
-To install, add the "snippets" folder to the addons/shared_addons/modules or addons/default/modules folder or your site.
+To install, add the "snippets" folder to the addons/shared_addons/modules or addons/default/modules folder of your site.
 
 h2. Usage
 
-Create snippets and add the snippet code into your templates where you'd like them to be. Pretty simple! 
+Create snippets and add the snippet code into your layouts where you'd like them to be. Pretty simple! 
 
 h2. Translations
 
