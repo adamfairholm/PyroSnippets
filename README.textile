@@ -1,12 +1,18 @@
-h1. PyroChunks 1.1
+h1. PyroSnippets 2.0
 
 h2. Description
 
-Now updated for PyroCMS 1.3
+(Formerly PyroChunks, PyroSnippets had a name change in order to not be confused with the new feature of PyroCMS, page chunks. See update instructions below to go from PyroChunks to PyroSnippets.)
 
-Module for "PyroCMS":http://pyrocms.com, a CMS based on CodeIgniter. Allows users to create and manage small chunks of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited as text, WYSIWYG, and HTML content.
+PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited as text, WYSIWYG, and HTML content.
 
 h2. Changelog
+
+h3. v2.0 - September 16, 2011
+
+* Change to PyroSnippets name
+* New permissions addition allows you to restrict member groups to just editing snippet content
+* Updated interface styles for PyroCMS 1.3
 
 h3. v1.1 - July 26, 2011
 
@@ -19,15 +25,22 @@ h2. Authors
 * "Adam Fairholm":http://twitter.com/adamfairholm
 * "Stephen Cozart":http://twitter.com/stephencozart
 
-h2. Installation
+h2. Upgrading from PyroChunks
 
-To install, add the "chunks" folder to the modules folder or your addons folder.
+Do you currently have PyroChunks installed and want to switch to PyroSnippets? Good news! Upgrading is easy and your {pyro:chunk:chunk_slug} tags will still work. Just follow the steps below:
+
+* Back up your PyroCMS database (can't be too careful)
+* Go into your addons/shared_addons/modules or addons/default/modules folder and delete the chunks folder. *Do not uninstall PyroChunks. Just delete the folder. Uninstalling it will delete your chunks data*
+* Upload the snippets folder into your addons/shared_addons/modules or addons/default/module modules folder.
+* Install PyroSnippets from the back end. That should be it!
+
+h2. Regular Installation
+
+To install, add the "snippets" folder to the addons/shared_addons/modules or addons/default/modules folder or your site.
 
 h2. Usage
 
-After installing if you are using a PyroCMS version less than 1.1, autoload the Chunks library (chunks/Chunks). This will allow access to chunks in your page layouts.
-
-If you are using PyroCMS 1.1.x you will NOT need to add the chunks library to your config/autoload array.
+Create snippets and add the snippet code into your templates where you'd like them to be. Pretty simple! 
 
 h2. Translations
 
