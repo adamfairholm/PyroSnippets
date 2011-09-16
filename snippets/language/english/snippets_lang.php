@@ -24,11 +24,11 @@
 	// -------------------------------------
 
 	$lang['snippets.no_snippets']							= 'There are no snippets in the system.';
-	$lang['snippets.new_snippet_success']					= 'snippet added successfully';
+	$lang['snippets.new_snippet_success']					= 'Snippet added successfully';
 	$lang['snippets.new_snippet_error']						= 'There was an error in adding this snippet';
-	$lang['snippets.delete_snippet_success']				= 'snippet deleted successfully';
+	$lang['snippets.delete_snippet_success']				= 'Snippet deleted successfully';
 	$lang['snippets.delete_snippet_error']					= 'There was an error in deleting this snippet';
-	$lang['snippets.update_snippet_success']				= 'snippet updated successfully';
+	$lang['snippets.update_snippet_success']				= 'Snippet updated successfully';
 	$lang['snippets.update_snippet_error']					= 'There was an error in updating this snippet';
 
 	// -------------------------------------
