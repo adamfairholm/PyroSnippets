@@ -24,7 +24,7 @@
 	// Messages
 	// -------------------------------------
 
-	$lang['snippets.no_snippets']							= 'There are no snippets in the system.';
+	$lang['snippets.no_snippets']							= 'There are currently no snippets.';
 	$lang['snippets.new_snippet_success']					= 'Snippet added successfully';
 	$lang['snippets.new_snippet_error']						= 'There was an error in adding this snippet';
 	$lang['snippets.delete_snippet_success']				= 'Snippet deleted successfully';

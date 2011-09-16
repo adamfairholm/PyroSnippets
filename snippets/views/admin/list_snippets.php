@@ -36,6 +36,6 @@
 			</table>
 			
 		<?php else: ?>
-			<p><?php echo lang('snippets.no_snippets');?></p>
+			<div class="blank-slate"><h2><?php echo lang('snippets.no_snippets');?></h2></div>
 		<?php endif; ?>
 	</div>
