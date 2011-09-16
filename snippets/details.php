@@ -34,8 +34,9 @@ class Module_Snippets extends Module {
 		        'en' => 'Create and manage small bits of text or HTML content.',
 		        'ar' => 'أنشئ وعدّل بعض النصوص أو أكواد HTML.'
 		    ),
-		    'frontend' => FALSE,
-			'backend' => TRUE,
+		    'frontend' => false,
+			'backend' => true,
+			'skip_xss' => true,
 			'menu' => 'content',
 			'author' => 'Addict Add-ons'
 		);
