@@ -26,9 +26,9 @@
 							<td><?php echo $snippet->name; ?></td>
 							<td><?php echo $snippet->type; ?></td>
 							<td>{pyro:snippet:<?php echo $snippet->slug; ?>}</td>
-							<td>
-								<?php echo anchor('admin/snippets/edit_snippet/' . $snippet->id, 'Edit');?> | 
-								<?php echo anchor('admin/snippets/delete_snippet/' . $snippet->id, 'Delete', array('class'=>'confirm')); ?>
+							<td class="align-center buttons buttons-small">
+								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit">Edit</a>
+								<a href="<?php echo site_url('admin/snippets/delete_snippet/'.$snippet->id);?>" class="confirm button delete">Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
