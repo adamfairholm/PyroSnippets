@@ -148,6 +148,28 @@ class Snippets_m extends MY_Model {
 				return htmlspecialchars_decode( $string );
 			
 			endif;
+			
+		elseif ( $type == 'image' ):
+		
+			if( $mode == 'incoming' ):
+		
+				return $string;
+		
+			else:
+
+				$this->load->model('files/file_m');
+				if ($this->file_m->exists($string)):
+				
+					$image = $this->file_m->get($string);
+					
+					return '<img src="' . $image->filename . '" alt="' . $image->name . '" width="' . $image->width . '" height="' . $image->height . '" >';
+				else:
+					
+					return '';
+				
+				endif;
+		
+			endif;
 		
 		else:
 		

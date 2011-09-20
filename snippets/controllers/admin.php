@@ -35,14 +35,15 @@ class Admin extends Admin_Controller {
 	protected $snippet_types = array(
 								'wysiwyg' 	=> 'WYSIWYG',
 								'text' 		=> 'Text',
-								'html'		=> 'HTML'
+								'html'		=> 'HTML',
+								'image'		=>	'Image'
 							);
 
 	// --------------------------------------------------------------------------
 
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 		
 		$this->load->model('snippets/snippets_m');
 		
@@ -125,7 +126,7 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
-			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->user->id ) ):
+			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
 			{
 				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
 			}
@@ -180,10 +181,10 @@ class Admin extends Admin_Controller {
 		// -------------------------------------
 		// Get snippet data
 		// -------------------------------------
-		
+
 		$snippet = $this->snippets_m->get_snippet( $snippet_id );
-	
-		$snippet->content = $this->snippets_m->process_type( $snippet->type, $snippet->content, 'outgoing' );
+
+		$mode = 'outgoing'; // Switch it up for images
 
 		// -------------------------------------
 		// Set WYSIWYG for snippet Type
@@ -193,7 +194,22 @@ class Admin extends Admin_Controller {
 		
 			$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
 			
+		elseif ($snippet->type == 'image'):
+		
+			$this->load->model('files/file_m');
+			$images = $this->file_m->order_by('name','ASC')->dropdown('name');
+			array_unshift($images, '-- ' . lang('snippets.snippet_image') . ' --');
+			$this->template->set('images', $images);
+			$mode = 'incoming'; // Reset the mode to incoming because we only need the id & name
+
 		endif;
+
+		// -------------------------------------
+		// Get snippet data
+		// -------------------------------------
+		
+		$snippet->content = $this->snippets_m->process_type( $snippet->type, $snippet->content, $mode );
+
 		
 		// -------------------------------------
 		// Process Data

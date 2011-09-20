@@ -12,12 +12,19 @@
 	<div id="snippet-content-tab">
 	
 		<ol>
-
+			<?php if ($snippet->type != 'image'):?>
 			<li>
 				<label for="name"><?php echo lang('snippets.snippet_content');?></label><br />
 				<?php echo form_textarea('content', $snippet->content, 'width="400" class="wysiwyg-advanced"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
+			<?php else: ?>
+			<li>
+				<label for="name"><?php echo lang('snippets.snippet_'.$snippet->type);?></label><br />
+				<?php echo form_dropdown('content', $images, $snippet->content); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
+			<?php endif; ?>
 
 		</ol>
 		
