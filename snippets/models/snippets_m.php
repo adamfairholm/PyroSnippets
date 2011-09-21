@@ -158,11 +158,12 @@ class Snippets_m extends MY_Model {
 			else:
 
 				$this->load->model('files/file_m');
+				$this->load->config('files/files');
 				if ($this->file_m->exists($string)):
 				
 					$image = $this->file_m->get($string);
 					
-					return '<img src="' . $image->filename . '" alt="' . $image->name . '" width="' . $image->width . '" height="' . $image->height . '" >';
+					return '<img src="/'. $this->config->item('files_folder') . '/' . $image->filename . '" alt="' . $image->name . '" width="' . $image->width . '" height="' . $image->height . '" >';
 				else:
 					
 					return '';
