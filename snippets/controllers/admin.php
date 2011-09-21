@@ -198,7 +198,7 @@ class Admin extends Admin_Controller {
 		
 			$this->load->model('files/file_m');
 			$images = $this->file_m->order_by('name','ASC')->dropdown('name');
-			array_unshift($images, '-- ' . lang('snippets.snippet_image') . ' --');
+			$images[0] = '-- ' . lang('snippets.snippet_image') . ' --';
 			$this->template->set('images', $images);
 			$mode = 'incoming'; // Reset the mode to incoming because we only need the id & name
 
