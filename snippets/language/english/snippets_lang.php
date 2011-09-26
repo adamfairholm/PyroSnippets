@@ -47,5 +47,14 @@
 	$lang['snippets.snippet_type']							= 'Snippet Type';
 	$lang['snippets.snippet_content']						= 'Snippet Content';
 
+	// -------------------------------------
+	// Snippet Types
+	// -------------------------------------
+
+	$lang['snippets.snippet_wysiwyg']						= 'WYSIWYG';
+	$lang['snippets.snippet_text']							= 'Text';
+	$lang['snippets.snippet_html']							= 'HTML';
+	$lang['snippets.snippet_image']							= 'Image';
+
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/english/snippets_lang.php */
