@@ -45,6 +45,13 @@
 	$lang['snippets.snippet_slug']							= 'عنوان القصاصة المختصر';
 	$lang['snippets.snippet_type']							= 'نوع القصاصة';
 	$lang['snippets.snippet_content']						= 'محتوى القصاصة';
+	
+	// -------------------------------------
+	// Snippet List
+	// -------------------------------------
+	
+	$lang['snippets.snippet_edit']							= 'Edit'; #translate
+	$lang['snippets.snippet_delete']						= 'Delete'; #translate
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/arabic/snippets_lang.php */
