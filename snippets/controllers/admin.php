@@ -231,7 +231,7 @@ class Admin extends Admin_Controller {
 			}
 			endif;
 	
-			redirect('admin/snippets');
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets') : $this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));;
 		}
 
 		// -------------------------------------

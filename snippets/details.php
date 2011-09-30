@@ -28,11 +28,13 @@ class Module_Snippets extends Module {
 		return array(
 		    'name' => array(
 		        'en' => 'Snippets',
-		        'ar' => 'القصاصات'
+		        'ar' => 'القصاصات',
+		        'sl' => 'Delčki strani'
 		    ),
 		    'description' => array(
 		        'en' => 'Create and manage small bits of text or HTML content.',
-		        'ar' => 'أنشئ وعدّل بعض النصوص أو أكواد HTML.'
+		        'ar' => 'أنشئ وعدّل بعض النصوص أو أكواد HTML.',
+   		        'sl' => 'Ustvari in uredi male delčke strani z vsebino iz teksta ali HTML-ja.',
 		    ),
 		    'frontend' => false,
 			'backend' => true,

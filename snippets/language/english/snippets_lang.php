@@ -55,6 +55,14 @@
 	$lang['snippets.snippet_text']							= 'Text';
 	$lang['snippets.snippet_html']							= 'HTML';
 	$lang['snippets.snippet_image']							= 'Image';
+	
+	// -------------------------------------
+	// Snippet List
+	// -------------------------------------
+	
+	$lang['snippets.snippet_edit']							= 'Edit';
+	$lang['snippets.snippet_delete']						= 'Delete';
+	
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/english/snippets_lang.php */
