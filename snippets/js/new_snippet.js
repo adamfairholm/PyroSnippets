@@ -1,16 +1,16 @@
-(function($) {
-	$(function(){
+function slugify(str)
+{
+	var url = str.toLowerCase().replace(/^\s+|\s+$/g, "").replace(/[_|\s]+/g, "-").replace(/[^a-z0-9-]+/g, "").replace(/[-]+/g, "-").replace(/^-+|-+$/g, "");
+	
+	return url;
+}
 
-		form = $('form.crud');
-		
-		$('input[name="name"]', form).keyup($.debounce(300, function(){
-		
-			slug = $('input[name="slug"]', form);
-			
-			$.post(BASE_URI + 'index.php/admin/snippets/stream_slug', { title : $(this).val() }, function(new_slug){
-				slug.val( new_slug );
-			});
-		}));
-				
+jQuery(document).ready(function() {
+
+	$('#name').keyup(function() {
+  
+ 	 	$('#slug').val(slugify($('#name').val()));
+ 	   
 	});
-})(jQuery);
+
+});

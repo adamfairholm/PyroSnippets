@@ -263,20 +263,6 @@ class Admin extends Admin_Controller {
 	}
 
 	// --------------------------------------------------------------------------
-
-	/**
-	 * Create stream slug.
-	 *
-	 * Accessed via AJAX
-	 */
-	function stream_slug()
-	{
-		$this->load->helper('text');
-
-		$this->output->set_output( url_title($this->input->post('title'), 'underscore', TRUE) );
-	}
-
-	// --------------------------------------------------------------------------
 	// Validation Callbacks
 	// --------------------------------------------------------------------------
 

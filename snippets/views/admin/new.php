@@ -10,13 +10,13 @@
 
 		<tr>
 			<td class=""><label for="name"><?php echo lang('snippets.snippet_name');?></label></td>
-			<td><?php echo form_input('name', htmlspecialchars_decode($snippet->name), 'maxlength="60"'); ?>
+			<td><?php echo form_input('name', htmlspecialchars_decode($snippet->name), 'maxlength="60" id="name"'); ?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
 		</tr>
 
 		<tr>
 			<td class=""><label for="slug"><?php echo lang('snippets.snippet_slug');?></label></td>
-			<td><?php echo form_input('slug', $snippet->slug, 'maxlength="60"'); ?>
+			<td><?php echo form_input('slug', $snippet->slug, 'maxlength="60" id="slug"'); ?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
 		</tr>
 
