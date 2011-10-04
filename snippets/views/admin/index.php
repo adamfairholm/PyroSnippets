@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('snippets.list_snippets'); ?></h4>
+	<h4><?php echo lang('snippets.name'); ?></h4>
 </section>
 
 <section class="item">

@@ -9,6 +9,8 @@
  * @author		Danijel Ocepek - IMAMO (@danijeloc)
  */
 
+	$lang['snippets.name']									= 'Delčki strani';
+
 	// -------------------------------------
 	// Titles
 	// -------------------------------------

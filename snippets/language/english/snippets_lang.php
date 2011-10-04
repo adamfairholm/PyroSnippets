@@ -9,6 +9,8 @@
  * @author		Adam Fairholm (@adamfairholm)
  */
 
+	$lang['snippets.name']									= 'Snippets';
+
 	// -------------------------------------
 	// Titles
 	// -------------------------------------
