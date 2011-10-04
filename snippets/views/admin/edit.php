@@ -64,10 +64,10 @@
 
 </div><!--tabs-->
 
-<div class="float-right buttons">
-<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))); ?>
-</div>
+	<button type="submit" name="btnAction" value="save" class="btn blue">Save</button>
+	<button type="submit" name="btnAction" value="save_exit" class="btn blue">Save &amp; Exit</button>
+	<a href="<?php site_url('admin/snippets');?>" class="btn gray">Cancel</a>
 
-<?php echo form_close(); ?>
+	<?php echo form_close(); ?>
 
 </section>
