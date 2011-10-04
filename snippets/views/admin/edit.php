@@ -1,4 +1,8 @@
-<h3><?php echo sprintf(lang('snippets.edit_snippet'), $snippet->name);?></h3>
+<section class="title">
+	<h4><?php echo sprintf(lang('snippets.edit_snippet'), $snippet->name);?></h4>
+</section>
+
+<section class="item">
 
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
@@ -8,59 +12,62 @@
 		<li><a href="#snippet-content-tab"><span><?php echo lang('snippets.content');?></span></a></li>
 		<?php if(group_has_role('snippets', 'admin_snippets')): ?><li><a href="#snippet-data-tab"><span><?php echo lang('snippets.setup');?></span></a></li><?php endif; ?>
 	</ul>
-
-	<div id="snippet-content-tab">
 	
-		<ol>
+	<div id="snippet-content-tab">
+
+	<table>
+	
 			<?php if ($snippet->type != 'image'):?>
-			<li>
-				<label for="name"><?php echo lang('snippets.snippet_content');?></label><br />
-				<?php echo form_textarea('content', $snippet->content, 'width="400" class="wysiwyg-advanced"'); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-			</li>
+			<tr>
+				<td class=""><label for="name"><?php echo lang('snippets.snippet_content');?></label></td>
+				<td><?php echo form_textarea('content', $snippet->content, 'width="400" class="wysiwyg-advanced"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
+			</tr>
 			<?php else: ?>
-			<li>
-				<label for="name"><?php echo lang('snippets.snippet_'.$snippet->type);?></label><br />
-				<?php echo form_dropdown('content', $images, $snippet->content); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-			</li>
+			<tr>
+				<td class=""><label for="name"><?php echo lang('snippets.snippet_'.$snippet->type);?></label></td>
+				<td><?php echo form_dropdown('content', $images, $snippet->content); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
+			</tr>
 			<?php endif; ?>
 
-		</ol>
+	</table>
 		
 	</div><!--#snippet-content-tab-->
 
-	<?php if(group_has_role('snippets', 'admin_snippets')): ?><div id="snippet-data-tab">
+	<?php if(group_has_role('snippets', 'admin_snippets')): ?>
 	
-		<ol>
+	<div id="snippet-data-tab">
+	
+		<table>
 
-			<li>
-				<label for="name"><?php echo lang('snippets.snippet_name');?></label>
-				<?php echo form_input('name', htmlspecialchars_decode($snippet->name), 'maxlength="60"'); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			<tr>
+				<td class=""><label for="name"><?php echo lang('snippets.snippet_name');?></label></td>
+				<td><?php echo form_input('name', htmlspecialchars_decode($snippet->name), 'maxlength="60"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
 			</li>
 
-			<li class="even">
-				<label for="slug"><?php echo lang('snippets.snippet_slug');?></label>
-				<?php echo form_input('slug', $snippet->slug, 'maxlength="60"'); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			<tr>
+				<td class=""><label for="slug"><?php echo lang('snippets.snippet_slug');?></label></td>
+				<td><?php echo form_input('slug', $snippet->slug, 'maxlength="60"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
 			</li>
 
-			<li>
-				<label for="type"><?php echo lang('snippets.snippet_type');?></label>
-				<?php echo form_dropdown('type', $snippet_types, $snippet->type); ?>
+			<tr>
+				<td class=""><label for="type"><?php echo lang('snippets.snippet_type');?></label></td>
+				<td><?php echo form_dropdown('type', $snippet_types, $snippet->type); ?></td>
 			</li>
 		
-		</ol>
+		</table>
 		
 	</div><!--#snippet-data-tab--><?php endif; ?>
 
 </div><!--tabs-->
-
-<br />
 
 <div class="float-right buttons">
 <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))); ?>
 </div>
 
 <?php echo form_close(); ?>
+
+</section>

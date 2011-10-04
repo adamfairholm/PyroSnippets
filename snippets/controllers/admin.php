@@ -51,8 +51,7 @@ class Admin extends Admin_Controller {
 		
 		$this->template->snippet_types = $this->snippet_types;
 		
-		$this->template->append_metadata( css('pyrosnippets.css', 'snippets') )
-							->set_partial('shortcuts', 'admin/shortcuts');
+		$this->template->set_partial('shortcuts', 'admin/shortcuts');
 	}
 
 	// --------------------------------------------------------------------------
@@ -88,7 +87,7 @@ class Admin extends Admin_Controller {
 		
 		// -------------------------------------
 
-		$this->template->build('admin/list_snippets');
+		$this->template->build('admin/index');
 	}
 
 	// --------------------------------------------------------------------------

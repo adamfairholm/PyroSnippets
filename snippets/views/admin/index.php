@@ -1,6 +1,8 @@
-<h3><?php echo lang('snippets.list_snippets'); ?></h3>	
+<section class="title">
+	<h4><?php echo lang('snippets.list_snippets'); ?></h4>
+</section>
 
-	<div class="box-container">	
+<section class="item">
 	
 		<?php if (!empty($snippets)): ?>
 				
@@ -36,6 +38,8 @@
 			</table>
 			
 		<?php else: ?>
-			<div class="blank-slate"><h2><?php echo lang('snippets.no_snippets');?></h2></div>
+			<p><?php echo lang('snippets.no_snippets');?></p>
 		<?php endif; ?>
 	</div>
+	
+</section>
