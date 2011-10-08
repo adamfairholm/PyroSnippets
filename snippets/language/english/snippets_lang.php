@@ -64,7 +64,14 @@
 	
 	$lang['snippets.snippet_edit']							= 'Edit';
 	$lang['snippets.snippet_delete']						= 'Delete';
-	
+
+    // -------------------------------------
+	// Buttons
+	// -------------------------------------
+    
+    $lang['snippets.snippet_btn_save']                      = 'Save';
+    $lang['snippets.snippet_btn_saveexit']                      = 'Save &amp; Exit';
+    $lang['snippets.snippet_btn_cancel']                      = 'Cancel';
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/english/snippets_lang.php */

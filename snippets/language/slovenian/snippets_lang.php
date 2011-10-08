@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Snippets English Language File
+ * Snippets Slovenian Language File
  * 
  * @package		PyroCMS
  * @subpackage	PyroSnippets
@@ -64,6 +64,14 @@
 	
 	$lang['snippets.snippet_edit']							= 'Uredi';
 	$lang['snippets.snippet_delete']						= 'Izbriši';
+    
+    // -------------------------------------
+    // Buttons
+	// -------------------------------------
+    
+    $lang['snippets.snippet_btn_save']                      = 'Shrani';
+    $lang['snippets.snippet_btn_saveexit']                      = 'Shrani &amp; Zapri';
+    $lang['snippets.snippet_btn_cancel']                      = 'Prekliči';
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/slovenian/snippets_lang.php */

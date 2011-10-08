@@ -54,6 +54,14 @@
 	
 	$lang['snippets.snippet_edit']							= 'Edit'; #translate
 	$lang['snippets.snippet_delete']						= 'Delete'; #translate
+    
+    // -------------------------------------
+    // Buttons
+	// -------------------------------------
+    
+    $lang['snippets.snippet_btn_save']                      = 'Save'; #translate
+    $lang['snippets.snippet_btn_saveexit']                      = 'Save &amp; Exit'; #translate
+    $lang['snippets.snippet_btn_cancel']                      = 'Cancel'; #translate
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/arabic/snippets_lang.php */
