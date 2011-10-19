@@ -50,8 +50,6 @@ class Admin extends Admin_Controller {
 		$this->load->language('snippets');
 		
 		$this->template->snippet_types = $this->snippet_types;
-		
-		$this->template->set_partial('shortcuts', 'admin/shortcuts');
 	}
 
 	// --------------------------------------------------------------------------

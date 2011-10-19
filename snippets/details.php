@@ -41,7 +41,15 @@ class Module_Snippets extends Module {
 			'skip_xss' => true,
 			'menu' => 'content',
 			'author' => 'Parse19',
-			'roles' => array('admin_snippets')
+			'roles' => array('admin_snippets'),
+
+			'shortcuts' => array(
+				array(
+			 	   'name' => 'snippets.add_snippet',
+				   'uri' => 'admin/snippets/create_snippet',
+				   'class' => 'add'
+				),
+			),
 		);
 	}
 
