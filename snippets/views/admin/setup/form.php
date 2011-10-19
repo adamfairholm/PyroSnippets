@@ -27,10 +27,9 @@
 	
 	</table>
 	
-
 	<p>
-		<button type="submit" name="btnAction" value="save" class="btn blue">Save</button>											
-		<a href="admin/snippets" class="btn gray cancel">Cancel</a>	
+		<button type="submit" name="btnAction" value="save" class="btn blue">Save</button>				
+		<a href="<?php echo site_url('admin/snippets/setup'); ?>" class="btn gray cancel">Cancel</a>	
 	</p>
 
 <?php echo form_hidden('content', ''); ?>

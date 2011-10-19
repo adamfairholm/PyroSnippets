@@ -8,9 +8,32 @@
  * @category  	Controller
  * @author  	Adam Fairholm @adamfairholm
  */ 
-class Admin extends Admin_Controller {
+class Admin_setup extends Admin_Controller {
 
-	protected $section = 'content';
+	protected $section = 'setup';
+
+	protected $snippet_rules = array(
+		array(
+			'field' => 'name',
+			'label' => 'lang:snippets.snippet_name',
+			'rules' => 'trim|required|max_length[60]'
+		),
+		array(
+			'field' => 'slug',
+			'label' => 'lang:snippets.snippet_slug',
+			'rules' => 'trim|required|strtolower|max_length[60]'
+		),
+		array(
+			'field' => 'type',
+			'label' => 'lang:snippets.snippet_type',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'content',
+			'label' => 'lang:snippets.snippet_content',
+			'rules' => 'trim'
+		)
+	);
 	
 	protected $snippet_types = array(
 		'wysiwyg' 	=> 'WYSIWYG',
@@ -65,7 +88,63 @@ class Admin extends Admin_Controller {
 		
 		// -------------------------------------
 
-		$this->template->build('admin/index');
+		$this->template->build('admin/setup/index');
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Create a new snippet
+	 *
+	 */
+	function create_snippet()
+	{		
+		// If you can't admin snippets, you can't create them
+		role_or_die('snippets', 'admin_snippets');
+
+        $this->template->append_metadata( js('debounce.js', 'snippets') );        
+        $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
+
+		// -------------------------------------
+		// Validation & Setup
+		// -------------------------------------
+	
+		$this->load->library('form_validation');
+
+		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[insert]';
+
+		$this->form_validation->set_rules( $this->snippet_rules );
+		
+		foreach($this->snippet_rules as $key => $rule)
+		{
+			$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
+		}
+
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+
+		if ($this->form_validation->run())
+		{
+			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
+			{
+				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
+			}
+			else:
+			{
+				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));	
+			}
+			endif;
+	
+			redirect('admin/snippets/setup');
+		}
+		
+		// -------------------------------------
+		
+		$this->template
+					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+					->set('snippet', $snippet)
+					->build('admin/setup/form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -76,33 +155,35 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit_snippet($snippet_id = null)
 	{			
-		// -------------------------------------
-		// Get snippet data
-		// -------------------------------------
-
-		$snippet = $this->snippets_m->get_snippet( $snippet_id );
+        $this->template->append_metadata( js('debounce.js', 'snippets') );        
+        $this->template->append_metadata( js('new_snippet.js', 'snippets') );        
 
 		// -------------------------------------
 		// Validation & Setup
 		// -------------------------------------
 	
 		$this->load->library('form_validation');
-		
-		$this->form_validation->set_rules('content', 'snippets.snippet_content', 'trim');
 
-		$config[0] = array(
-			array(
-			     'field'   => 'content', 
-			     'label'   => 'snippets.snippet_content', 
-			     'rules'   => 'trim'
-			  )
-		);
+		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[update]';
 		
-		// Is this required?
-		// @todo - make this an option
-		$config[0][0]['rules'] .= '|required';
+		// We need to edit the rules if we are a user that
+		// can't access certain things.
+		if(!group_has_role('snippets', 'admin_snippets')):
+		
+			unset($this->snippet_rules[0]);
+			unset($this->snippet_rules[1]);
+			unset($this->snippet_rules[2]);
+		
+		endif;
 
-		// @todo - change
+		$this->form_validation->set_rules( $this->snippet_rules );
+
+		// -------------------------------------
+		// Get snippet data
+		// -------------------------------------
+
+		$snippet = $this->snippets_m->get_snippet( $snippet_id );
+
 		$mode = 'outgoing'; // Switch it up for images
 
 		// -------------------------------------
@@ -133,28 +214,28 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if($this->form_validation->run()):
-		
-			// Update
-			$this->db->where('id', $snippet->id)->update('snippets', array('content' => $this->input->post('content')));
-		
-			if( ! $this->db->update('snippets', array('content' => $this->input->post('content'))) ):
-			
+		if ($this->form_validation->run())
+		{
+			foreach($this->snippet_rules as $key => $rule)
+			{
+				$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
+			}
+			if( ! $this->snippets_m->update_snippet( $snippet, $snippet_id ) ):
+			{
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
-			
+			}
 			else:
-			
+			{
 				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));	
-			
+			}
 			endif;
 	
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets') : $this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));;
-		
-		endif;
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets/setup') : $this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
+		}
 
 		// -------------------------------------
 		
-		$this->template->set('snippet', $snippet)->build('admin/edit');
+		$this->template->set('snippet', $snippet)->build('admin/setup/form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -178,7 +259,7 @@ class Admin extends Admin_Controller {
 		}
 		endif;
 
-		redirect('admin/snippets');
+		redirect('admin/snippets/setup');
 	}
 
 	// --------------------------------------------------------------------------

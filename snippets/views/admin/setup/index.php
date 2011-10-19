@@ -11,6 +11,7 @@
 					<tr>
 						<th><?php echo lang('snippets.snippet_name'); ?></th>
 						<th><?php echo lang('snippets.snippet_type'); ?></th>
+						<th><?php echo lang('snippets.syntax'); ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -26,8 +27,10 @@
 						<tr>
 							<td><?php echo $snippet->name; ?></td>
 							<td><?php echo $snippet_types[$snippet->type]; ?></td>
+							<td>{pyro:snippet:<?php echo $snippet->slug; ?>}</td>
 							<td class="actions">
-								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('snippets.snippet_edit'); ?></a>
+								<a href="<?php echo site_url('admin/snippets/setup/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('snippets.snippet_edit'); ?></a>
+								<?php if(group_has_role('snippets', 'admin_snippets')): ?><a href="<?php echo site_url('admin/snippets/setup/delete_snippet/'.$snippet->id);?>" class="confirm button delete"><?php echo lang('snippets.snippet_delete'); ?></a><?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
