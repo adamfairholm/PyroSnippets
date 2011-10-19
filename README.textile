@@ -1,4 +1,4 @@
-h1. PyroSnippets 2.0.1
+h1. PyroSnippets 2.1
 
 h2. Description
 
@@ -7,6 +7,12 @@ h2. Description
 PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited as text, WYSIWYG, and HTML content.
 
 h2. Changelog
+
+h3. v2.1 - October 19, 2011
+
+* Upgrading to PyroCMS 2.0 interface styles
+* New image snippet type
+* Save & Close option for editing snippets
 
 h3. v2.0 - September 16, 2011
 
