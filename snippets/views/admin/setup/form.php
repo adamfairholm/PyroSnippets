@@ -22,7 +22,7 @@
 
 		<tr>
 			<td class=""><label for="type"><?php echo lang('snippets.snippet_type');?></label></td>
-			<td><?php echo form_dropdown('type', $snippet_types, $snippet->type); ?></td>
+			<td><?php echo form_dropdown('type', $this->snippets_m->snippet_array, $snippet->type); ?></td>
 		</tr>
 	
 	</table>

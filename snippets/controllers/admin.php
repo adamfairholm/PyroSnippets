@@ -29,7 +29,7 @@ class Admin extends Admin_Controller {
 		
 		$this->load->language('snippets');
 		
-		$this->template->snippet_types = $this->snippet_types;
+		$this->template->snippet_types = $this->snippet_types;	
 	}
 
 	// --------------------------------------------------------------------------
@@ -76,6 +76,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit_snippet($snippet_id = null)
 	{			
+		if(is_null($snippet_id)) show_error('Invalid snippet ID.');
+	
 		// -------------------------------------
 		// Get snippet data
 		// -------------------------------------
@@ -102,9 +104,6 @@ class Admin extends Admin_Controller {
 		// @todo - make this an option
 		$config[0][0]['rules'] .= '|required';
 
-		// @todo - change
-		$mode = 'outgoing'; // Switch it up for images
-
 		// -------------------------------------
 		// Set WYSIWYG for snippet Type
 		// -------------------------------------
@@ -124,21 +123,12 @@ class Admin extends Admin_Controller {
 		endif;
 
 		// -------------------------------------
-		// Get snippet data
-		// -------------------------------------
-		
-		$snippet->content = $this->snippets_m->process_type( $snippet->type, $snippet->content, $mode );
-
-		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
 		if($this->form_validation->run()):
-		
-			// Update
-			$this->db->where('id', $snippet->id)->update('snippets', array('content' => $this->input->post('content')));
-		
-			if( ! $this->db->update('snippets', array('content' => $this->input->post('content'))) ):
+				
+			if( !$this->snippets_m->update_snippet($snippet->type, $snippet_id) ):
 			
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
 			
@@ -148,11 +138,13 @@ class Admin extends Admin_Controller {
 			
 			endif;
 	
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets') : $this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));;
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets') : redirect('admin/snippets/edit_snippet/'.$snippet_id);
 		
 		endif;
 
 		// -------------------------------------
+		
+		$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
 		
 		$this->template->set('snippet', $snippet)->build('admin/edit');
 	}
@@ -169,13 +161,13 @@ class Admin extends Admin_Controller {
 		role_or_die('snippets', 'admin_snippets');
 
 		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
-		{
+		
 			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	
-		}
+		
 		else:
-		{
+		
 			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));	
-		}
+		
 		endif;
 
 		redirect('admin/snippets');
