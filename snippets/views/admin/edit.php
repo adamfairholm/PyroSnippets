@@ -4,13 +4,12 @@
 
 <section class="item">
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
 
 	<ul>
 		<li>
 			<label for="name"><?php echo lang('snippets.snippet_content');?></label> <span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			<?php echo $this->snippets_m->snippets->{$snippet->type}->form_output($snippet->content); ?>
-			
 		</li>
 	</ul>
 		

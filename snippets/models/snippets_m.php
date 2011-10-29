@@ -10,6 +10,8 @@
  */ 
 class Snippets_m extends MY_Model {
 
+	public $snippets_dir;
+
 	public $snippets;
 	
 	public $snippet_array = array();
@@ -19,6 +21,17 @@ class Snippets_m extends MY_Model {
 	function __construct()
 	{
 		parent::__construct();
+		
+		// Find the location
+		if(is_dir(ADDONPATH.'modules/snippets')):
+		
+			$this->snippets_dir = ADDONPATH.'modules/snippets';
+			
+		else:
+
+			$this->snippets_dir = SHARED_ADDONPATH.'modules/snippets';
+		
+		endif;
 		
 		$this->load_snippets();
 	}
@@ -37,18 +50,18 @@ class Snippets_m extends MY_Model {
 		$this->module_details['path'];
 	
 		// Load up the snippet library
-		require_once($this->module_details['path'].'/libraries/Snippet.php');
+		require_once($this->snippets_dir.'/libraries/Snippet.php');
 		
 		$this->load->helper('directory');
 		
-		$dir = directory_map($this->module_details['path'].'/snippets/', 1);
+		$dir = directory_map($this->snippets_dir.'/snippets/', 1);
 		
 		foreach($dir as $folder):
 		
 			// Attempt to load the snippet file.
-			if(file_exists($this->module_details['path'].'/snippets/'.$folder.'/snip.'.$folder.'.php')):
+			if(file_exists($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php')):
 			
-				require_once($this->module_details['path'].'/snippets/'.$folder.'/snip.'.$folder.'.php');
+				require_once($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php');
 			
 				//$this->snippets->$folder = new Snippet();
 				$class_name = 'Snippet_'.$folder;
@@ -102,11 +115,14 @@ class Snippets_m extends MY_Model {
     	$snippet = $obj->row();
     	
     	// Use pre_output if necessary
-    	if(method_exists($this->snippets->{$snippet->type}, 'pre_output')):
+    	/*if(method_exists($this->snippets->{$snippet->type}, 'pre_output')):
     	
-    		$snippet->content = $this->snippets->{$snippet->type}->pre_save($snippet->content);
+    		$snippet->content = $this->snippets->{$snippet->type}->pre_output($snippet->content, $snippet->params);
     	
-    	endif;    	
+    	endif;*/
+    	
+    	// Format the snippet parameters
+    	($snippet->params != '') ? $snippet->params = unserialize($snippet->params) : $snippet->params = array();
 	
 		return $snippet;
 	}
@@ -137,8 +153,21 @@ class Snippets_m extends MY_Model {
     	$insert_data = (array)$data;
     	
     	$now = date('Y-m-d H:i:s');
+
+    	// Save param data
+    	$params = array();
+    	if(isset($this->snippets->{$snippet->type}->parameters)):
     	
-    	$insert_data['content'] 		= $this->_pre_save($this->input->post('type'), $this->input->post('content'));
+    		foreach($this->snippets->{$snippet->type}->parameters as $param):
+    		
+    			$params[$param] = $this->input->post($param);
+    		
+    		endforeach;
+    	
+    	endif;
+    	$update_data['params'] = serialize($params);
+    	
+    	$insert_data['content'] 		= $this->_pre_save($this->input->post('type'), $this->input->post('content'), $params);
     	$insert_data['when_added'] 		= $now;
     	$insert_data['last_updated'] 	= $now;
     	$insert_data['added_by']		= $user_id;
@@ -155,17 +184,33 @@ class Snippets_m extends MY_Model {
      * @param	[array] - extra data items
      * @return 	bool
      */
-    function update_snippet($type, $snippet_id, $data = array())
+    function update_snippet($snippet, $update_params = false, $data = array())
     {
     	$update_data = (array)$data;
-    		
-    	$update_data['content'] 		= $this->_pre_save($type, $this->input->post('content'));
- 		
+    		 		
     	$update_data['last_updated'] 	= date('Y-m-d H:i:s');
     	
-    	$this->db->where('id', $snippet_id);
+    	// Save param data
+    	$params = $snippet->params;
     	
-    	return $this->db->update('snippets', $update_data);
+    	if($update_params):
+	    	
+	    	if(isset($this->snippets->{$snippet->type}->parameters)):
+	    	
+	    		foreach($this->snippets->{$snippet->type}->parameters as $param):
+	    		
+	    			$params[$param] = $this->input->post($param);
+	    		
+	    		endforeach;
+	    	
+	    	endif;
+	    	$update_data['params'] = serialize($params);
+    	
+    	endif;
+  
+     	$update_data['content'] 		= $this->_pre_save($snippet->type, $this->input->post('content'), $params);
+   	
+    	return $this->db->where('id', $snippet->id)->update('snippets', $update_data);
     }
 
 	// --------------------------------------------------------------------------
@@ -190,82 +235,24 @@ class Snippets_m extends MY_Model {
 	 * if necessary.
 	 *
 	 * @access	private
-	 * @param	string - the snippet type slug
+	 * @param	string - the snippet type
 	 * @param	string - the content
+	 * @param	array - the params
+	 * @return	string - the pre_saved content
 	 */ 
-	private function _pre_save($type, $content)
+	private function _pre_save($type, $content, $params = array())
 	{
     	// Process content based on snippet type
     	if(method_exists($this->snippets->{$type}, 'pre_save')):
     	
-    		$this->snippets->{$type}->pre_save($content);
+    		return $this->snippets->{$type}->pre_save($content, $params);
     	
     	endif;
 	
-		// Default is to just return the contetn
+		// Default is to just return the content
 		return $content;
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Process a type
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	string - incoming or outgoing
-	 * @return 	string
-	 */
-	function process_type($type, $string, $mode = 'incoming')
-	{
-		if(trim($string) == ''):
-		
-			return '';
-		
-		endif;
-	
-		if( $type == 'html' ):
-		
-			if( $mode == 'incoming' ):
-			
-				return htmlspecialchars( $string );
-			
-			else:
-			
-				return htmlspecialchars_decode( $string );
-			
-			endif;
-			
-		elseif ( $type == 'image' ):
-		
-			if( $mode == 'incoming' ):
-		
-				return $string;
-		
-			else:
-
-				$this->load->model('files/file_m');
-				$this->load->config('files/files');
-				if ($this->file_m->exists($string)):
-				
-					$image = $this->file_m->get($string);
-					
-					return '<img src="/'. $this->config->item('files_folder') . '/' . $image->filename . '" alt="' . $image->name . '" width="' . $image->width . '" height="' . $image->height . '" >';
-				else:
-					
-					return '';
-				
-				endif;
-		
-			endif;
-		
-		else:
-		
-			return $string;
-		
-		endif;
-	
-	}
 }
 
 /* End of file snippets_m.php */

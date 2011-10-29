@@ -142,7 +142,7 @@ class Admin_setup extends Admin_Controller {
 		// -------------------------------------
 		
 		$this->template
-					->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+					->set('mode', 'create')
 					->set('snippet', $snippet)
 					->build('admin/setup/form');
 	}
@@ -184,58 +184,40 @@ class Admin_setup extends Admin_Controller {
 
 		$snippet = $this->snippets_m->get_snippet( $snippet_id );
 
-		$mode = 'outgoing'; // Switch it up for images
-
-		// -------------------------------------
-		// Set WYSIWYG for snippet Type
-		// -------------------------------------
-
-		if($snippet->type == 'wysiwyg'):
-		
-			$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
-			
-		elseif ($snippet->type == 'image'):
-		
-			$this->load->model('files/file_m');
-			$images = $this->file_m->order_by('name','ASC')->dropdown('name');
-			$images[0] = '-- ' . lang('snippets.snippet_image') . ' --';
-			$this->template->set('images', $images);
-			$mode = 'incoming'; // Reset the mode to incoming because we only need the id & name
-
-		endif;
-
-		// -------------------------------------
-		// Get snippet data
-		// -------------------------------------
-		
-		$snippet->content = $this->snippets_m->process_type( $snippet->type, $snippet->content, $mode );
-
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->form_validation->run())
-		{
-			foreach($this->snippet_rules as $key => $rule)
-			{
-				$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
-			}
-			if( ! $this->snippets_m->update_snippet( $snippet, $snippet_id ) ):
-			{
+		if ($this->form_validation->run()):
+		
+			foreach($this->snippet_rules as $key => $rule):
+			
+				$snippet->{$rule['field']} = $this->input->post($rule['field'], true);
+			
+			endforeach;
+			
+			if( !$this->snippets_m->update_snippet($snippet, true) ):
+			
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));	
-			}
+			
 			endif;
 	
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets/setup') : $this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
-		}
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets/setup') : redirect('admin/snippets/setup/edit_snippet/'.$snippet_id);
+		
+		endif;
+		
+		//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE);
 
 		// -------------------------------------
 		
-		$this->template->set('snippet', $snippet)->build('admin/setup/form');
+		$this->template
+				->set('mode', 'edit')
+				->set('snippet', $snippet)
+				->build('admin/setup/form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -299,7 +281,51 @@ class Admin_setup extends Admin_Controller {
 		
 		endif;
 	}
+
+	// --------------------------------------------------------------------------
+	// AJAX
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Return the parameters for a type
+	 */
+	function snippet_parameters()
+	{
+		// Check for AJAX
+		
+		$this->load->language('snippets');
+		
+		// Check for data
+		$snippet_slug = $this->input->post('snippet_slug');
+		$snippet_id	= $this->input->post('snippet_id');
+		
+		$snippet = null;
+		$html = '';
+		
+		// Get the snippet if need be
+		if($snippet_id) $snippet = $this->snippets_m->get_snippet($snippet_id);
+		
+		// Return the snippet parameters as table rows
+		if(isset($this->snippets_m->snippets->{$snippet_slug}->parameters)):
+			
+			//exit('yep');
+		
+			foreach($this->snippets_m->snippets->{$snippet_slug}->parameters as $param):
+			
+				$html .= '<tr class="temp_row"><td><label for="'.$param.'">'.$this->lang->line('snippets.param.'.$param).'</label></td><td>';
+								
+				isset($snippet->params[$param]) ? $val = $snippet->params[$param] : $val = null;
+			
+				$html .= $this->snippets_m->snippets->{$snippet_slug}->{'param_'.$param}($val);
+				$html .= '</td></tr>';
+			
+			endforeach;
+		
+		endif;
+		
+		exit($html);
+	}
+
 }
 
 /* End of file admin.php */
-/* Location: ./addons/modules/snippets/controllers/admin.php */

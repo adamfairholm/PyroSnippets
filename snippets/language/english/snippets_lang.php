@@ -57,6 +57,13 @@
 	$lang['snippets.snippet_text']							= 'Text';
 	$lang['snippets.snippet_html']							= 'HTML';
 	$lang['snippets.snippet_image']							= 'Image';
+
+	// -------------------------------------
+	// Snippet Parameters
+	// -------------------------------------
+	
+	$lang['snippets.param.directory']						= 'Image directory';
+	$lang['snippets.param.allowed_types']					= 'Allowed file types (Ex: png|jpg)';
 	
 	// -------------------------------------
 	// Snippet List

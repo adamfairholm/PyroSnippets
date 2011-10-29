@@ -14,12 +14,12 @@ class Snippet_text extends Snippet {
 	
 	public $slug			= 'text';
 
-	public function form_output()
+	public function form_output($value)
 	{
 		$form_data = array(
 			'name'        => $this->input_name,
 			'id'          => $this->input_name,
-			'value'       => $this->value
+			'value'       => $value
 		);
 
 		return form_textarea($form_data);

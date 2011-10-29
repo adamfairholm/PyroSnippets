@@ -105,30 +105,12 @@ class Admin extends Admin_Controller {
 		$config[0][0]['rules'] .= '|required';
 
 		// -------------------------------------
-		// Set WYSIWYG for snippet Type
-		// -------------------------------------
-
-		if($snippet->type == 'wysiwyg'):
-		
-			$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
-			
-		elseif ($snippet->type == 'image'):
-		
-			$this->load->model('files/file_m');
-			$images = $this->file_m->order_by('name','ASC')->dropdown('name');
-			$images[0] = '-- ' . lang('snippets.snippet_image') . ' --';
-			$this->template->set('images', $images);
-			$mode = 'incoming'; // Reset the mode to incoming because we only need the id & name
-
-		endif;
-
-		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
 		if($this->form_validation->run()):
 				
-			if( !$this->snippets_m->update_snippet($snippet->type, $snippet_id) ):
+			if( !$this->snippets_m->update_snippet($snippet) ):
 			
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
 			
@@ -144,7 +126,7 @@ class Admin extends Admin_Controller {
 
 		// -------------------------------------
 		
-		$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
+		//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
 		
 		$this->template->set('snippet', $snippet)->build('admin/edit');
 	}

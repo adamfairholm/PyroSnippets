@@ -30,9 +30,9 @@ class Snippet_html extends Snippet {
 		return htmlspecialchars($value);
 	}
 	
-	public function pre_output($value)
+	public function pre_output($value, $params)
 	{
-		htmlspecialchars_decode($value);
+		return htmlspecialchars_decode($value);
 	}
 
 }
