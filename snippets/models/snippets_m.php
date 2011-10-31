@@ -144,14 +144,12 @@ class Snippets_m extends MY_Model {
     /**
      * Insert a snippet
      *
-     * @param	array
+     * @param	obj - snippet
      * @param	int
      * @return 	bool
      */
-    function insert_new_snippet( $data, $user_id )
+    function insert_new_snippet( $snippet, $user_id )
     {
-    	$insert_data = (array)$data;
-    	
     	$now = date('Y-m-d H:i:s');
 
     	// Save param data
@@ -166,6 +164,10 @@ class Snippets_m extends MY_Model {
     	
     	endif;
     	$update_data['params'] = serialize($params);
+    	
+    	$insert_data['name']			= $this->input->post('name');
+    	$insert_data['slug']			= $this->input->post('slug');
+    	$insert_data['type']			= $this->input->post('type');
     	
     	$insert_data['content'] 		= $this->_pre_save($this->input->post('type'), $this->input->post('content'), $params);
     	$insert_data['when_added'] 		= $now;
