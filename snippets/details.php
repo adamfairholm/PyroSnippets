@@ -77,7 +77,7 @@ class Module_Snippets extends Module {
 		// Either this is a new install or upgrading from
 		// a previous version of PyroChunks.
 
-		// First, check and see if PyroChunks is listed in the modules
+		// First, check and see if PyroChunks (old name) is listed in the modules
 		$obj = $this->db->where('slug', 'chunks')->get('modules');
 		if($obj->num_rows() > 0):
 
@@ -131,6 +131,16 @@ class Module_Snippets extends Module {
 
 	public function upgrade($old_version)
 	{
+		// Check and see if our params (added 2.1) is there.
+		if( !$this->db->field_exists('params', 'snippets') ):
+		
+			$this->load->dbforge();
+
+			$fields = array( 'params' => array('type' => 'TEXT', 'null' => true) );
+			$this->dbforge->add_column('snippets', $fields);
+		
+		endif;
+	
 		return true;
 	}
 
