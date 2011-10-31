@@ -38,7 +38,17 @@ class Events_Snippets {
 
 		foreach( $snippets as $snippet ):
 		
-				$this->var_snippets[$snippet->slug] = $this->ci->snippets_m->process_type( $snippet->type, $snippet->content, 'outgoing' );
+			if( method_exists($this->ci->snippets_m->snippets->{$snippet->type}, 'pre_output') ):
+		
+				// Run through pre_output
+				$this->var_snippets[$snippet->slug] = $this->ci->snippets_m->snippets->{$snippet->type}->pre_output($snippet->content, $snippet->params);
+			
+			else:
+				
+				// Don't do anything to the content
+				$this->var_snippets[$snippet->slug] = $snippet->content;
+			
+			endif;
 			
 		endforeach;
 		
