@@ -109,6 +109,7 @@ class Module_Snippets extends Module {
 	                `when_added` datetime DEFAULT NULL,
 	                `last_updated` datetime DEFAULT NULL,
 	                `added_by` int(11) DEFAULT NULL,
+	                `params` text,
 	                PRIMARY KEY (`id`)
 	              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";	
 
