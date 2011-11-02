@@ -125,8 +125,17 @@ class Admin extends Admin_Controller {
 		endif;
 
 		// -------------------------------------
+		// Event
+		// -------------------------------------
 		
-		//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
+		if(method_exists($this->snippets_m->snippets->{$snippet->type}, 'event')):
+		
+			$this->snippets_m->snippets->{$snippet->type}->event();
+			//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
+
+		endif;
+
+		// -------------------------------------
 		
 		$this->template->set('snippet', $snippet)->build('admin/edit');
 	}
