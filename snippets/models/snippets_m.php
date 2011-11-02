@@ -144,7 +144,7 @@ class Snippets_m extends MY_Model {
     /**
      * Insert a snippet
      *
-     * @param	obj - snippet
+     * @param	array
      * @param	int
      * @return 	bool
      */
@@ -163,14 +163,13 @@ class Snippets_m extends MY_Model {
     		endforeach;
     	
     	endif;
-    	$update_data['params'] = serialize($params);
-    	
-    	$insert_data['name']			= $this->input->post('name');
-    	$insert_data['slug']			= $this->input->post('slug');
-    	$insert_data['type']			= $this->input->post('type');
+    	$insert_data['params'] = serialize($params);
     	
     	$insert_data['content'] 		= $this->_pre_save($this->input->post('type'), $this->input->post('content'), $params);
-    	$insert_data['when_added'] 		= $now;
+     	$insert_data['name']			= $this->input->post('name');
+     	$insert_data['slug']			= $this->input->post('slug');
+     	$insert_data['type']			= $this->input->post('type');
+   		$insert_data['when_added'] 		= $now;
     	$insert_data['last_updated'] 	= $now;
     	$insert_data['added_by']		= $user_id;
     	

@@ -115,29 +115,31 @@ class Admin_setup extends Admin_Controller {
 
 		$this->form_validation->set_rules( $this->snippet_rules );
 		
-		foreach($this->snippet_rules as $key => $rule)
-		{
+		foreach($this->snippet_rules as $key => $rule):
+		
 			$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
-		}
+		
+		endforeach;
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()):
+		
 			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
-			{
+			
 				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));	
-			}
+			
 			endif;
 	
 			redirect('admin/snippets/setup');
-		}
+		
+		endif;
 		
 		// -------------------------------------
 		
