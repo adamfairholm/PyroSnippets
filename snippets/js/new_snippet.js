@@ -1,9 +1,4 @@
-function slugify(str)
-{
-	var url = str.toLowerCase().replace(/^\s+|\s+$/g, "").replace(/[_|\s]+/g, "-").replace(/[^a-z0-9-]+/g, "").replace(/[-]+/g, "-").replace(/^-+|-+$/g, "");
-	
-	return url;
-}
+function slugify(str){return str.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');}
 
 jQuery(document).ready(function() {
 
