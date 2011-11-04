@@ -48,15 +48,6 @@
 	$lang['snippets.snippet_slug']							= 'Povezava delčka';
 	$lang['snippets.snippet_type']							= 'Vrsta delčka';
 	$lang['snippets.snippet_content']						= 'Vsebina delčka';
-
-	// -------------------------------------
-	// Snippet Types
-	// -------------------------------------
-
-	$lang['snippets.snippet_wysiwyg']						= 'WYSIWYG';
-	$lang['snippets.snippet_text']							= 'Tekst';
-	$lang['snippets.snippet_html']							= 'HTML';
-	$lang['snippets.snippet_image']							= 'Slika';
 	
 	// -------------------------------------
 	// Snippet List

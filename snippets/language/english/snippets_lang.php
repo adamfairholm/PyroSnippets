@@ -50,15 +50,6 @@
 	$lang['snippets.snippet_content']						= 'Snippet Content';
 
 	// -------------------------------------
-	// Snippet Types
-	// -------------------------------------
-
-	$lang['snippets.snippet_wysiwyg']						= 'WYSIWYG';
-	$lang['snippets.snippet_text']							= 'Text';
-	$lang['snippets.snippet_html']							= 'HTML';
-	$lang['snippets.snippet_image']							= 'Image';
-
-	// -------------------------------------
 	// Snippet Parameters
 	// -------------------------------------
 	
