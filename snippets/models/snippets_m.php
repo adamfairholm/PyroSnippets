@@ -114,13 +114,6 @@ class Snippets_m extends MY_Model {
     	
     	$snippet = $obj->row();
     	
-    	// Use pre_output if necessary
-    	/*if(method_exists($this->snippets->{$snippet->type}, 'pre_output')):
-    	
-    		$snippet->content = $this->snippets->{$snippet->type}->pre_output($snippet->content, $snippet->params);
-    	
-    	endif;*/
-    	
     	// Format the snippet parameters
     	($snippet->params != '') ? $snippet->params = unserialize($snippet->params) : $snippet->params = array();
 	
