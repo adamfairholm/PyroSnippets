@@ -185,7 +185,7 @@ class Snippets_m extends MY_Model {
      * @param	[array] - extra data items
      * @return 	bool
      */
-    function update_snippet($snippet, $update_params = false, $data = array())
+    function update_snippet($snippet, $setup = false, $data = array())
     {
     	$update_data = (array)$data;
     		 		
@@ -194,8 +194,14 @@ class Snippets_m extends MY_Model {
     	// Save param data
     	$params = $snippet->params;
     	
-    	if($update_params):
+    	/**
+    	 * We are sharing this function with the content-only update,
+    	 * so if we need to update the snippet on the setup side,
+    	 * we have a few more considerations
+    	 */
+    	if($setup):
 	    	
+	    	// Update params
 	    	if(isset($this->snippets->{$snippet->type}->parameters)):
 	    	
 	    		foreach($this->snippets->{$snippet->type}->parameters as $param):
@@ -206,11 +212,15 @@ class Snippets_m extends MY_Model {
 	    	
 	    	endif;
 	    	$update_data['params'] = serialize($params);
+
+	     	$update_data['name']			= $this->input->post('name');
+	     	$update_data['slug']			= $this->input->post('slug');
+	     	$update_data['type']			= $this->input->post('type');
     	
     	endif;
   
      	$update_data['content'] 		= $this->_pre_save($snippet->type, $this->input->post('content'), $params);
-   	
+
     	return $this->db->where('id', $snippet->id)->update('snippets', $update_data);
     }
 

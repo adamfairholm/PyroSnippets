@@ -166,16 +166,6 @@ class Admin_setup extends Admin_Controller {
 
 		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[update]';
 		
-		// We need to edit the rules if we are a user that
-		// can't access certain things.
-		if(!group_has_role('snippets', 'admin_snippets')):
-		
-			unset($this->snippet_rules[0]);
-			unset($this->snippet_rules[1]);
-			unset($this->snippet_rules[2]);
-		
-		endif;
-
 		$this->form_validation->set_rules( $this->snippet_rules );
 
 		// -------------------------------------
@@ -210,8 +200,6 @@ class Admin_setup extends Admin_Controller {
 		
 		endif;
 		
-		//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE);
-
 		// -------------------------------------
 		
 		$this->template
