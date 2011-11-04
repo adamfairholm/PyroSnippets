@@ -32,14 +32,7 @@
 	
 	</table>
 	
-	<p>
-		<input type="hidden" name="snipped_id" id="snippet_id" value="<?php if(isset($snippet->id)) echo $snippet->id; ?>" />
-	
-		<button type="submit" name="btnAction" value="save" class="btn blue">Save</button>				
-		<a href="<?php echo site_url('admin/snippets/setup'); ?>" class="btn gray cancel">Cancel</a>	
-	</p>
-
-<?php echo form_hidden('content', ''); ?>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 
 <?php echo form_close(); ?>
 

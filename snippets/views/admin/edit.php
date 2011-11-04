@@ -13,10 +13,7 @@
 		</li>
 	</ul>
 		
-
-	<button type="submit" name="btnAction" value="save" class="btn blue">Save</button>
-	<button type="submit" name="btnAction" value="save_exit" class="btn blue">Save &amp; Exit</button>
-	<a href="<?php echo site_url('admin/snippets');?>" class="btn gray">Cancel</a>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 
 	<?php echo form_close(); ?>
 
