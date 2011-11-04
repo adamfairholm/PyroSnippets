@@ -112,7 +112,9 @@ class Snippets_m extends MY_Model {
 	{     
 		$obj = $this->db->where('id', $snippet_id)->limit(1)->get('snippets');
     	
-    	$snippet = $obj->row();
+    	if($obj->num_rows() == 0) return null;
+    	
+    	$snippet = $obj->row();    	
     	
     	// Format the snippet parameters
     	($snippet->params != '') ? $snippet->params = unserialize($snippet->params) : $snippet->params = array();
@@ -141,7 +143,7 @@ class Snippets_m extends MY_Model {
      * @param	int
      * @return 	bool
      */
-    function insert_new_snippet( $snippet, $user_id )
+    function insert_new_snippet($snippet, $user_id)
     {
     	$now = date('Y-m-d H:i:s');
 
@@ -254,6 +256,10 @@ class Snippets_m extends MY_Model {
     		return $this->snippets->{$type}->pre_save($content, $params);
     	
     	endif;
+    	
+    	// If there is no content, let's make the null value
+    	// explicit
+    	if(!$content) return null;
 	
 		// Default is to just return the content
 		return $content;
