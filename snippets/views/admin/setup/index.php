@@ -29,8 +29,8 @@
 							<td><?php echo $snippet_types[$snippet->type]; ?></td>
 							<td>{{ snippet:<?php echo $snippet->slug; ?> }}</td>
 							<td class="actions">
-								<a href="<?php echo site_url('admin/snippets/setup/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('snippets.snippet_edit'); ?></a>
-								<?php if(group_has_role('snippets', 'admin_snippets')): ?><a href="<?php echo site_url('admin/snippets/setup/delete_snippet/'.$snippet->id);?>" class="confirm button delete"><?php echo lang('snippets.snippet_delete'); ?></a><?php endif; ?>
+								<a href="<?php echo site_url('admin/snippets/setup/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('global:edit'); ?></a>
+								<?php if(group_has_role('snippets', 'admin_snippets')): ?><a href="<?php echo site_url('admin/snippets/setup/delete_snippet/'.$snippet->id);?>" class="confirm button delete"><?php echo lang('global:delete'); ?></a><?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

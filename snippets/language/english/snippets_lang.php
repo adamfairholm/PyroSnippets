@@ -54,15 +54,7 @@
 	// -------------------------------------
 	
 	$lang['snippets.param.directory']						= 'Image directory';
-	$lang['snippets.param.allowed_types']					= 'Allowed file types (Ex: png|jpg)';
-	
-	// -------------------------------------
-	// Snippet List
-	// -------------------------------------
-	
-	$lang['snippets.snippet_edit']							= 'Edit';
-	$lang['snippets.snippet_delete']						= 'Delete';
-	
+	$lang['snippets.param.allowed_types']					= 'Allowed file types (Ex: png|jpg)';	
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/english/snippets_lang.php */

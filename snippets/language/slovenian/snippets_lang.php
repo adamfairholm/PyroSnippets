@@ -49,12 +49,5 @@
 	$lang['snippets.snippet_type']							= 'Vrsta delčka';
 	$lang['snippets.snippet_content']						= 'Vsebina delčka';
 	
-	// -------------------------------------
-	// Snippet List
-	// -------------------------------------
-	
-	$lang['snippets.snippet_edit']							= 'Uredi';
-	$lang['snippets.snippet_delete']						= 'Izbriši';
-
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/slovenian/snippets_lang.php */

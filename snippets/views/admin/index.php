@@ -27,7 +27,7 @@
 							<td><?php echo $snippet->name; ?></td>
 							<td><?php echo $snippet_types[$snippet->type]; ?></td>
 							<td class="actions">
-								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('snippets.snippet_edit'); ?></a>
+								<a href="<?php echo site_url('admin/snippets/edit_snippet/'.$snippet->id);?>" class="button edit"><?php echo lang('global:edit'); ?></a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
