@@ -14,6 +14,15 @@ class Snippet_text extends Snippet {
 	
 	public $slug			= 'text';
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Form Input
+	 *
+	 * @access	public
+	 * @param	string - form value
+	 * @return 	string
+	 */
 	public function form_output($value)
 	{
 		$form_data = array(

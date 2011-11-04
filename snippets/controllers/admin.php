@@ -201,7 +201,5 @@ class Admin extends Admin_Controller {
 		
 		endif;
 	}
-}
 
-/* End of file admin.php */
-/* Location: ./addons/modules/snippets/controllers/admin.php */
+}

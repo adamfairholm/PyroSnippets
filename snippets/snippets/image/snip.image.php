@@ -18,6 +18,13 @@ class Snippet_image extends Snippet {
 
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Form Input
+	 *
+	 * @access	public
+	 * @param	string - form value
+	 * @return 	string
+	 */
 	public function form_output($value)
 	{
 		$img = $this->get_image_url($value, true);
@@ -119,45 +126,7 @@ class Snippet_image extends Snippet {
 			$this->ci->image_lib->initialize($img_config);
 			$this->ci->image_lib->resize();						
 			$this->ci->image_lib->clear();
-			
-			// -------------------------------------
-			// Optional Resize
-			// -------------------------------------
-			
-			/*if( is_numeric($field->field_data['resize_width']) ):
-			
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder') . '/'.$image['file_name'];
-				$img_config['quality']			= '100%';
-				$img_config['create_thumb'] 	= FALSE;
-				$img_config['maintain_ratio'] 	= TRUE;
-				$img_config['width']	 		= $field->field_data['resize_width'];
-				
-				if( is_numeric($field->field_data['resize_height']) ):
-				
-					// We are using a hard numeric value for the resize h&w
-					$img_config['height']	 		= $field->field_data['resize_height'];
-					$img_config['maintain_ratio']	= FALSE;
-					
-				else:
-				
-					// We need to come close to what the height is, because
-					// they left that blank
-					
-					$scale = $image['image_width'] / $img_config['width'];
-					
-					$img_config['height']	 		= $image['image_height']/$scale;
-					$img_config['maintain_ratio']	= TRUE;
-				
-				endif;
-				
-				$this->CI->image_lib->initialize($img_config);
-				
-				$this->CI->image_lib->resize();
-
-				$this->CI->image_lib->clear();
-			
-			endif;*/
-			
+						
 			// Use resized numbers for the files module.
 			if( isset($img_config['width']) and is_numeric($img_config['width']) ):
 			
@@ -194,6 +163,13 @@ class Snippet_image extends Snippet {
 
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Output the image URL
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
 	public function pre_output($value)
 	{
 		return $this->get_image_url($value);
@@ -201,6 +177,15 @@ class Snippet_image extends Snippet {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Directory Parameter
+	 *
+	 * Choose the directory to upload image to
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
 	public function param_directory($value)
 	{
 		// Get the folders
@@ -233,15 +218,25 @@ class Snippet_image extends Snippet {
 	/**
 	 * Param Allowed Types
 	 *
+	 * @access	public
+	 * @param	string
 	 * @return	string
 	 */
-	public function param_allowed_types( $value = '' )
+	public function param_allowed_types($value = '')
 	{
 		return form_input('allowed_types', $value);
 	}
 
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Get the image URL
+	 *
+	 * @access	private
+	 * @param	int - id
+	 * @param	bool - should we grab the thumb
+	 * @return	string
+	 */
 	private function get_image_url($id, $thumb = false)
 	{
 		if(!$id or !is_numeric($id)) return null;

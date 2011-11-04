@@ -151,5 +151,5 @@ class Module_Snippets extends Module {
 	{
 		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
 	}
+
 }
-/* End of file details.php */

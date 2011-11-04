@@ -220,13 +220,13 @@ class Admin_setup extends Admin_Controller {
 		role_or_die('snippets', 'admin_snippets');
 
 		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
-		{
+		
 			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	
-		}
+		
 		else:
-		{
+		
 			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));	
-		}
+		
 		endif;
 
 		redirect('admin/snippets/setup');
@@ -315,5 +315,3 @@ class Admin_setup extends Admin_Controller {
 	}
 
 }
-
-/* End of file admin.php */

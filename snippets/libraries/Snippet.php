@@ -34,4 +34,4 @@ class Snippet {
 		$this->ci->load->helper('form');
 	}
 
-} 
+}

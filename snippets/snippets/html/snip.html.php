@@ -13,7 +13,16 @@ class Snippet_html extends Snippet {
 	public $name			= 'HTML';
 	
 	public $slug			= 'html';
+
+	// --------------------------------------------------------------------------
 	
+	/**
+	 * Form Input
+	 *
+	 * @access	public
+	 * @param	string - form value
+	 * @return 	string
+	 */
 	public function form_output($value)
 	{
 		$form_data = array(
@@ -25,12 +34,31 @@ class Snippet_html extends Snippet {
 		return form_textarea($form_data);
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Saving to Database
+	 *
+	 * @access	public
+	 * @param	string - form value
+	 * @return 	string
+	 */
 	public function pre_save($value)
 	{
 		return htmlspecialchars($value);
 	}
+
+	// --------------------------------------------------------------------------
 	
-	public function pre_output($value, $params)
+	/**
+	 * Form Input
+	 *
+	 * @access	public
+	 * @param	string - form value
+	 * @Param	[array] - option parameters
+	 * @return 	string
+	 */
+	public function pre_output($value, $params = array())
 	{
 		return htmlspecialchars_decode($value);
 	}

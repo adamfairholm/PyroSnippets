@@ -17,10 +17,11 @@ class Snippet_wysiwyg extends Snippet {
     // --------------------------------------------------------------------------
 	
 	/**
-	 * Form Output
+	 * Form Input
 	 *
 	 * @access	public
-	 * @return	string
+	 * @param	string - form value
+	 * @return 	string
 	 */
 	public function form_output($value)
 	{
@@ -37,7 +38,7 @@ class Snippet_wysiwyg extends Snippet {
     // --------------------------------------------------------------------------
 
 	/**
-	 * Event - add WYSIWYG items
+	 * Event - add WYSIWYG items to the header
 	 *
 	 * @access	public
 	 * @return	void

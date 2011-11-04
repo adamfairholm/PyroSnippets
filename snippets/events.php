@@ -58,5 +58,5 @@ class Events_Snippets {
 		
 		$this->ci->load->vars('snippet', $this->var_snippets);
     }
+
 }
-/* End of file addons/modules/snippets/events.php */

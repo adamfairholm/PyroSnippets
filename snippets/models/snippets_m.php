@@ -265,5 +265,3 @@ class Snippets_m extends MY_Model {
 	}
 
 }
-
-/* End of file snippets_m.php */
