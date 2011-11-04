@@ -210,9 +210,11 @@ class Snippets_m extends MY_Model {
 	     	$update_data['slug']			= $this->input->post('slug');
 	     	$update_data['type']			= $this->input->post('type');
     	
-    	endif;
-  
-     	$update_data['content'] 		= $this->_pre_save($snippet->type, $this->input->post('content'), $params);
+    	else:
+    	
+			$update_data['content'] 		= $this->_pre_save($snippet->type, $this->input->post('content'), $params);
+    	
+    	endif;  
 
     	return $this->db->where('id', $snippet->id)->update('snippets', $update_data);
     }
