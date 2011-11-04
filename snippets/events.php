@@ -57,9 +57,6 @@ class Events_Snippets {
 		// -------------------------------------
 		
 		$this->ci->load->vars('snippet', $this->var_snippets);
-		
-		// Legacy
-		$this->ci->load->vars('chunk', $this->var_snippets);
     }
 }
 /* End of file addons/modules/snippets/events.php */
