@@ -32,7 +32,13 @@
 	
 	</table>
 	
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+	<?php 
+		
+		($mode == 'create') ? $buttons = array('save', 'cancel') : $buttons = array('save', 'save_exit', 'cancel'); 
+		
+		$this->load->view('admin/partials/buttons', array('buttons' => $buttons))
+	
+	?>
 
 <?php echo form_close(); ?>
 
