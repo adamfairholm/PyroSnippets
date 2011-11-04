@@ -105,7 +105,7 @@ class Module_Snippets extends Module {
 	                `name` varchar(60) NOT NULL,
 	                `slug` varchar(60) NOT NULL,
 	                `type` varchar(10) NOT NULL,
-	                `content` text,
+	                `content` text DEFAULT NULL,
 	                `when_added` datetime DEFAULT NULL,
 	                `last_updated` datetime DEFAULT NULL,
 	                `added_by` int(11) DEFAULT NULL,
