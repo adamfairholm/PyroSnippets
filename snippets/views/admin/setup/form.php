@@ -29,6 +29,16 @@
 			<td><label for="type"><?php echo lang('snippets.snippet_type');?></label></td>
 			<td><?php echo form_dropdown('type', $this->snippets_m->snippet_array, $snippet->type, 'id="type"'); ?></td>
 		</tr>
+		
+		<?php if($mode == 'edit' and isset($this->snippets_m->snippets->{$snippet->type}->parameters)): foreach($this->snippets_m->snippets->{$snippet->type}->parameters as $param): ?>
+		
+		<tr class="temp_row">
+			<td><label for="<?php echo $param; ?>"><?php echo $this->lang->line('snippets.param.'.$param); ?></label></td>
+			<?php isset($snippet->params[$param]) ? $val = $snippet->params[$param] : $val = null; ?>
+			<td><?php echo $this->snippets_m->snippets->{$snippet->type}->{'param_'.$param}($val); ?></td>
+		</tr>
+		
+		<?php endforeach; endif; ?>
 	
 	</table>
 	
