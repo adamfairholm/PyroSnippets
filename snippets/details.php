@@ -10,7 +10,7 @@
  */ 
 class Module_Snippets extends Module {
 
-	public $version = '2.1';
+	public $version = '2.2';
 	
 	public $db_pre;
 
