@@ -178,7 +178,7 @@ class Admin_setup extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->form_validation->run()):
+		if($this->form_validation->run()):
 		
 			foreach($this->snippet_rules as $key => $rule):
 			
@@ -280,7 +280,8 @@ class Admin_setup extends Admin_Controller {
 	function snippet_parameters()
 	{
 		// Check for AJAX
-		
+		if(!$this->input->is_ajax_request()) show_error(lang('general_error_label'));
+
 		$this->load->language('snippets');
 		
 		// Check for data
