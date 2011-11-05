@@ -6,11 +6,11 @@ PyroSnippets allows users to create and manage small snippets of reusable conten
 
 h2. Documentation
 
-Documentation can be founder "here":http://parse19.com/pyrosnippets/docs.
+Documentation can be found "here":http://parse19.com/pyrosnippets/docs.
 
 h2. Changelog
 
-"http://parse19.com/pyrosnippets/docs/changelog":http://parse19.com/pyrosnippets/docs/changelog
+The PyroSnippets changelog can be found "here":http://parse19.com/pyrosnippets/docs/changelog.
 
 h2. Authors
 
