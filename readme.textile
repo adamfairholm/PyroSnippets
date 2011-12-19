@@ -1,8 +1,8 @@
-h1. PyroSnippets 2.2
+h1. PyroSnippets 2.2.1
 
 (Formerly PyroChunks, PyroSnippets had a name change in order to not be confused with the new feature of PyroCMS, page chunks. See update instructions below to go from PyroChunks to PyroSnippets.)
 
-PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited as text, WYSIWYG, and HTML content.
+PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited like text, images, WYSIWYG, and HTML code.
 
 h2. Documentation
 
