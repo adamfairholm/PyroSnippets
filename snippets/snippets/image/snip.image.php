@@ -224,7 +224,7 @@ class Snippet_image extends Snippet {
 		
 		endforeach;
 	
-		return form_dropdown('directory', $choices, $value);
+		return form_dropdown('directory', $choices, $value, 'id="directory"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -238,7 +238,7 @@ class Snippet_image extends Snippet {
 	 */
 	public function param_allowed_types($value = '')
 	{
-		return form_input('allowed_types', $value);
+		return form_input('allowed_types', $value, 'id="allowed_types"');
 	}
 
 	// --------------------------------------------------------------------------
