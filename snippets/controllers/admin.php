@@ -10,8 +10,22 @@
  */ 
 class Admin extends Admin_Controller {
 
+	/**
+	 * Section
+	 *
+	 * @access	protected
+	 * @var		string
+	 */
 	protected $section = 'content';
+
+	// --------------------------------------------------------------------------
 	
+	/**
+	 * Valid Snippet Types
+	 *
+	 * @access	protected
+	 * @var		array
+	 */
 	protected $snippet_types = array(
 		'wysiwyg' 	=> 'WYSIWYG',
 		'text' 		=> 'Text',
@@ -21,6 +35,12 @@ class Admin extends Admin_Controller {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Construct
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,6 +56,14 @@ class Admin extends Admin_Controller {
 	// CRUD Functions
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Index
+	 *
+	 * Load snippet list.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function index()
 	{
 		$this->list_snippets();
@@ -46,6 +74,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * List snippets
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	public function list_snippets($offset = 0)
 	{	
@@ -73,6 +103,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * Edit a snippet
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	public function edit_snippet($snippet_id = null)
 	{			
@@ -145,6 +177,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * Delete a snippet
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	function delete_snippet( $snippet_id = 0 )
 	{		
@@ -171,11 +205,12 @@ class Admin extends Admin_Controller {
 	/**
 	 * Check slug to make sure it is 
 	 *
+	 * @access	public
 	 * @param	string - slug to be tested
 	 * @param	mode - update or insert
 	 * @return	bool
 	 */
-	function _check_slug( $slug, $mode )
+	public function _check_slug($slug, $mode)
 	{
 		$obj = $this->db->where('slug', $slug)->get('snippets');
 		

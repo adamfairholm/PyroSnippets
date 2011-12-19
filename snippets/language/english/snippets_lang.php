@@ -6,7 +6,7 @@
  * @package		PyroCMS
  * @subpackage	PyroSnippets
  * @category	language
- * @author		Adam Fairholm (@adamfairholm)
+ * @author		Parse19
  */
 
 	$lang['snippets.name']									= 'Snippets';

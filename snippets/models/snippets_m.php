@@ -10,10 +10,39 @@
  */ 
 class Snippets_m extends MY_Model {
 
+	/**
+	 * The directory where the snippets
+	 * are in. Set in the construct().
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $snippets_dir;
 
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Snippets
+	 *
+	 * Contains all of our snippet
+	 * objects.
+	 *
+	 * @access	public
+	 * @var		obj
+	 */
 	public $snippets;
+
+    // --------------------------------------------------------------------------
 	
+	/**
+	 * Snippet Array
+	 *
+	 * Array of snippet slug => snippet name
+	 * for various places.
+	 *
+	 * @access	public
+	 * @var		array
+	 */
 	public $snippet_array = array();
 
     // --------------------------------------------------------------------------
@@ -41,11 +70,12 @@ class Snippets_m extends MY_Model {
     /**
      * Load snippets into a snippet obj
      *
+     * @access	public
      * @param	int limit
      * @param	int offset
      * @return	obj
      */
-    function load_snippets()
+    public function load_snippets()
 	{
 		$this->module_details['path'];
 	
@@ -84,11 +114,12 @@ class Snippets_m extends MY_Model {
     /**
      * Get some snippets
      *
+     * @access	public
      * @param	int limit
      * @param	int offset
      * @return	obj
      */
-    function get_snippets($limit = FALSE, $offset = FALSE)
+    public function get_snippets($limit = FALSE, $offset = FALSE)
 	{
 		$this->db->order_by('name', 'desc');
 	
@@ -105,10 +136,11 @@ class Snippets_m extends MY_Model {
     /**
      * Get a snippet
      *
+     * @access	public
      * @param	int
      * @return	obj
      */
-    function get_snippet($snippet_id)
+    public function get_snippet($snippet_id)
 	{     
 		$obj = $this->db->where('id', $snippet_id)->limit(1)->get('snippets');
     	
@@ -127,9 +159,10 @@ class Snippets_m extends MY_Model {
     /**
      * Count snippets
      *
+     * @access	public
      * @return	int
      */
-    function count_all()
+    public function count_all()
 	{     
 		return $this->db->count_all('snippets');
 	}
@@ -139,11 +172,12 @@ class Snippets_m extends MY_Model {
     /**
      * Insert a snippet
      *
+     * @access	public
      * @param	array
      * @param	int
      * @return 	bool
      */
-    function insert_new_snippet($snippet, $user_id)
+	public function insert_new_snippet($snippet, $user_id)
     {
     	$now = date('Y-m-d H:i:s');
 
@@ -176,11 +210,12 @@ class Snippets_m extends MY_Model {
     /**
      * Update a snippet
      *
+     * @access	public
      * @param	int
      * @param	[array] - extra data items
      * @return 	bool
      */
-    function update_snippet($snippet, $setup = false, $data = array())
+	public function update_snippet($snippet, $setup = false, $data = array())
     {
     	$update_data = (array)$data;
     		 		
@@ -226,10 +261,11 @@ class Snippets_m extends MY_Model {
     /**
      * Delete a snippet
      *
+     * @access	public
      * @param	int
      * @return 	bool
      */    
-    function delete_snippet($snippet_id)
+	public function delete_snippet($snippet_id)
     {
     	$this->db->where('id', $snippet_id);
     	

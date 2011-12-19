@@ -10,8 +10,22 @@
  */ 
 class Admin_setup extends Admin_Controller {
 
+	/**
+	 * Section
+	 *
+	 * @access	protected
+	 * @var		string
+	 */
 	protected $section = 'setup';
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Snippet Validation Rules
+	 *
+	 * @access	protected
+	 * @var		array
+	 */
 	protected $snippet_rules = array(
 		array(
 			'field' => 'name',
@@ -35,6 +49,14 @@ class Admin_setup extends Admin_Controller {
 		)
 	);
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Valid Snippet Types
+	 *
+	 * @access	protected
+	 * @var		array
+	 */
 	protected $snippet_types = array(
 		'wysiwyg' 	=> 'WYSIWYG',
 		'text' 		=> 'Text',
@@ -59,6 +81,12 @@ class Admin_setup extends Admin_Controller {
 	// CRUD Functions
 	// --------------------------------------------------------------------------
 
+	/**
+	 * List Snippets
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function index()
 	{
 		$this->list_snippets();
@@ -69,6 +97,8 @@ class Admin_setup extends Admin_Controller {
 	/**
 	 * List snippets
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	public function list_snippets($offset = 0)
 	{	
@@ -96,6 +126,8 @@ class Admin_setup extends Admin_Controller {
 	/**
 	 * Create a new snippet
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	function create_snippet()
 	{		
@@ -124,9 +156,9 @@ class Admin_setup extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 
-		if ($this->form_validation->run()):
+		if($this->form_validation->run()):
 		
-			if( ! $this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
+			if( !$this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
 			
 				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
 			
@@ -153,6 +185,8 @@ class Admin_setup extends Admin_Controller {
 	/**
 	 * Edit a snippet
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	public function edit_snippet($snippet_id = null)
 	{			
@@ -213,6 +247,8 @@ class Admin_setup extends Admin_Controller {
 	/**
 	 * Delete a snippet
 	 *
+	 * @access	public
+	 * @return	void
 	 */
 	function delete_snippet( $snippet_id = 0 )
 	{		
@@ -239,11 +275,12 @@ class Admin_setup extends Admin_Controller {
 	/**
 	 * Check slug to make sure it is 
 	 *
+	 * @access	public
 	 * @param	string - slug to be tested
 	 * @param	mode - update or insert
 	 * @return	bool
 	 */
-	function _check_slug( $slug, $mode )
+	public function _check_slug($slug, $mode)
 	{
 		$obj = $this->db->where('slug', $slug)->get('snippets');
 		
@@ -276,8 +313,11 @@ class Admin_setup extends Admin_Controller {
 
 	/**
 	 * Return the parameters for a type
+	 *
+	 * @access	public
+	 * @return	void
 	 */
-	function snippet_parameters()
+	public function snippet_parameters()
 	{
 		// Check for AJAX
 		if(!$this->input->is_ajax_request()) show_error(lang('general_error_label'));

@@ -10,8 +10,22 @@
  */ 
 class Snippet_html extends Snippet {
 
+	/**
+	 * Name of the Snippet
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $name			= 'HTML';
 	
+    // --------------------------------------------------------------------------
+	
+	/**
+	 * Snippet Slug
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $slug			= 'html';
 
 	// --------------------------------------------------------------------------

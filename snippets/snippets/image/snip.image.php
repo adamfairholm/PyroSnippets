@@ -10,8 +10,22 @@
  */ 
 class Snippet_image extends Snippet {
 
+	/**
+	 * Name of the Snippet
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $name			= 'Image';
 	
+    // --------------------------------------------------------------------------
+	
+	/**
+	 * Snippet Slug
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $slug			= 'image';
 	
 	public $parameters 		= array('directory', 'allowed_types');

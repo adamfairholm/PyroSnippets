@@ -10,8 +10,22 @@
  */ 
 class Snippet_wysiwyg extends Snippet {
 
+	/**
+	 * Name of the Snippet
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $name			= 'WYSIWYG';
+
+    // --------------------------------------------------------------------------
 	
+	/**
+	 * Snippet Slug
+	 *
+	 * @access	public
+	 * @var		string
+	 */
 	public $slug			= 'wysiwyg';
 
     // --------------------------------------------------------------------------
@@ -31,8 +45,10 @@ class Snippet_wysiwyg extends Snippet {
 			'id'          => $this->input_name,
 			'value'       => htmlspecialchars_decode($value)
 		);
+		
+		$this->ci->load->helper('html');
 
-		return form_textarea($form_data);
+		return br().br().form_textarea($form_data);
 	}
 
     // --------------------------------------------------------------------------
@@ -45,7 +61,7 @@ class Snippet_wysiwyg extends Snippet {
 	 */	
 	public function event()
 	{
-		get_instance()->template->append_metadata(get_instance()->load->view('fragments/wysiwyg', array(), TRUE));
+		$this->ci->template->append_metadata(get_instance()->load->view('fragments/wysiwyg', array(), TRUE));
 	}
 
 }
