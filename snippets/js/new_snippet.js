@@ -16,7 +16,6 @@ jQuery(document).ready(function() {
 			data: 'snippet_slug='+snippet_slug+'&snippet_id='+snippet_id,
 			url:  SITE_URL+'admin/snippets/setup/snippet_parameters',
 			success: function(returned_html){
-				//alert(returned_html);
 				jQuery('.temp_row').remove();
 				jQuery('.form_inputs ul').append(returned_html);
 				pyro.chosen();
