@@ -49,5 +49,11 @@
 	$lang['snippets.snippet_type']							= 'Vrsta delčka';
 	$lang['snippets.snippet_content']						= 'Vsebina delčka';
 	
+	// -------------------------------------
+	// Snippet Parameters
+	// -------------------------------------
+	$lang['snippets.param.directory']						= 'Mapa s slikami';
+	$lang['snippets.param.allowed_types']						= 'Dovoljene vrste datotek (Npr: png|jpg)';	
+	
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/slovenian/snippets_lang.php */
