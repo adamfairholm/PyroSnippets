@@ -8,14 +8,14 @@ jQuery(document).ready(function() {
 		var snippet_slug = $('#type').val();
 		var snippet_id = $('#snippet_id').val();
 		
-		jQuery.ajax({
+		$.ajax({
 			dataType: "text",
 			type: "POST",
-			data: 'snippet_slug='+snippet_slug+'&snippet_id='+snippet_id,
+			data: { snippet_slug : snippet_slug, snippet_id : snippet_id },
 			url:  SITE_URL+'admin/snippets/setup/snippet_parameters',
 			success: function(returned_html){
-				jQuery('.temp_row').remove();
-				jQuery('.form_inputs ul').append(returned_html);
+				$('.snip_parameters').remove();
+				$('#form_inputs').append(returned_html);
 				pyro.chosen();
 			}
 		});	
