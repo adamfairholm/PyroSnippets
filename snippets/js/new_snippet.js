@@ -1,8 +1,6 @@
-function slugify(str){return str.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');}
-
 jQuery(document).ready(function() {
 
-	$('#name').keyup(function() { $('#slug').val(slugify($('#name').val())); });
+	pyro.generate_slug('#name', '#slug');
 
 	// Add fields
 	$('#type').change(function() {
