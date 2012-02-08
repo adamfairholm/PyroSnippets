@@ -42,17 +42,10 @@ class Module_Snippets extends Module {
 			'menu' => 'content',
 			'author' => 'Parse19',
 			'roles' => array('admin_snippets'),
-
 			'sections' => array(
 			    'content' => array(
 				    'name' => 'snippets.content',
-				    'uri' => 'admin/snippets',
-				    'shortcuts' => array(
-						array(
-					 	   'name' => 'snippets.name',
-						    'uri' => 'admin/snippets',
-						),
-					),
+				    'uri' => 'admin/snippets'
 				),
 				'setup' => array(
 				    'name' => 'snippets.setup',
