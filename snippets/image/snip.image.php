@@ -27,7 +27,15 @@ class Snippet_image extends Snippet {
 	 * @var		string
 	 */
 	public $slug			= 'image';
-	
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Snippet Parameters
+	 *
+	 * @access	public
+	 * @var		array
+	 */	
 	public $parameters 		= array('directory', 'allowed_types');
 
 	// --------------------------------------------------------------------------
