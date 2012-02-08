@@ -32,7 +32,7 @@ class Module_Snippets extends Module {
 		        'sl' => 'Delčki strani'
 		    ),
 		    'description' => array(
-		        'en' => 'Create and manage small bits of text or HTML content.',
+		        'en' => 'Create and manage small bits of content.',
 		        'ar' => 'أنشئ وعدّل بعض النصوص أو أكواد HTML.',
    		        'sl' => 'Ustvari in uredi male delčke strani z vsebino iz teksta ali HTML-ja.',
 		    ),
