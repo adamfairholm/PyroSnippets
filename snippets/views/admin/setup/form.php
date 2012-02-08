@@ -13,7 +13,7 @@
 
 <div class="form_inputs">
 
-	<ul>
+	<ul id="form_inputs">
 		<li>
 			<label for="name"><?php echo lang('snippets.snippet_name');?> <span>*</span></label>
 			<div class="input"><?php echo form_input('name', htmlspecialchars_decode($snippet->name), 'maxlength="60" id="name"'); ?></div>
@@ -31,7 +31,7 @@
 		
 		<?php if($mode == 'edit' and isset($this->snippets_m->snippets->{$snippet->type}->parameters)): foreach($this->snippets_m->snippets->{$snippet->type}->parameters as $param): ?>
 		
-		<li>
+		<li class="snip_parameters">
 			<label for="<?php echo $param; ?>"><?php echo $this->lang->line('snippets.param.'.$param); ?></label>
 			<?php isset($snippet->params[$param]) ? $val = $snippet->params[$param] : $val = null; ?>
 			<div class="input"><?php echo $this->snippets_m->snippets->{$snippet->type}->{'param_'.$param}($val); ?></div>

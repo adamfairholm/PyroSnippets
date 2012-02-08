@@ -341,7 +341,7 @@ class Admin_setup extends Admin_Controller {
 		
 			foreach($this->snippets_m->snippets->{$snippet_slug}->parameters as $param):
 			
-				$html .= '<li><label for="'.$param.'">'.$this->lang->line('snippets.param.'.$param).'</label>';
+				$html .= '<li class="snip_parameters"><label for="'.$param.'">'.$this->lang->line('snippets.param.'.$param).'</label>';
 								
 				isset($snippet->params[$param]) ? $val = $snippet->params[$param] : $val = null;
 			
