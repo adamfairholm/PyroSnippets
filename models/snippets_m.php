@@ -85,19 +85,22 @@ class Snippets_m extends MY_Model {
 		$this->load->helper('directory');
 		
 		$dir = directory_map($this->snippets_dir.'/snippets/', 1);
-		
+
 		foreach($dir as $folder):
-		
-			// Attempt to load the snippet file.
-			if(file_exists($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php')):
-			
-				require_once($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php');
-			
-				//$this->snippets->$folder = new Snippet();
-				$class_name = 'Snippet_'.$folder;
-				$this->snippets->$folder = new $class_name();
-			
-			endif;
+
+            if ($folder != 'index.html')
+            {	
+    			// Attempt to load the snippet file.
+    			if(file_exists($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php')):
+    			
+    				require_once($this->snippets_dir.'/snippets/'.$folder.'/snip.'.$folder.'.php');
+    			
+    				//$this->snippets->$folder = new Snippet();
+    				$class_name = 'Snippet_'.$folder;
+    				$this->snippets->$folder = new $class_name();
+    			
+    			endif;
+            }
 		
 		endforeach;
 				
