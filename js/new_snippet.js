@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
 
-	pyro.generate_slug('#name', '#slug');
+	pyro.generate_slug('#name', '#slug', '_');
 
 	// Add fields
 	$('#type').change(function() {
