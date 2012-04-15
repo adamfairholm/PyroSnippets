@@ -1,10 +1,10 @@
-h1. PyroSnippets
+# PyroSnippets
 
 (Formerly PyroChunks, PyroSnippets had a name change in order to not be confused with the new feature of PyroCMS, page chunks. See update instructions below to go from PyroChunks to PyroSnippets.)
 
 PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited like text, images, WYSIWYG, and HTML code.
 
-h2. Versions
+## Versions
 
 <table>
 	<tr>
@@ -30,15 +30,15 @@ h2. Versions
 
 </table>
 
-h2. Documentation
+## Documentation
 
 Documentation can be found "here":http://parse19.com/pyrosnippets/docs.
 
-h2. Changelog
+## Changelog
 
 The PyroSnippets changelog can be found "here":http://parse19.com/pyrosnippets/docs/changelog.
 
-h2. Authors
+## Authors
 
-* "Adam Fairholm":http://twitter.com/adamfairholm
-* "Stephen Cozart":http://twitter.com/stephencozart
+* [Adam Fairholm](http://twitter.com/adamfairholm)
+* [Stephen Cozart](http://twitter.com/stephencozart)
