@@ -61,7 +61,7 @@ class Admin_setup extends Admin_Controller {
 		'wysiwyg' 	=> 'WYSIWYG',
 		'text' 		=> 'Text',
 		'html'		=> 'HTML',
-		'image'		=>	'Image'
+		'image'		=> 'Image'
 	);
 
 	// --------------------------------------------------------------------------
@@ -102,6 +102,9 @@ class Admin_setup extends Admin_Controller {
 	 */
 	public function list_snippets($offset = 0)
 	{	
+		// If you can't admin snippets, you can't create them
+		role_or_die('snippets', 'admin_snippets');
+
 		// -------------------------------------
 		// Get snippets
 		// -------------------------------------
@@ -134,7 +137,7 @@ class Admin_setup extends Admin_Controller {
 		// If you can't admin snippets, you can't create them
 		role_or_die('snippets', 'admin_snippets');
 
-		$this->template->append_js('module::new_snippet.js');
+ 		$this->template->append_metadata(js('new_snippet.js', 'snippets'));
 
 		// -------------------------------------
 		// Validation & Setup
@@ -190,7 +193,7 @@ class Admin_setup extends Admin_Controller {
 	 */
 	public function edit_snippet($snippet_id = null)
 	{		
-		$this->template->append_js('module::new_snippet.js');
+ 		$this->template->append_metadata(js('new_snippet.js', 'snippets'));
 
 		// -------------------------------------
 		// Validation & Setup
