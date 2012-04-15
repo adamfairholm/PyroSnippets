@@ -32,11 +32,11 @@ PyroSnippets allows users to create and manage small snippets of reusable conten
 
 ## Documentation
 
-Documentation can be found "here":http://parse19.com/pyrosnippets/docs.
+Documentation can be found [here](http://parse19.com/pyrosnippets/doc).
 
 ## Changelog
 
-The PyroSnippets changelog can be found "here":http://parse19.com/pyrosnippets/docs/changelog.
+The PyroSnippets changelog can be found [here](http://parse19.com/pyrosnippets/docs/changelog).
 
 ## Authors
 
