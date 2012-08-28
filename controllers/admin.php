@@ -148,7 +148,8 @@ class Admin extends Admin_Controller {
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));	
+				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));
+				Events::trigger('post_snippet_edit', $snippet_id);
 			
 			endif;
 	
@@ -191,7 +192,8 @@ class Admin extends Admin_Controller {
 		
 		else:
 		
-			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));	
+			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));
+			Events::trigger('post_snippet_delete', $snippet_id);
 		
 		endif;
 
