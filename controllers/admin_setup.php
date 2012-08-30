@@ -109,7 +109,7 @@ class Admin_setup extends Admin_Controller {
 		// Get snippets
 		// -------------------------------------
 		
-		$this->template->snippets = $this->snippets_m->get_snippets( $this->settings->item('records_per_page'), $offset );
+		$this->template->snippets = $this->snippets_m->get_snippets( Settings::get('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Pagination
