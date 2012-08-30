@@ -106,7 +106,7 @@ class Admin_setup extends Admin_Controller {
 		// Get snippets
 		// -------------------------------------
 		
-		$this->template->snippets = $this->snippets_m->get_snippets( $this->settings->item('records_per_page'), $offset );
+		$this->template->snippets = $this->snippets_m->get_snippets( $this->settings->get('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Pagination
@@ -164,7 +164,8 @@ class Admin_setup extends Admin_Controller {
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));	
+				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));
+				Events::trigger('post_snippet_setup_create', $snippet);
 			
 			endif;
 	
@@ -226,7 +227,8 @@ class Admin_setup extends Admin_Controller {
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));	
+				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));
+				Events::trigger('post_snippet_setup_edit', $snippet_id);
 			
 			endif;
 	
@@ -261,7 +263,8 @@ class Admin_setup extends Admin_Controller {
 		
 		else:
 		
-			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));	
+			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));
+			Events::trigger('post_snippet_setup_delete', $snippet_id);
 		
 		endif;
 
