@@ -86,6 +86,8 @@ class Snippets_m extends MY_Model {
 		
 		$dir = directory_map($this->snippets_dir.'/snippets/', 1);
 
+        $this->snippets = new stdClass();
+
 		foreach($dir as $folder):
 
             if ($folder != 'index.html')
