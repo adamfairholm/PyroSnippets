@@ -28,7 +28,7 @@ class Module_Snippets extends Module {
 	 */
  	public function info()
 	{
-		return array(
+		$info = array(
 		    'name' => array(
 		        'en' => 'Snippets',
 		        'ar' => 'القصاصات',
@@ -50,7 +50,15 @@ class Module_Snippets extends Module {
 				    'name' => 'snippets.content',
 				    'uri' => 'admin/snippets'
 				),
-				'setup' => array(
+			),
+
+		);
+
+		if (function_exists('group_has_role'))
+		{
+			if (group_has_role('snippets', 'admin_snippets'))
+			{
+				$info['sections']['setup'] = array(
 				    'name' => 'snippets.setup',
 				    'uri' => 'admin/snippets/setup',
 				    'shortcuts' => array(
@@ -59,11 +67,17 @@ class Module_Snippets extends Module {
 						   'uri' => 'admin/snippets/setup/create_snippet',
 						   'class' => 'add'
 						),
-				    ),
-			    ),
-			),
+				    ));
+			}
+			else
+			{
+				// No need to show the content section if we
+				// only have one section.
+				unset($info['sections']['content']);
+			}
+		}
 
-		);
+		return $info;
 	}
 
 	// --------------------------------------------------------------------------
