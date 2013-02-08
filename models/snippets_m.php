@@ -202,7 +202,8 @@ class Snippets_m extends MY_Model {
    		$insert_data['when_added'] 		= $now;
     	$insert_data['last_updated'] 	= $now;
     	$insert_data['added_by']		= $user_id;
-    	
+        $insert_data['status']          = 'p'; // Start off with public
+   	
     	return $this->db->insert('snippets', $insert_data);
     }
 
@@ -248,9 +249,10 @@ class Snippets_m extends MY_Model {
 	     	$update_data['name']	  = $this->input->post('name');
 	     	$update_data['slug']	  = $this->input->post('slug');
 	     	$update_data['type']	  = $this->input->post('type');
-    	}
+       	}
     	else
     	{
+            $update_data['status']    = $this->input->post('status');
 			$update_data['content']   = $this->_pre_save($snippet->type, $this->input->post('content'), $params);
     	}
 

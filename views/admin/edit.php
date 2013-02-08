@@ -13,6 +13,10 @@
 			<label for="name"><?php echo lang('snippets.snippet_content');?> <span>*</span></label>
 			<?php echo $this->snippets_m->snippets->{$snippet->type}->form_output($snippet->content, $snippet->params); ?>
 		</li>
+
+		<li>
+			<label for="status"><?php echo lang('snippets.status'); ?> <span>*</span></label>
+			<?php echo form_dropdown('status', $statuses, $snippet->status); ?>
 	</ul>
 
 </div><!--.form_input-->

@@ -48,6 +48,9 @@ class Admin extends Admin_Controller {
 		$this->load->model('snippets/snippets_m');
 		
 		$this->load->language('snippets');
+		$this->load->config('snippets/snippets');
+
+		$this->template->set('statuses', $this->config->item('snippet_statuses'));
 		
 		$this->template->snippet_types = $this->snippet_types;	
 	}
@@ -118,7 +121,7 @@ class Admin extends Admin_Controller {
 		// Get snippet data
 		// -------------------------------------
 
-		$snippet = $this->snippets_m->get_snippet( $snippet_id );
+		$snippet = $this->snippets_m->get_snippet($snippet_id);
 
 		// -------------------------------------
 		// Validation & Setup

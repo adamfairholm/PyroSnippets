@@ -75,6 +75,19 @@ class Events_Snippets {
 
 		foreach ($snippets as $snippet)
 		{
+            // Status check
+            if ($snippet->status == 'h')
+            {
+                continue;
+            }
+            elseif ($snippet->status == 'l')
+            {
+                if ( ! isset($this->ci->current_user->id))
+                {
+                    continue;
+                }
+            }
+
 			if (method_exists($this->ci->snippets_m->snippets->{$snippet->type}, 'pre_output'))
             {
 				// Run through pre_output

@@ -23,6 +23,15 @@
 	$lang['snippets.syntax']							= 'Klicatelj';
 
 	// -------------------------------------
+	// Statuses
+	// -------------------------------------
+
+	$lang['snippets.status']								= 'Status'; #translate
+	$lang['snippets.public']								= 'Public'; #translate
+	$lang['snippets.hidden']								= 'Hidden'; #translate
+	$lang['snippets.logged_in_only']						= 'Available to logged in users only'; #translate
+	
+	// -------------------------------------
 	// Messages
 	// -------------------------------------
 

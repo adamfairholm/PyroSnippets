@@ -45,6 +45,8 @@ class Snippet {
 	{
 		$this->ci = get_instance();
 
+		$this->ci->lang->load('snippets/snippets');
+
 		$this->ci->load->helper('form');
 	}
 

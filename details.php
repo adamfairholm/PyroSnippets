@@ -131,6 +131,7 @@ class Module_Snippets extends Module {
 	                `when_added` datetime DEFAULT NULL,
 	                `last_updated` datetime DEFAULT NULL,
 	                `added_by` int(11) DEFAULT NULL,
+	                `status` enum('p','l','h') NOT NULL DEFAULT 'p',
 	                `params` text,
 	                PRIMARY KEY (`id`)
 	              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";	
@@ -172,6 +173,21 @@ class Module_Snippets extends Module {
 			$fields = array( 'params' => array('type' => 'TEXT', 'null' => true) );
 			$this->dbforge->add_column('snippets', $fields);
 		}
+
+		// Make sure we have a status field.
+     	if ( ! $this->db->field_exists('status', 'snippets'))
+    	{
+            $columns = array(
+                'status' => array(
+                            'type' => 'ENUM',
+                            'null' => false,
+                            'constraint' => array('p', 'l', 'h'),
+                          	'default' => 'p'
+                        ),
+
+            );
+            $this->dbforge->add_column('snippets', $columns);
+        }
 	
 		return true;
 	}

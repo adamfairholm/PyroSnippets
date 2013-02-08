@@ -23,6 +23,15 @@
 	$lang['snippets.syntax']								= 'Syntax';
 
 	// -------------------------------------
+	// Statuses
+	// -------------------------------------
+
+	$lang['snippets.status']								= 'Status';
+	$lang['snippets.public']								= 'Public';
+	$lang['snippets.hidden']								= 'Hidden';
+	$lang['snippets.logged_in_only']						= 'Available to logged in users only';
+
+	// -------------------------------------
 	// Messages
 	// -------------------------------------
 
@@ -56,6 +65,8 @@
 	$lang['snippets.param.directory']						= 'Image directory';
 	$lang['snippets.param.allowed_types']					= 'Allowed file types (Ex: png|jpg)';
 	$lang['snippets.param.editor_type']						= 'Editor Type';
+
+
 
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/english/snippets_lang.php */
