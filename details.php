@@ -105,39 +105,23 @@ class Module_Snippets extends Module {
 			$this->db->where('slug', 'chunks')->delete('modules');
 		}	
 
-		// Do we have a chunks table with our precious chunks data
-		// or do we have a new install?		
-		if ($this->db->table_exists($this->db_pre.'chunks'))
-		{
-			$this->load->dbforge();
-			
-			if ( ! $this->dbforge->rename_table($this->db_pre.'chunks', $this->db_pre.'snippets'))
-			{
-				return false;
-			}
+		// New install
+		$sql = "
+            CREATE TABLE IF NOT EXISTS `".SITE_REF."_snippets` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `name` varchar(60) NOT NULL,
+                `slug` varchar(60) NOT NULL,
+                `type` varchar(10) NOT NULL,
+                `content` text DEFAULT NULL,
+                `when_added` datetime DEFAULT NULL,
+                `last_updated` datetime DEFAULT NULL,
+                `added_by` int(11) DEFAULT NULL,
+                `status` enum('p','l','h') NOT NULL DEFAULT 'p',
+                `params` text,
+                PRIMARY KEY (`id`)
+              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";	
 
-			return true;
-		}
-		else
-		{
-			// New install
-			$sql = "
-	            CREATE TABLE IF NOT EXISTS `{$this->db_pre}snippets` (
-	                `id` int(11) NOT NULL AUTO_INCREMENT,
-	                `name` varchar(60) NOT NULL,
-	                `slug` varchar(60) NOT NULL,
-	                `type` varchar(10) NOT NULL,
-	                `content` text DEFAULT NULL,
-	                `when_added` datetime DEFAULT NULL,
-	                `last_updated` datetime DEFAULT NULL,
-	                `added_by` int(11) DEFAULT NULL,
-	                `status` enum('p','l','h') NOT NULL DEFAULT 'p',
-	                `params` text,
-	                PRIMARY KEY (`id`)
-	              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";	
-
-			return $this->db->query($sql);
-		}
+		return $this->db->query($sql);
 	}
 
 	// --------------------------------------------------------------------------
