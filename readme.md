@@ -30,6 +30,7 @@ You can find more info on displaying images in PyroCMS [here](http://docs.pyrocm
 
 _Use with: PyroCMS 2.1.x_
 
+* Added support for three status levels for snippets: public, logged in users only, and hidden
 * Added support for cloud files in the image snippet
 * Changed output of image snippet to the file ID. Please see usage section above for more details
 * Added option to choose Simple or Advanced WYWIYG editor
