@@ -1,42 +1,76 @@
-# PyroSnippets
-
-(Formerly PyroChunks, PyroSnippets had a name change in order to not be confused with the new feature of PyroCMS, page chunks. See update instructions below to go from PyroChunks to PyroSnippets.)
+# PyroSnippets 2.3
 
 PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited like text, images, WYSIWYG, and HTML code.
 
-## Versions
+## Using Snippets
 
-<table>
-	<tr>
-		<th>Version</th>
-		<th>Branch</th>
-		<th>Notes</th>
-	</tr>
-	<tr>
-		<td>2.2.2</td>
-		<td>master</td>
-		<td>Latest stable. For use with PyroCMS 2.0.x.</td>
-	</tr>
-	<tr>
-		<td>2.3</td>
-		<td>2.3/develop</td>
-		<td>In development. For use with PyroCMS 2.0.x.</td>
-	</tr>
-	<tr>
-		<td>3.0</td>
-		<td>3.0/develop</td>
-		<td>In development. For use with PyroCMS 2.1.x.</td>
-	</tr>
+After you install Snippets, it'll show up in the **Content** menu of PyroCMS. There are two areas, "Content" and "Setup". Setup is where you create the snippets and define any paramters. Content is where the snippet content is actually edited.
 
-</table>
+Once you set a snippet, you can see the syntax to display it in your layouts and themes. It always follows this syntax:
 
-## Documentation
+	{{ snippet:your_snippet_slug }}
 
-Documentation can be found [here](http://parse19.com/pyrosnippets/doc).
+## Snippets
+
+### Text, HTML, and WYSIWYG
+
+Simple text-based snippets that allow you to save text content. In the WYSIWYG snippet, you can choose to use the advanced or simple editor.
+
+### Image
+
+Allows you to upload an image. The tag for the image snippet returns the ID of the file, so you can use it like this:
+
+	<img src="{{ files:image id=snippet:your_image_slug width="100" height="100" mode="fill" }}">
+
+You can find more info on displaying images in PyroCMS [here](http://docs.pyrocms.com/2.1/manual/plugins/files).
 
 ## Changelog
 
-The PyroSnippets changelog can be found [here](http://parse19.com/pyrosnippets/docs/changelog).
+### 2.3 - February 8, 2013
+
+_Use with: PyroCMS 2.1.x_
+
+* Added support for cloud files in the image snippet
+* Changed output of image snippet to the file ID. Please see usage section above for more details
+* Added option to choose Simple or Advanced WYWIYG editor
+* Updates for compatability with PyroCMS 2.1.5
+
+### 2.2.2 – February 8, 2012
+
+* Updated to PyroCMS slug generator (Thanks @Bojch)!
+* Refined UX for snippet setup (Thanks @Bojch)!
+* Updated the folder structure for easier uploading via control panel
+* Updated Slovenian language (Thanks @kubis)!
+
+### 2.2.1 – December 18, 2011
+
+* Updating forms and other elements to PyroCMS 2.0 standards
+
+### 2.2 – November 4, 2011
+
+* Changed to snippets as discrete files system with parameter options
+* Separated Snippets into setup and content modes
+* Updated syntax example for Lex Parser
+* Removed support for chunks syntax
+
+### 2.1 – October 19, 2011
+
+* Upgrading to PyroCMS 2.0 interface styles
+* New image snippet type
+* Save & Close option for editing snippets
+* Slovenian Translation
+
+### 2.0 – September 16, 2011
+
+* Change to PyroSnippets name
+* New permissions addition allows you to restrict member groups to just editing snippet content
+* Updated interface styles for PyroCMS 1.3
+
+### 1.1 – July 26, 2011
+
+* Updates to work with PyroCMS 1.3
+* Autocomplete for chunk slugs
+* Shows Chunk type in list
 
 ## Authors
 
