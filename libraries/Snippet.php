@@ -10,12 +10,24 @@
 class Snippet {
 
 	/**
+	 * CI Object
+	 *
+	 * @access 	protected
+	 * @var 	obj
+	 */
+	protected $ci;
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Value of the snippet
 	 *
 	 * @access 	public
 	 * @var 	string
 	 */
 	public $value 			= null;
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Name of the input. Should always
@@ -26,10 +38,14 @@ class Snippet {
 	 * @var 	string
 	 */
 	public $input_name		= 'content';
+
+	// --------------------------------------------------------------------------
 	
 	public function __construct()
 	{
-		get_instance()->load->helper('form');
+		$this->ci = get_instance();
+
+		$this->ci->load->helper('form');
 	}
 
 }
