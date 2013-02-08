@@ -6,7 +6,7 @@
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
  * @category  	Snippets
- * @author  	Parse19
+ * @author  	Adam Fairholm
  */ 
 class Snippet_image extends Snippet {
 
@@ -16,7 +16,7 @@ class Snippet_image extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $name			= 'Image';
+	public $name = 'Image';
 	
     // --------------------------------------------------------------------------
 	
@@ -26,7 +26,7 @@ class Snippet_image extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $slug			= 'image';
+	public $slug = 'image';
 
 	// --------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ class Snippet_image extends Snippet {
 	 * @access	public
 	 * @var		array
 	 */	
-	public $parameters 		= array('directory', 'allowed_types');
+	public $parameters = array('directory', 'allowed_types');
 
 	// --------------------------------------------------------------------------
 	
@@ -44,7 +44,7 @@ class Snippet_image extends Snippet {
 	 * Form Input
 	 *
 	 * @access	public
-	 * @param	string - form value
+	 * @param	string $value form value
 	 * @return 	string
 	 */
 	public function form_output($value)
@@ -53,7 +53,10 @@ class Snippet_image extends Snippet {
 	
 		$html = '';
 		
-		if($img) $html .= '<p><img src="'.$img.'" alt="Image Thumb" /></p>';
+		if ($img)
+		{
+			$html .= '<p><img src="'.$img.'" alt="Image Thumb" /></p>';
+		}
 		
 		// Hidden numerical value (if there is one)
 		$html .= form_hidden($this->input_name, $value);
@@ -217,20 +220,18 @@ class Snippet_image extends Snippet {
 		
 		$tree = (array)$tree;
 		
-		if( !$tree ):
-		
+		if ( ! $tree)
+		{
 			// @todo - languagize this
 			return '<em>You need to set an upload folder before you can upload files.</em>';
-		
-		endif;
+		}
 		
 		$choices = array();
 		
-		foreach( $tree as $tree_item ):
-		
+		foreach ($tree as $tree_item)
+		{
 			$choices[$tree_item->id] = $tree_item->name;
-		
-		endforeach;
+		}
 	
 		return form_dropdown('directory', $choices, $value, 'id="directory"');
 	}
@@ -244,7 +245,7 @@ class Snippet_image extends Snippet {
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_allowed_types($value = '')
+	public function param_allowed_types($value = null)
 	{
 		return form_input('allowed_types', $value, 'id="allowed_types"');
 	}
@@ -261,25 +262,28 @@ class Snippet_image extends Snippet {
 	 */
 	private function get_image_url($id, $thumb = false)
 	{
-		if(!$id or !is_numeric($id)) return null;
-	
-		$obj = $this->ci->db->limit(1)->where('id', $id)->get('files');
+		if ( ! $id or ! is_numeric($id))
+		{
+			return null;
+		}
+
+		$image = $this->ci->db->limit(1)->where('id', $id)->get('files')->row();
 		
-		if($obj->num_rows() == 0) return null;
-		
-		$image = $obj->row();
-		
+		if ( ! $image)
+		{
+			return null;
+		}
+				
 		$image_filename = $image->filename;
 		
-		if($thumb):
-		
+		if ($thumb)
+		{
 			$pieces = explode('.', $image->filename);
 			
 			$end = array_pop($pieces);
 			
 			$image_filename = implode('.', $pieces).'_thumb.'.$end;
-		
-		endif;
+		}
 		
 		$this->ci->load->config('files/files');
 

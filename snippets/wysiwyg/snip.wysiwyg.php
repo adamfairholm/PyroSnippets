@@ -16,7 +16,7 @@ class Snippet_wysiwyg extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $name			= 'WYSIWYG';
+	public $name = 'WYSIWYG';
 
     // --------------------------------------------------------------------------
 	
@@ -26,7 +26,7 @@ class Snippet_wysiwyg extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $slug			= 'wysiwyg';
+	public $slug = 'wysiwyg';
 
     // --------------------------------------------------------------------------
 	
@@ -61,7 +61,7 @@ class Snippet_wysiwyg extends Snippet {
 	 */	
 	public function event()
 	{
-		$this->ci->template->append_metadata(get_instance()->load->view('fragments/wysiwyg', array(), TRUE));
+		$this->ci->template->append_metadata(get_instance()->load->view('fragments/wysiwyg', array(), true));
 	}
 
 }

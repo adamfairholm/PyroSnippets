@@ -1,7 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
- * snippets  Event Class - this class loads the snippets library when the public
- * controller is called.  Keeps from users having to add to config/autoload
+ * Snippets Event Class
+ *
+ * This class loads the snippets library when the public
+ * controller is called. Keeps from users having to add to config/autoload
  * 
  * @package		PyroCMS
  * @subpackage	Pyrosnippets
@@ -9,19 +12,53 @@
  * @author		Stephen Cozart - <stephen.cozart [a][t] gmail [dt] com>
  */
 class Events_Snippets {
-    
+
+    /**
+     * CI Object
+     *
+     * @access  protected
+     * @var     string
+     */   
     protected $ci;
-    
+  
+    // --------------------------------------------------------------------------
+ 
+    /**
+     * Array of snippet variables
+     * and values.
+     *
+     * @access  public
+     * @var     array
+     */  
     public $var_snippets = array();
-    
+ 
+    // --------------------------------------------------------------------------
+ 
+    /**
+     * Construct
+     *
+     * @access  public
+     * @var     void
+     */  
     public function __construct()
     {
-        $this->ci =& get_instance();
+        $this->ci = get_instance();
         
-        //register the public controller event
+        // Register the public controller event
         Events::register('public_controller', array($this, 'load_snippets'));
     }
-    
+  
+    // --------------------------------------------------------------------------
+
+    /**
+     * Load Snippet
+     *
+     * Get all the snuppets and load them into the vars
+     * array, making them accessible via tags.
+     *
+     * @access  public
+     * @return  void
+     */
     public function load_snippets()
     {
 		// -------------------------------------
@@ -36,21 +73,20 @@ class Events_Snippets {
 		// Prep snippets
 		// -------------------------------------
 
-		foreach( $snippets as $snippet ):
-		
-			if( method_exists($this->ci->snippets_m->snippets->{$snippet->type}, 'pre_output') ):
-		
+		foreach ($snippets as $snippet)
+		{
+			if (method_exists($this->ci->snippets_m->snippets->{$snippet->type}, 'pre_output'))
+            {
 				// Run through pre_output
-				$this->var_snippets[$snippet->slug] = $this->ci->snippets_m->snippets->{$snippet->type}->pre_output($snippet->content, $snippet->params);
-			
-			else:
-				
+				$this->var_snippets[$snippet->slug] = $this->ci->snippets_m
+                        ->snippets->{$snippet->type}->pre_output($snippet->content, $snippet->params);
+			}
+			else
+			{
 				// Don't do anything to the content
 				$this->var_snippets[$snippet->slug] = $snippet->content;
-			
-			endif;
-			
-		endforeach;
+			}
+		}
 		
 		// -------------------------------------
 		// Commit snippets to ci vars

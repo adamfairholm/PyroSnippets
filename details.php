@@ -10,19 +10,22 @@
  */ 
 class Module_Snippets extends Module {
 
-	public $version = '3.0dev';
+	/**
+	 * Version Number
+	 *
+	 * @access 	public
+	 * @var 	string
+	 */
+	public $version = '2.3';
 	
-	public $db_pre;
-
- 	// --------------------------------------------------------------------------
-
-	public function __construct()
-	{	
-		if(CMS_VERSION >= 1.3) $this->db_pre = SITE_REF.'_';
-	}
-
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Info
+	 *
+	 * @access 	public
+	 * @return 	array
+	 */
  	public function info()
 	{
 		return array(
@@ -65,32 +68,44 @@ class Module_Snippets extends Module {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Install
+	 *
+	 * @access 	public
+	 * @return 	bool
+	 */
 	public function install()
 	{
+		// Cleanup
+		$this->dbforge->drop_table('snippets');
+
 		// Either this is a new install or upgrading from
 		// a previous version of PyroChunks.
 
 		// First, check and see if PyroChunks (old name) is listed in the modules
 		$obj = $this->db->where('slug', 'chunks')->get('modules');
-		if($obj->num_rows() > 0):
-
+		
+		if ($obj->num_rows() > 0)
+		{
 			// Delete our modules entry for chunks
-			$this->db->where('slug', 'chunks');
-			$this->db->delete('modules');
-			
-		endif;
+			$this->db->where('slug', 'chunks')->delete('modules');
+		}	
 
 		// Do we have a chunks table with our precious chunks data
 		// or do we have a new install?		
-		if($this->db->table_exists($this->db_pre.'chunks')):
-		
+		if ($this->db->table_exists($this->db_pre.'chunks'))
+		{
 			$this->load->dbforge();
-			if(!$this->dbforge->rename_table($this->db_pre.'chunks', $this->db_pre.'snippets')): return false; endif;
 			
-			return true;
-		
-		else:
+			if ( ! $this->dbforge->rename_table($this->db_pre.'chunks', $this->db_pre.'snippets'))
+			{
+				return false;
+			}
 
+			return true;
+		}
+		else
+		{
 			// New install
 			$sql = "
 	            CREATE TABLE IF NOT EXISTS `{$this->db_pre}snippets` (
@@ -107,39 +122,54 @@ class Module_Snippets extends Module {
 	              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";	
 
 			return $this->db->query($sql);
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Uninstall
+	 *
+	 * @access 	public
+	 * @return 	bool
+	 */
 	public function uninstall()
-	{
-		$this->load->dbforge();
-		
+	{		
 		// Get rid of the snippets table
 		return $this->dbforge->drop_table('snippets');
 	}
 
 	// --------------------------------------------------------------------------
 
-	public function upgrade($old_version)
+	/**
+	 * Upgrade
+	 *
+	 * @access 	public
+	 * @param 	int [$old_version]
+	 * @return 	bool
+	 */
+	public function upgrade($old_version = null)
 	{
 		// Check and see if our params (added 2.1) is there.
-		if( !$this->db->field_exists('params', 'snippets') ):
-		
+		if ( ! $this->db->field_exists('params', 'snippets'))
+		{
 			$this->load->dbforge();
 
 			$fields = array( 'params' => array('type' => 'TEXT', 'null' => true) );
 			$this->dbforge->add_column('snippets', $fields);
-		
-		endif;
+		}
 	
 		return true;
 	}
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Help
+	 *
+	 * @access 	public
+	 * @return 	string
+	 */
 	public function help()
 	{
 		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";

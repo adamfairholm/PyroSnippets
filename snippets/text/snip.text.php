@@ -6,7 +6,7 @@
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
  * @category  	Snippets
- * @author  	Parse19
+ * @author  	Adam Fairholm
  */ 
 class Snippet_text extends Snippet {
 
@@ -16,7 +16,7 @@ class Snippet_text extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $name			= 'Text';
+	public $name = 'Text';
 
     // --------------------------------------------------------------------------
 	
@@ -26,7 +26,7 @@ class Snippet_text extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */	
-	public $slug			= 'text';
+	public $slug = 'text';
 
 	// --------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ class Snippet_text extends Snippet {
 	 * Form Input
 	 *
 	 * @access	public
-	 * @param	string - form value
+	 * @param	string $value form value
 	 * @return 	string
 	 */
 	public function form_output($value)

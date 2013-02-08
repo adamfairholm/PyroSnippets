@@ -127,17 +127,17 @@ class Admin_setup extends Admin_Controller {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Create a new snippet
+	 * Create Snippet
 	 *
 	 * @access	public
 	 * @return	void
 	 */
-	function create_snippet()
+	public function create_snippet()
 	{
 		// If you can't admin snippets, you can't create them
 		role_or_die('snippets', 'admin_snippets');
 
- 		$this->template->append_metadata(js('new_snippet.js', 'snippets'));
+ 		$this->template->append_js('module::new_snippet.js');
 
 		// -------------------------------------
 		// Validation & Setup
@@ -148,33 +148,33 @@ class Admin_setup extends Admin_Controller {
 		$this->snippet_rules[1]['rules'] .= '|callback__check_slug[insert]';
 
 		$this->form_validation->set_rules( $this->snippet_rules );
+
+		$snippet = new stdClass();
 		
-		foreach($this->snippet_rules as $key => $rule):
-		
-			$snippet->{$rule['field']} = $this->input->post($rule['field'], TRUE);
-		
-		endforeach;
+		foreach ($this->snippet_rules as $key => $rule)
+		{
+			$snippet->{$rule['field']} = $this->input->post($rule['field'], true);
+		}
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 
-		if($this->form_validation->run()):
-		
-			if( !$this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id') ) ):
-			
+		if ($this->form_validation->run())
+		{
+			if ( ! $this->snippets_m->insert_new_snippet( $snippet, $this->session->userdata('user_id')))
+			{
 				$this->session->set_flashdata('notice', lang('snippets.new_snippet_error'));	
-			
-			else:
-			
+			}
+			else
+			{
 				$this->session->set_flashdata('success', lang('snippets.new_snippet_success'));
+				
 				Events::trigger('post_snippet_setup_create', $snippet);
-			
-			endif;
+			}
 	
 			redirect('admin/snippets/setup');
-		
-		endif;
+		}
 		
 		// -------------------------------------
 		
@@ -190,6 +190,7 @@ class Admin_setup extends Admin_Controller {
 	 * Edit a snippet
 	 *
 	 * @access	public
+	 * @param 	int [$snippet_id]
 	 * @return	void
 	 */
 	public function edit_snippet($snippet_id = null)
@@ -216,28 +217,26 @@ class Admin_setup extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if($this->form_validation->run()):
-		
-			foreach($this->snippet_rules as $key => $rule):
-			
+		if ($this->form_validation->run())
+		{
+			foreach ($this->snippet_rules as $key => $rule)
+			{
 				$snippet->{$rule['field']} = $this->input->post($rule['field'], true);
+			}
 			
-			endforeach;
-			
-			if( !$this->snippets_m->update_snippet($snippet, true) ):
-			
+			if ( ! $this->snippets_m->update_snippet($snippet, true))
+			{
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
-			
-			else:
-			
+			}
+			else
+			{
 				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));
-				Events::trigger('post_snippet_setup_edit', $snippet_id);
 			
-			endif;
+				Events::trigger('post_snippet_setup_edit', $snippet_id);
+			}
 	
 			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets/setup') : redirect('admin/snippets/setup/edit_snippet/'.$snippet_id);
-		
-		endif;
+		}
 		
 		// -------------------------------------
 		
@@ -250,26 +249,27 @@ class Admin_setup extends Admin_Controller {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Delete a snippet
+	 * Delete Snippet
 	 *
 	 * @access	public
+	 * @param 	int $snippet_id
 	 * @return	void
 	 */
-	function delete_snippet( $snippet_id = 0 )
+	public function delete_snippet($snippet_id = null)
 	{		
 		// If you can't admin snippets, you can't delete them
 		role_or_die('snippets', 'admin_snippets');
 
-		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
-		
+		if ( ! $this->snippets_m->delete_snippet($snippet_id))
+		{
 			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	
-		
-		else:
-		
+		}
+		else
+		{
 			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));
+			
 			Events::trigger('post_snippet_setup_delete', $snippet_id);
-		
-		endif;
+		}
 
 		redirect('admin/snippets/setup');
 	}
@@ -290,27 +290,25 @@ class Admin_setup extends Admin_Controller {
 	{
 		$obj = $this->db->where('slug', $slug)->get('snippets');
 		
-		if( $mode == 'update' ):
-		
+		if ($mode == 'update')
+		{
 			$threshold = 1;
-		
-		else:
-		
+		}
+		else
+		{
 			$threshold = 0;
+		}
 		
-		endif;
-		
-		if( $obj->num_rows > $threshold ):
-
+		if ($obj->num_rows > $threshold)
+		{
 			$this->form_validation->set_message('_check_slug', lang('snippets.slug_unique'));
 		
-			return FALSE;
-		
-		else:
-		
-			return TRUE;
-		
-		endif;
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -326,38 +324,40 @@ class Admin_setup extends Admin_Controller {
 	public function snippet_parameters()
 	{
 		// Check for AJAX
-		if(!$this->input->is_ajax_request()) show_error(lang('general_error_label'));
+		if ( ! $this->input->is_ajax_request())
+		{
+			show_error(lang('general_error_label'));
+		}
 
 		$this->load->language('snippets');
 		
 		// Check for data
-		$snippet_slug = $this->input->post('snippet_slug');
-		$snippet_id	= $this->input->post('snippet_id');
+		$snippet_slug 	= $this->input->post('snippet_slug');
+		$snippet_id		= $this->input->post('snippet_id');
 		
 		$snippet = null;
 		$html = '';
 		
 		// Get the snippet if need be
-		if($snippet_id) $snippet = $this->snippets_m->get_snippet($snippet_id);
-		
+		if ($snippet_id)
+		{
+			$snippet = $this->snippets_m->get_snippet($snippet_id);
+		}
+
 		// Return the snippet parameters as table rows
-		if(isset($this->snippets_m->snippets->{$snippet_slug}->parameters)):
-			
-			//exit('yep');
-		
-			foreach($this->snippets_m->snippets->{$snippet_slug}->parameters as $param):
-			
+		if (isset($this->snippets_m->snippets->{$snippet_slug}->parameters))
+		{
+			foreach ($this->snippets_m->snippets->{$snippet_slug}->parameters as $param)
+			{
 				$html .= '<li class="snip_parameters"><label for="'.$param.'">'.$this->lang->line('snippets.param.'.$param).'</label>';
 								
 				isset($snippet->params[$param]) ? $val = $snippet->params[$param] : $val = null;
 			
 				$html .= '<div class="input">'.$this->snippets_m->snippets->{$snippet_slug}->{'param_'.$param}($val).'</div>';
 				$html .= '</li>';
-			
-			endforeach;
-		
-		endif;
-		
+			}
+		}
+				
 		exit($html);
 	}
 

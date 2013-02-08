@@ -6,7 +6,7 @@
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
  * @category  	Snippets
- * @author  	Parse19
+ * @author  	Adam Fairholm
  */ 
 class Snippet_html extends Snippet {
 
@@ -16,7 +16,7 @@ class Snippet_html extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $name			= 'HTML';
+	public $name = 'HTML';
 	
     // --------------------------------------------------------------------------
 	
@@ -26,7 +26,7 @@ class Snippet_html extends Snippet {
 	 * @access	public
 	 * @var		string
 	 */
-	public $slug			= 'html';
+	public $slug = 'html';
 
 	// --------------------------------------------------------------------------
 	
@@ -34,7 +34,7 @@ class Snippet_html extends Snippet {
 	 * Form Input
 	 *
 	 * @access	public
-	 * @param	string - form value
+	 * @param	string $value the form value
 	 * @return 	string
 	 */
 	public function form_output($value)
@@ -53,8 +53,11 @@ class Snippet_html extends Snippet {
 	/**
 	 * Pre Saving to Database
 	 *
+	 * We are going to save this using htmlspecialchars
+	 * and then reverse it before we display it.
+	 *
 	 * @access	public
-	 * @param	string - form value
+	 * @param	string $value
 	 * @return 	string
 	 */
 	public function pre_save($value)
@@ -65,11 +68,11 @@ class Snippet_html extends Snippet {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Form Input
+	 * Pre Output
 	 *
 	 * @access	public
-	 * @param	string - form value
-	 * @Param	[array] - option parameters
+	 * @param	string $value form value
+	 * @param	array $params option parameters
 	 * @return 	string
 	 */
 	public function pre_output($value, $params = array())

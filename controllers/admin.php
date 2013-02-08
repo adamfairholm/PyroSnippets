@@ -83,7 +83,7 @@ class Admin extends Admin_Controller {
 		// Get snippets
 		// -------------------------------------
 		
-		$this->template->snippets = $this->snippets_m->get_snippets( $this->settings->get('records_per_page'), $offset );
+		$this->template->snippets = $this->snippets_m->get_snippets(Settings::get('records_per_page'), $offset);
 
 		// -------------------------------------
 		// Pagination
@@ -104,12 +104,16 @@ class Admin extends Admin_Controller {
 	 * Edit a snippet
 	 *
 	 * @access	public
+	 * @param 	int $snippet_id
 	 * @return	void
 	 */
 	public function edit_snippet($snippet_id = null)
 	{			
-		if(is_null($snippet_id)) show_error('Invalid snippet ID.');
-	
+		if (is_null($snippet_id))
+		{
+			show_error('Invalid snippet ID.');
+		}
+
 		// -------------------------------------
 		// Get snippet data
 		// -------------------------------------
@@ -140,33 +144,30 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if($this->form_validation->run()):
-				
-			if( !$this->snippets_m->update_snippet($snippet) ):
-			
+		if ($this->form_validation->run())
+		{
+			if ( ! $this->snippets_m->update_snippet($snippet))
+			{
 				$this->session->set_flashdata('notice', lang('snippets.update_snippet_error'));	
-			
-			else:
-			
+			}
+			else
+			{
 				$this->session->set_flashdata('success', lang('snippets.update_snippet_success'));
+				
 				Events::trigger('post_snippet_edit', $snippet_id);
-			
-			endif;
+			}
 	
 			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/snippets') : redirect('admin/snippets/edit_snippet/'.$snippet_id);
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Event
 		// -------------------------------------
 		
-		if(method_exists($this->snippets_m->snippets->{$snippet->type}, 'event')):
-		
+		if (method_exists($this->snippets_m->snippets->{$snippet->type}, 'event'))
+		{
 			$this->snippets_m->snippets->{$snippet->type}->event();
-			//$this->template->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE));
-
-		endif;
+		}
 
 		// -------------------------------------
 		
@@ -179,23 +180,24 @@ class Admin extends Admin_Controller {
 	 * Delete a snippet
 	 *
 	 * @access	public
+	 * @param 	int $snippet_id
 	 * @return	void
 	 */
-	function delete_snippet( $snippet_id = 0 )
+	public function delete_snippet($snippet_id = null)
 	{		
 		// If you can't admin snippets, you can't delete them
 		role_or_die('snippets', 'admin_snippets');
 
-		if( ! $this->snippets_m->delete_snippet( $snippet_id ) ):
-		
+		if ( ! $this->snippets_m->delete_snippet( $snippet_id ))
+		{
 			$this->session->set_flashdata('notice', lang('snippets.delete_snippet_error'));	
-		
-		else:
-		
+		}
+		else
+		{
 			$this->session->set_flashdata('success', lang('snippets.delete_snippet_success'));
+			
 			Events::trigger('post_snippet_delete', $snippet_id);
-		
-		endif;
+		}
 
 		redirect('admin/snippets');
 	}
@@ -208,35 +210,33 @@ class Admin extends Admin_Controller {
 	 * Check slug to make sure it is 
 	 *
 	 * @access	public
-	 * @param	string - slug to be tested
-	 * @param	mode - update or insert
+	 * @param	string $slug slug to be tested
+	 * @param	mode $mode 'update' or 'insert'
 	 * @return	bool
 	 */
 	public function _check_slug($slug, $mode)
 	{
 		$obj = $this->db->where('slug', $slug)->get('snippets');
 		
-		if( $mode == 'update' ):
-		
+		if ($mode == 'update')
+		{
 			$threshold = 1;
-		
-		else:
-		
+		}
+		else
+		{
 			$threshold = 0;
+		}
 		
-		endif;
-		
-		if( $obj->num_rows > $threshold ):
-
+		if ($obj->num_rows > $threshold)
+		{
 			$this->form_validation->set_message('_check_slug', lang('snippets.slug_unique'));
 		
-			return FALSE;
-		
-		else:
-		
-			return TRUE;
-		
-		endif;
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 }

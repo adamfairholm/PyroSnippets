@@ -1,37 +1,35 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroSnippets Model
+ * PyroSnippets Library
  *
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
- * @category  	Models
- * @author  	Parse19
+ * @author  	Adam Fairholm
  */ 
 class Snippet {
 
 	/**
 	 * Value of the snippet
+	 *
+	 * @access 	public
+	 * @var 	string
 	 */
-	public $value 			= '';
+	public $value 			= null;
 	
 	/**
 	 * Name of the input. Should always
 	 * be "content" but safe to keep it here
 	 * in case it ever needs to change
+	 *
+	 * @access 	public
+	 * @var 	string
 	 */
 	public $input_name		= 'content';
 	
-	/**
-	 * CI Instance
-	 */
-	public $ci;
-	
-	function __construct()
+	public function __construct()
 	{
-		$this->ci = get_instance();
-		
-		$this->ci->load->helper('form');
+		get_instance()->load->helper('form');
 	}
 
 }
