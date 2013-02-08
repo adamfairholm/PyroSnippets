@@ -57,7 +57,7 @@ class Snippet_image extends Snippet {
 		}
 		
 		// Hidden numerical value (if there is one)
-		$html .= form_hidden($this->input_name, $value);
+		$html .= form_hidden('snippet_file_id', $value);
 		
 		// Actual upload input
 		$upload_input_data = array(
@@ -85,9 +85,9 @@ class Snippet_image extends Snippet {
 		// return the numeric file record value.
 		if ( ! isset($_FILES['snippet_file']['name']) or ! $_FILES['snippet_file']['name'])
 		{
-			if (isset($_POST['snippet_file']) and $_POST['snippet_file'] and $_POST['snippet_file'] != 'dummy')
+			if (isset($_POST['snippet_file_id']) and is_numeric($_POST['snippet_file_id']))
 			{
-				return $_POST['snippet_file'];
+				return $_POST['snippet_file_id'];
 			}
 			else
 			{
