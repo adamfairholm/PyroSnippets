@@ -195,7 +195,7 @@ class Admin_setup extends Admin_Controller {
 	 */
 	public function edit_snippet($snippet_id = null)
 	{		
- 		$this->template->append_metadata(js('new_snippet.js', 'snippets'));
+ 		$this->template->append_js('module::new_snippet.js');
 
 		// -------------------------------------
 		// Validation & Setup
