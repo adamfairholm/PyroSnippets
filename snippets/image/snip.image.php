@@ -44,18 +44,16 @@ class Snippet_image extends Snippet {
 	 * Form Input
 	 *
 	 * @access	public
-	 * @param	string $value form value
+	 * @param	string [$value] form value
 	 * @return 	string
 	 */
-	public function form_output($value)
-	{
-		$img = $this->get_image_url($value, true);
-	
-		$html = '';
-		
-		if ($img)
+	public function form_output($value = null)
+	{		
+		$html = br().br();
+
+		if ($value)
 		{
-			$html .= '<p><img src="'.$img.'" alt="Image Thumb" /></p>';
+			$html .= '<p><a href="'.site_url('files/large/'.$value).'"><img src="'.site_url('files/thumb/'.$value).'" alt="Image Thumb" /></a></p>';
 		}
 		
 		// Hidden numerical value (if there is one)
@@ -82,108 +80,38 @@ class Snippet_image extends Snippet {
 	 */
 	public function pre_save($value, $params)
 	{	
-		// Only go through the pre_save upload if there is a file ready to go
-		if( isset($_FILES['snippet_file']['name']) and $_FILES['snippet_file']['name'] != '' ):
-		
-			// Do nothing
-			
-		else:
-		
-			// If we have a file already just return that value
-			if( is_numeric($this->ci->input->post($this->input_name)) ):
-		
-				return $this->ci->input->post($this->input_name);
-		
-			else:
-			
+		// If we do not have a file that is being submitted. If we do not,
+		// it could be the case that we already have one, in which case just
+		// return the numeric file record value.
+		if ( ! isset($_FILES['snippet_file']['name']) or ! $_FILES['snippet_file']['name'])
+		{
+			if (isset($_POST['snippet_file']) and $_POST['snippet_file'] and $_POST['snippet_file'] != 'dummy')
+			{
+				return $_POST['snippet_file'];
+			}
+			else
+			{
 				return null;
-			
-			endif;
-				
-		endif;
-	
-		$this->ci->load->model('files/file_m');
-		$this->ci->load->config('files/files');
+			}
+		}
 
-		// Set upload data
-		$upload_config['upload_path'] 		= FCPATH.$this->ci->config->item('files_folder').'/';
-		
-		// Set allowed types to all if there is none
-		if(!isset($params['allowed_types']) or trim($params['allowed_types']) == ''):
+		$this->ci->load->library('files/files');
 
-			$upload_config['allowed_types'] 	= '*';
-		
-		else:
-		
-			$upload_config['allowed_types'] 	= $params['allowed_types'];
-		
-		endif;
+		// If you don't set allowed types, we'll set it to allow all.
+		$allowed_types 	= (isset($params['allowed_types']) and $params['allowed_types']) ? $params['allowed_types'] : '*';
 
-		// Do the upload
-		$this->ci->load->library('upload', $upload_config);
+		$return = Files::upload($params['directory'], null, 'snippet_file', null, null, null, $allowed_types);
 
-		if( ! $this->ci->upload->do_upload('snippet_file') ):
-		
-			$this->ci->session->set_flashdata('notice', 'The following errors occurred when adding your file: '.$this->ci->upload->display_errors());	
-			
-			return;
-		
-		else:
-		
-			$image = $this->ci->upload->data();
-			
-			// We are going to use the PyroCMS way here.
-			$this->ci->load->library('image_lib');
-			
-			$img_config = array();
-			
-			// -------------------------------------
-			// No matter what, we make a thumb
-			// -------------------------------------
-			
-			$img_config['source_image']		= FCPATH.$this->ci->config->item('files_folder').'/'.$image['file_name'];
-			$img_config['create_thumb'] 	= true;
-			$img_config['maintain_ratio'] 	= true;
-			$img_config['width']	 		= 150;
-			$img_config['height']	 		= 1;
-			$img_config['master_dim']	 	= 'width';
-			
-			$this->ci->image_lib->initialize($img_config);
-			$this->ci->image_lib->resize();						
-			$this->ci->image_lib->clear();
-						
-			// Use resized numbers for the files module.
-			if( isset($img_config['width']) and is_numeric($img_config['width']) ):
-			
-				$image['image_width'] = $img_config['width'];
-			
-			endif;
-
-			if( isset($img_config['height']) and is_numeric($img_config['height']) ):
-			
-				$image['image_height'] = $img_config['height'];
-			
-			endif;
-			
-			// Insert the data
-			$this->ci->file_m->insert(array(
-				'folder_id' 		=> $params['directory'],
-				'user_id' 			=> $this->ci->current_user->id,
-				'type' 				=> 'i',
-				'name' 				=> $image['file_name'],
-				'description' 		=> '',
-				'filename' 			=> $image['file_name'],
-				'extension' 		=> $image['file_ext'],
-				'mimetype' 			=> $image['file_type'],
-				'filesize' 			=> $image['file_size'],
-				'width' 			=> (int) $image['image_width'],
-				'height' 			=> (int) $image['image_height'],
-				'date_added' 		=> time(),
-			));
-		
-			return $this->ci->db->insert_id();
-			
-		endif;			
+		if ( ! $return['status'])
+		{
+			$this->ci->session->set_flashdata('notice', $return['message']);	
+			return false;
+		}
+		else
+		{
+			// Return the ID of the file DB entry
+			return $return['data']['id'];
+		}	
 	}
 
 	// --------------------------------------------------------------------------
@@ -197,7 +125,7 @@ class Snippet_image extends Snippet {
 	 */
 	public function pre_output($value)
 	{
-		return $this->get_image_url($value);
+		return $value;
 	}
 
 	// --------------------------------------------------------------------------
@@ -248,46 +176,6 @@ class Snippet_image extends Snippet {
 	public function param_allowed_types($value = null)
 	{
 		return form_input('allowed_types', $value, 'id="allowed_types"');
-	}
-
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Get the image URL
-	 *
-	 * @access	private
-	 * @param	int - id
-	 * @param	bool - should we grab the thumb
-	 * @return	string
-	 */
-	private function get_image_url($id, $thumb = false)
-	{
-		if ( ! $id or ! is_numeric($id))
-		{
-			return null;
-		}
-
-		$image = $this->ci->db->limit(1)->where('id', $id)->get('files')->row();
-		
-		if ( ! $image)
-		{
-			return null;
-		}
-				
-		$image_filename = $image->filename;
-		
-		if ($thumb)
-		{
-			$pieces = explode('.', $image->filename);
-			
-			$end = array_pop($pieces);
-			
-			$image_filename = implode('.', $pieces).'_thumb.'.$end;
-		}
-		
-		$this->ci->load->config('files/files');
-
-		return $this->ci->config->item('files_folder').$image_filename;
 	}
 
 }
