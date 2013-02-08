@@ -49,8 +49,9 @@
 	$lang['snippets.snippet_type']						= 'Vrsta delčka';
 	$lang['snippets.snippet_content']					= 'Vsebina delčka';
 	
-		// -------------------------------------
+	// -------------------------------------
 	// Snippet Parameters
 	// -------------------------------------
 	$lang['snippets.param.directory']					= 'Mapa s slikami';
 	$lang['snippets.param.allowed_types']				= 'Dovoljene vrste datotek (npr: png|jpg)';
+	$lang['snippets.param.editor_type']						= 'Editor Type'; #translate

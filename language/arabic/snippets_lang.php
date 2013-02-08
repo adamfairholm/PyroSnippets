@@ -47,6 +47,14 @@
 	$lang['snippets.snippet_slug']							= 'عنوان القصاصة المختصر';
 	$lang['snippets.snippet_type']							= 'نوع القصاصة';
 	$lang['snippets.snippet_content']						= 'محتوى القصاصة';
+
+	// -------------------------------------
+	// Snippet Parameters
+	// -------------------------------------
+	
+	$lang['snippets.param.directory']						= 'Image directory'; #translate
+	$lang['snippets.param.allowed_types']					= 'Allowed file types (Ex: png|jpg)'; #translate
+	$lang['snippets.param.editor_type']						= 'Editor Type'; #translate
 	
 /* End of file snippets_lang.php */
 /* Location: ./addons/modules/snippets/language/arabic/snippets_lang.php */

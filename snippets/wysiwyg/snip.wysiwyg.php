@@ -29,6 +29,16 @@ class Snippet_wysiwyg extends Snippet {
 	public $slug = 'wysiwyg';
 
     // --------------------------------------------------------------------------
+
+	/**
+	 * Snippet Parameters
+	 *
+	 * @access	public
+	 * @var		array
+	 */	
+	public $parameters = array('editor_type');
+
+    // --------------------------------------------------------------------------
 	
 	/**
 	 * Form Input
@@ -37,10 +47,12 @@ class Snippet_wysiwyg extends Snippet {
 	 * @param	string - form value
 	 * @return 	string
 	 */
-	public function form_output($value)
+	public function form_output($value, $params)
 	{
+		$class = (isset($params['editor_type'])) ? $params['editor_type'] : 'wysiwyg-advanced';
+
 		$form_data = array(
-			'class'		  => 'wysiwyg-advanced',
+			'class'		  => $class,
 			'name'        => $this->input_name,
 			'id'          => $this->input_name,
 			'value'       => htmlspecialchars_decode($value)
@@ -49,6 +61,27 @@ class Snippet_wysiwyg extends Snippet {
 		$this->ci->load->helper('html');
 
 		return br().br().form_textarea($form_data);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Editor Type
+	 *
+	 * Choose the type of WYSIWYG editor.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
+	public function param_editor_type($value = null)
+	{
+		$types = array(
+				'wysiwyg-simple' 	=> lang('streams.wysiwyg.simple'),
+				'wysiwyg-advanced' 	=> lang('streams.wysiwyg.advanced')
+			);
+
+		return form_dropdown('editor_type', $types, $value);
 	}
 
     // --------------------------------------------------------------------------
