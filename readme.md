@@ -4,13 +4,13 @@ PyroSnippets allows users to create and manage small snippets of reusable conten
 
 ## Using Snippets
 
-After you install Snippets, it'll show up in the **Content** menu of PyroCMS. There are two areas, "Content" and "Setup". Setup is where you create the snippets and define any paramters. Content is where the snippet content is actually edited.
+After you install Snippets, it'll show up in the **Content** menu of PyroCMS. There are two areas, "Content" and "Setup". Setup is where you create the snippets and define any parameters. Content is where the snippet content is actually edited.
 
 Once you set a snippet, you can see the syntax to display it in your layouts and themes. It always follows this syntax:
 
 	{{ snippet:your_snippet_slug }}
 
-## Snippets
+## Snippet Types
 
 ### Text, HTML, and WYSIWYG
 
@@ -20,7 +20,7 @@ Simple text-based snippets that allow you to save text content. In the WYSIWYG s
 
 Allows you to upload an image. The tag for the image snippet returns the ID of the file, so you can use it like this:
 
-	{{ files:image id=snippet:your_image_slug width="100" height="100" mode="fill" }}
+	{{ files:image id=snippet:your\_image\_slug width="100" height="100" mode="fill" }}
 
 You can find more info on displaying images in PyroCMS [here](http://docs.pyrocms.com/2.1/manual/plugins/files).
 
@@ -32,8 +32,8 @@ _Use with: PyroCMS 2.1.x_
 
 * Added support for three status levels for snippets: public, logged in users only, and hidden
 * Added support for cloud files in the image snippet
-* Changed output of image snippet to the file ID. Please see usage section above for more details
-* Added option to choose Simple or Advanced WYWIYG editor
+* Changed output of image snippet to the file ID. Please see image snippet section above for more details
+* Added option to choose Simple or Advanced WYSIWYG editor
 * Updates for compatability with PyroCMS 2.1.5
 
 ### 2.2.2 – February 8, 2012
