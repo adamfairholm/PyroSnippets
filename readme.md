@@ -20,7 +20,7 @@ Simple text-based snippets that allow you to save text content. In the WYSIWYG s
 
 Allows you to upload an image. The tag for the image snippet returns the ID of the file, so you can use it like this:
 
-	{{ files:image id=snippet:your\_image\_slug width="100" height="100" mode="fill" }}
+	{{ files:image id=snippet:your_image_slug width="100" height="100" mode="fill" }}
 
 You can find more info on displaying images in PyroCMS [here](http://docs.pyrocms.com/2.1/manual/plugins/files).
 
