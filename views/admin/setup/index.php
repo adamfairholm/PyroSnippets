@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+<div class="content">
 	
 <?php if (!empty($snippets)): ?>
 		
@@ -40,5 +41,6 @@
 <?php else: ?>
 	<div class="no_data"><?php echo lang('snippets.no_snippets');?></div>
 <?php endif; ?>
-	
+
+</div>
 </section>
