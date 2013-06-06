@@ -133,7 +133,7 @@ class Module_Snippets extends Module {
 	 * @param 	int 	$old_version
 	 * @return 	bool
 	 */
-	public function upgrade($old_version = null)
+	public function upgrade($old_version)
 	{
 		// Check and see if our params (added 2.1) is there.
 		if ( ! $this->db->field_exists('params', 'snippets'))
