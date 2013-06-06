@@ -2,6 +2,10 @@
 
 PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited like text, images, WYSIWYG, and HTML code.
 
+## Installation
+
+If downloading from GitHub, rename the downloaded folder to <var>snippets</var>. Upload the <var>snippets</var> folder to your <var>addons/default/module</var> folder or your <var>addons/shared_addons/modules</var> folder. Install via the Modules section in the admin. 
+
 ## Using Snippets
 
 After you install Snippets, it'll show up in the **Content** menu of PyroCMS. There are two areas, "Content" and "Setup". Setup is where you create the snippets and define any parameters. Content is where the snippet content is actually edited.
@@ -28,7 +32,7 @@ You can find more info on displaying images in PyroCMS [here](http://docs.pyrocm
 
 ### 2.4 - Jun 6, 2013
 
-_Use with: PyroCMS 2.2.x)
+_Use with: PyroCMS 2.2.x_
 
 * Updates and fixes for PyroCMS 2.2.x
 
