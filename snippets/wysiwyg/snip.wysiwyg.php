@@ -77,8 +77,8 @@ class Snippet_wysiwyg extends Snippet {
 	public function param_editor_type($value = null)
 	{
 		$types = array(
-				'wysiwyg-simple' 	=> lang('streams.wysiwyg.simple'),
-				'wysiwyg-advanced' 	=> lang('streams.wysiwyg.advanced')
+				'wysiwyg-simple' 	=> lang('streams:wysiwyg.simple'),
+				'wysiwyg-advanced' 	=> lang('streams:wysiwyg.advanced')
 			);
 
 		return form_dropdown('editor_type', $types, $value);
