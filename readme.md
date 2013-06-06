@@ -1,4 +1,4 @@
-# PyroSnippets 2.3
+# PyroSnippets 2.4
 
 PyroSnippets allows users to create and manage small snippets of reusable content for their site. Useful for giving clients access to small chunks of content that are not page content and can be edited like text, images, WYSIWYG, and HTML code.
 
@@ -25,6 +25,12 @@ Allows you to upload an image. The tag for the image snippet returns the ID of t
 You can find more info on displaying images in PyroCMS [here](http://docs.pyrocms.com/2.1/manual/plugins/files).
 
 ## Changelog
+
+### 2.4 - Jun 6, 2013
+
+_Use with: PyroCMS 2.2.x)
+
+* Updates and fixes for PyroCMS 2.2.x
 
 ### 2.3 - February 8, 2013
 

@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+<div class="content">
 
 	<div class="content">
 
@@ -29,4 +30,5 @@
 
 	</div>
 
+</div>
 </section>

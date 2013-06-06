@@ -5,7 +5,6 @@
  *
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
- * @category  	Snippets
  * @author  	Adam Fairholm
  */ 
 class Snippet_text extends Snippet {
@@ -13,27 +12,20 @@ class Snippet_text extends Snippet {
 	/**
 	 * Name of the Snippet
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $name = 'Text';
-
-    // --------------------------------------------------------------------------
 	
 	/**
 	 * Snippet Slug
 	 *
-	 * @access	public
 	 * @var		string
 	 */	
 	public $slug = 'text';
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Form Input
 	 *
-	 * @access	public
 	 * @param	string $value form value
 	 * @return 	string
 	 */

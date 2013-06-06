@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroChunks Details File
+ * PyroStreams Details File
  *
  * @package  	PyroCMS
- * @subpackage  PyroChunks
+ * @subpackage  PyroSnippets
  * @category  	Details
  * @author  	Adam Fairholm & Stephen Cozart
  */ 
@@ -13,17 +13,13 @@ class Module_Snippets extends Module {
 	/**
 	 * Version Number
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
-	public $version = '2.3';
-	
-	// --------------------------------------------------------------------------
+	public $version = '2.4';
 	
 	/**
 	 * Info
 	 *
-	 * @access 	public
 	 * @return 	array
 	 */
  	public function info()
@@ -80,12 +76,9 @@ class Module_Snippets extends Module {
 		return $info;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Install
 	 *
-	 * @access 	public
 	 * @return 	bool
 	 */
 	public function install()
@@ -99,8 +92,7 @@ class Module_Snippets extends Module {
 		// First, check and see if PyroChunks (old name) is listed in the modules
 		$obj = $this->db->where('slug', 'chunks')->get('modules');
 		
-		if ($obj->num_rows() > 0)
-		{
+		if ($obj->num_rows() > 0) {
 			// Delete our modules entry for chunks
 			$this->db->where('slug', 'chunks')->delete('modules');
 		}	
@@ -124,12 +116,9 @@ class Module_Snippets extends Module {
 		return $this->db->query($sql);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Uninstall
 	 *
-	 * @access 	public
 	 * @return 	bool
 	 */
 	public function uninstall()
@@ -138,16 +127,13 @@ class Module_Snippets extends Module {
 		return $this->dbforge->drop_table('snippets');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Upgrade
 	 *
-	 * @access 	public
-	 * @param 	int [$old_version]
+	 * @param 	int 	$old_version
 	 * @return 	bool
 	 */
-	public function upgrade($old_version = null)
+	public function upgrade($old_version)
 	{
 		// Check and see if our params (added 2.1) is there.
 		if ( ! $this->db->field_exists('params', 'snippets'))
@@ -160,7 +146,7 @@ class Module_Snippets extends Module {
 
 		// Make sure we have a status field.
      	if ( ! $this->db->field_exists('status', 'snippets'))
-    	{
+     	{
             $columns = array(
                 'status' => array(
                             'type' => 'ENUM',
@@ -176,12 +162,9 @@ class Module_Snippets extends Module {
 		return true;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Help
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function help()
