@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroSnippets Chunks Model
+ * PyroSnippets Model
  *
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
  * @category  	Models
- * @author  	Adam Fairholm @adamfairholm
+ * @author  	Adam Fairholm
  */ 
 class Snippets_m extends MY_Model {
 
@@ -14,12 +14,9 @@ class Snippets_m extends MY_Model {
 	 * The directory where the snippets
 	 * are in. Set in the construct().
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $snippets_dir;
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Snippets
@@ -27,12 +24,9 @@ class Snippets_m extends MY_Model {
 	 * Contains all of our snippet
 	 * objects.
 	 *
-	 * @access	public
 	 * @var		obj
 	 */
 	public $snippets;
-
-    // --------------------------------------------------------------------------
 	
 	/**
 	 * Snippet Array
@@ -40,12 +34,9 @@ class Snippets_m extends MY_Model {
 	 * Array of snippet slug => snippet name
 	 * for various places.
 	 *
-	 * @access	public
 	 * @var		array
 	 */
 	public $snippet_array = array();
-
-    // --------------------------------------------------------------------------
 
 	public function __construct()
 	{
@@ -64,12 +55,9 @@ class Snippets_m extends MY_Model {
 		$this->load_snippets();
 	}
 
-    // --------------------------------------------------------------------------
-
     /**
      * Load snippets into a snippet obj
      *
-     * @access	public
      * @return	obj
      */
     public function load_snippets()
@@ -106,13 +94,10 @@ class Snippets_m extends MY_Model {
 			$this->snippet_array[$snip->slug] = $snip->name;
 		}
 	}
-
-    // --------------------------------------------------------------------------
     
     /**
      * Get some snippets
      *
-     * @access	public
      * @param	int $limit
      * @param	int $offset
      * @return	obj
@@ -133,13 +118,10 @@ class Snippets_m extends MY_Model {
 
 		return $this->db->get('snippets')->result();
 	}
-
-    // --------------------------------------------------------------------------
     
     /**
      * Get Snippet
      *
-     * @access	public
      * @param	int $snippet_id
      * @return	obj
      */
@@ -154,26 +136,20 @@ class Snippets_m extends MY_Model {
 	
 		return $snippet;
 	}
-
-    // --------------------------------------------------------------------------
     
     /**
      * Count Snippets
      *
-     * @access	public
      * @return	int
      */
     public function count_all()
 	{     
 		return $this->db->count_all('snippets');
 	}
-     
-	// --------------------------------------------------------------------------
-     
+          
     /**
      * Insert New Snippet
      *
-     * @access	public
      * @param	array $snippet
      * @param	int $user_id
      * @return 	bool
@@ -207,12 +183,10 @@ class Snippets_m extends MY_Model {
     	return $this->db->insert('snippets', $insert_data);
     }
 
-	// --------------------------------------------------------------------------
      
     /**
      * Update Snippet
      *
-     * @access	public
      * @param	obj   $snippet
      * @param   bool  $setup   Do we want to set up the actual snippet
      *                              or just update the content?
@@ -258,13 +232,10 @@ class Snippets_m extends MY_Model {
 
     	return $this->db->where('id', $snippet->id)->update('snippets', $update_data);
     }
-
-	// --------------------------------------------------------------------------
      
     /**
      * Delete Snippet
      *
-     * @access	public
      * @param	int   $snippet_id
      * @return 	bool
      */    
@@ -273,13 +244,10 @@ class Snippets_m extends MY_Model {
     	return $this->db->limit(1)->where('id', $snippet_id)->delete('snippets');
     }
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Run input data through a pre_save process
 	 * if necessary.
 	 *
-	 * @access	private
 	 * @param	string   $type       the snippet type
 	 * @param	string   $content    the content
 	 * @param	array    $params     the params

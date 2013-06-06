@@ -16,13 +16,6 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="6">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php foreach ($snippets as $snippet): ?>
 				<tr>
@@ -37,6 +30,8 @@
 		</tbody>	
 	</table>
 	
+	<?php $this->load->view('admin/partials/pagination'); ?>
+
 <?php else: ?>
 	<div class="no_data"><?php echo lang('snippets.no_snippets');?></div><!--.no_data-->
 <?php endif; ?>

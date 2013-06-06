@@ -13,38 +13,28 @@ class Snippet_image extends Snippet {
 	/**
 	 * Name of the Snippet
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $name = 'Image';
-	
-    // --------------------------------------------------------------------------
-	
+		
 	/**
 	 * Snippet Slug
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $slug = 'image';
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Snippet Parameters
 	 *
-	 * @access	public
 	 * @var		array
 	 */	
 	public $parameters = array('directory', 'allowed_types');
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Form Input
 	 *
-	 * @access	public
-	 * @param	string [$value] form value
+	 * @param	string $value form value
 	 * @return 	string
 	 */
 	public function form_output($value = null)
@@ -68,14 +58,11 @@ class Snippet_image extends Snippet {
 		return $html .= form_upload($upload_input_data);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the file and upload it to the correct
 	 * directory + add it to the files DB.
 	 * Return the insert ID
 	 *
-	 * @access	public
 	 * @param	string
 	 */
 	public function pre_save($value, $params)
@@ -113,13 +100,10 @@ class Snippet_image extends Snippet {
 			return $return['data']['id'];
 		}	
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Output the image URL
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -128,14 +112,11 @@ class Snippet_image extends Snippet {
 		return $value;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Directory Parameter
 	 *
 	 * Choose the directory to upload image to
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -164,12 +145,9 @@ class Snippet_image extends Snippet {
 		return form_dropdown('directory', $choices, $value, 'id="directory"');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */

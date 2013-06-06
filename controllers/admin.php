@@ -4,26 +4,22 @@
  * PyroSnippets Admin Controller Class
  *
  * @package  	PyroCMS
- * @subpackage  Pyrosnippets
+ * @subpackage  PyroSnippets
  * @category  	Controller
- * @author  	Adam Fairholm @adamfairholm
+ * @author  	Adam Fairholm
  */ 
 class Admin extends Admin_Controller {
 
 	/**
 	 * Section
 	 *
-	 * @access	protected
 	 * @var		string
 	 */
 	protected $section = 'content';
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Valid Snippet Types
 	 *
-	 * @access	protected
 	 * @var		array
 	 */
 	protected $snippet_types = array(
@@ -33,12 +29,9 @@ class Admin extends Admin_Controller {
 		'image'		=>	'Image'
 	);
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Construct
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
@@ -55,16 +48,11 @@ class Admin extends Admin_Controller {
 		$this->template->snippet_types = $this->snippet_types;	
 	}
 
-	// --------------------------------------------------------------------------
-	// CRUD Functions
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Index
 	 *
 	 * Load snippet list.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function index()
@@ -72,12 +60,9 @@ class Admin extends Admin_Controller {
 		$this->list_snippets();
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * List snippets
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function list_snippets($offset = 0)
@@ -100,13 +85,10 @@ class Admin extends Admin_Controller {
 
 		$this->template->build('admin/index');
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Edit a snippet
 	 *
-	 * @access	public
 	 * @param 	int $snippet_id
 	 * @return	void
 	 */
@@ -176,13 +158,10 @@ class Admin extends Admin_Controller {
 		
 		$this->template->set('snippet', $snippet)->build('admin/edit');
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Delete a snippet
 	 *
-	 * @access	public
 	 * @param 	int $snippet_id
 	 * @return	void
 	 */
@@ -205,14 +184,12 @@ class Admin extends Admin_Controller {
 		redirect('admin/snippets');
 	}
 
-	// --------------------------------------------------------------------------
-	// Validation Callbacks
-	// --------------------------------------------------------------------------
-
 	/**
-	 * Check slug to make sure it is 
+	 * Check Slug
 	 *
-	 * @access	public
+	 * Check slug to make sure it is unique.
+	 * Validation callback.
+	 *
 	 * @param	string $slug slug to be tested
 	 * @param	mode $mode 'update' or 'insert'
 	 * @return	bool

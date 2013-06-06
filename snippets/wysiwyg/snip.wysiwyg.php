@@ -13,38 +13,29 @@ class Snippet_wysiwyg extends Snippet {
 	/**
 	 * Name of the Snippet
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $name = 'WYSIWYG';
-
-    // --------------------------------------------------------------------------
 	
 	/**
 	 * Snippet Slug
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $slug = 'wysiwyg';
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Snippet Parameters
 	 *
-	 * @access	public
 	 * @var		array
 	 */	
 	public $parameters = array('editor_type');
-
-    // --------------------------------------------------------------------------
 	
 	/**
 	 * Form Input
 	 *
-	 * @access	public
-	 * @param	string - form value
+	 * @param	string 	$value 	form value
+	 * @param 	array 	$params
 	 * @return 	string
 	 */
 	public function form_output($value, $params)
@@ -63,14 +54,11 @@ class Snippet_wysiwyg extends Snippet {
 		return br().br().form_textarea($form_data);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Editor Type
 	 *
 	 * Choose the type of WYSIWYG editor.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -84,12 +72,11 @@ class Snippet_wysiwyg extends Snippet {
 		return form_dropdown('editor_type', $types, $value);
 	}
 
-    // --------------------------------------------------------------------------
-
 	/**
-	 * Event - add WYSIWYG items to the header
+	 * Event
 	 *
-	 * @access	public
+	 * Used to add WYSIWYG items to the header
+	 *
 	 * @return	void
 	 */	
 	public function event()

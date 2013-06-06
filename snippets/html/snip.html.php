@@ -5,7 +5,6 @@
  *
  * @package  	PyroCMS
  * @subpackage  PyroSnippets
- * @category  	Snippets
  * @author  	Adam Fairholm
  */ 
 class Snippet_html extends Snippet {
@@ -17,9 +16,7 @@ class Snippet_html extends Snippet {
 	 * @var		string
 	 */
 	public $name = 'HTML';
-	
-    // --------------------------------------------------------------------------
-	
+		
 	/**
 	 * Snippet Slug
 	 *
@@ -27,13 +24,10 @@ class Snippet_html extends Snippet {
 	 * @var		string
 	 */
 	public $slug = 'html';
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Form Input
 	 *
-	 * @access	public
 	 * @param	string $value the form value
 	 * @return 	string
 	 */
@@ -48,15 +42,12 @@ class Snippet_html extends Snippet {
 		return form_textarea($form_data);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre Saving to Database
 	 *
 	 * We are going to save this using htmlspecialchars
 	 * and then reverse it before we display it.
 	 *
-	 * @access	public
 	 * @param	string $value
 	 * @return 	string
 	 */
@@ -64,8 +55,6 @@ class Snippet_html extends Snippet {
 	{
 		return htmlspecialchars($value);
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Pre Output
